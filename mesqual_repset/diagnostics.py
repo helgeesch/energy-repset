@@ -1,5 +1,12 @@
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .context import ProblemContext
+    from .results import RepSetResult
+
+
 class ResultAnalyzer:
-    def __init__(self, result: RepSetResult):
+    def __init__(self, result: "RepSetResult"):
         self.result = result
 
     def plot_pareto_front(self):
@@ -7,6 +14,6 @@ class ResultAnalyzer:
         # necessary data in its metadata.
         pass
 
-    def plot_feature_space(self, context: ProblemContext):
+    def plot_feature_space(self, context: "ProblemContext"):
         # Plots all candidates and highlights the selected ones.
         pass

@@ -1,0 +1,100 @@
+<svg width="1050" height="700" viewBox="0 0 1050 700" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif" font-size="14px">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+        </marker>
+        <style>
+            .title { font-size: 18px; font-weight: bold; text-anchor: middle; }
+            .subtitle { font-size: 12px; font-weight: normal; fill: #555; text-anchor: middle; }
+            .box { stroke-width: 1.5; rx: 5; ry: 5; }
+            .data-box { fill: #eaf4ff; stroke: #8cb9e6; }
+            .search-box { fill: #ffeaea; stroke: #e68c8c; }
+            .objective-box { fill: #eaf9ea; stroke: #8ce68c; }
+            .policy-box { fill: #f3eaff; stroke: #b98ce6; }
+            .repr-box { fill: #fff4ea; stroke: #e6b98c; }
+            .result-box { fill: #f5f5f5; stroke: #b3b3b3; }
+            .flow-arrow { stroke: #333; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+            .eval-arrow { stroke: #333; stroke-width: 1.5; fill: none; marker-end: url(#arrow); stroke-dasharray: 4 2; }
+            .label-text { text-anchor: middle; font-size: 11px; fill: #333; }
+        </style>
+    </defs>
+
+    <rect x="375" y="10" width="300" height="40" class="box data-box"/>
+    <text x="525" y="35" text-anchor="middle">ProblemContext (Data &amp; Features)</text>
+    <path class="flow-arrow" d="M 525 50 L 525 80"/>
+
+    <g id="workflow1">
+        <text x="175" y="100" class="title">1. Generate-and-Test</text>
+        <text x="175" y="120" class="subtitle">(e.g., Exhaustive, Genetic Algorithm)</text>
+        <rect x="25" y="140" width="300" height="280" class="box" fill="#fafafa" stroke="#ccc"/>
+
+        <rect x="50" y="160" width="250" height="40" class="box search-box"/>
+        <text x="175" y="185" text-anchor="middle">SearchAlgorithm (A)</text>
+        <path class="flow-arrow" d="M 175 200 L 175 230"/>
+        <text x="130" y="220" class="label-text">Generate Candidate</text>
+
+        <rect x="50" y="230" width="250" height="40" class="box objective-box"/>
+        <text x="175" y="255" text-anchor="middle">ObjectiveSet (F)</text>
+        <path class="flow-arrow" d="M 175 270 L 175 300"/>
+        <text x="235" y="290" class="label-text">Evaluate &amp; Score</text>
+
+        <path class="flow-arrow" d="M 175 300 C 100 300 100 200 175 200"/>
+        <text x="95" y="255" class="label-text">Loop over all</text>
+        <text x="95" y="270" class="label-text">candidates</text>
+
+        <rect x="50" y="320" width="250" height="40" class="box policy-box"/>
+        <text x="175" y="345" text-anchor="middle">SelectionPolicy (Π)</text>
+        <path class="flow-arrow" d="M 175 360 L 175 390"/>
+        <text x="125" y="380" class="label-text">Select Best</text>
+    </g>
+
+    <g id="workflow2">
+        <text x="525" y="100" class="title">2. Constructive</text>
+        <text x="525" y="120" class="subtitle">(e.g., Clustering, Greedy)</text>
+        <rect x="375" y="140" width="300" height="280" class="box" fill="#fafafa" stroke="#ccc"/>
+
+        <rect x="400" y="160" width="250" height="100" class="box search-box"/>
+        <text x="525" y="205" text-anchor="middle">SearchAlgorithm (A)</text>
+        <text x="525" y="225" class="subtitle">(contains internal objective)</text>
+        <path class="flow-arrow" d="M 525 260 L 525 390"/>
+        <text x="475" y="325" class="label-text">Construct Solution</text>
+        <text x="475" y="340" class="label-text">Directly</text>
+
+        <rect x="400" y="440" width="250" height="40" class="box objective-box"/>
+        <text x="525" y="465" text-anchor="middle">ObjectiveSet (F)</text>
+        <path class="eval-arrow" d="M 525 430 L 525 440"/>
+        <text x="615" y="425" class="label-text">Post-hoc Evaluation</text>
+    </g>
+
+    <g id="workflow3">
+        <text x="875" y="100" class="title">3. Direct Optimization</text>
+        <text x="875" y="120" class="subtitle">(e.g., MILP)</text>
+        <rect x="725" y="140" width="300" height="280" class="box" fill="#fafafa" stroke="#ccc"/>
+
+        <rect x="750" y="160" width="250" height="100" class="box search-box"/>
+        <text x="875" y="205" text-anchor="middle">SearchAlgorithm (A)</text>
+        <text x="875" y="225" class="subtitle">(formulates &amp; calls solver)</text>
+        <path class="flow-arrow" d="M 875 260 L 875 390"/>
+        <text x="820" y="325" class="label-text">Solve for Optimal</text>
+        <text x="820" y="340" class="label-text">Solution</text>
+
+        <rect x="750" y="440" width="250" height="40" class="box objective-box"/>
+        <text x="875" y="465" text-anchor="middle">ObjectiveSet (F)</text>
+        <path class="eval-arrow" d="M 875 430 L 875 440"/>
+        <text x="965" y="425" class="label-text">Post-hoc Evaluation</text>
+    </g>
+
+    <path class="flow-arrow" d="M 175 400 L 175 510"/>
+    <path class="flow-arrow" d="M 525 400 L 525 510"/>
+    <path class="flow-arrow" d="M 875 400 L 875 510"/>
+
+    <rect x="375" y="510" width="300" height="40" class="box repr-box"/>
+    <text x="525" y="535" text-anchor="middle">RepresentationModel (R)</text>
+    <path class="flow-arrow" d="M 525 550 L 525 580"/>
+    <text x="470" y="570" class="label-text">Calculate Weights</text>
+
+    <rect x="375" y="580" width="300" height="40" class="box result-box"/>
+    <text x="525" y="605" text-anchor="middle">RepSetResult</text>
+    <path class="flow-arrow" d="M 525 620 L 525 650"/>
+    <text x="610" y="640" class="label-text">Diagnostics &amp; Validation</text>
+</svg>

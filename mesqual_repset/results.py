@@ -1,9 +1,18 @@
+from typing import Sequence, Hashable, Literal, Dict, Union, Any
+from dataclasses import dataclass, field
+
+import pandas as pd
+
+from .types import SliceCombination
+from .context import ProblemContext
+
 @dataclass
 class RepSetResult:
     """The standardized output object."""
-    selection: Sequence[Hashable]
+    context: ProblemContext
     selection_space: Literal['subset', 'synthetic', 'chronological']
-    representatives: pd.DataFrame # The actual data of the representatives
+    selection: SliceCombination
     scores: Dict[str, float]
-    weights: Union, pd.DataFrame] = None # Populated by RepresentationModel
-    metadata: Dict = field(default_factory=dict)
+    representatives: Dict[Hashable, pd.DataFrame]  # The actual data of the representatives
+    weights: Union[Dict[Hashable, float], pd.DataFrame] = None  # Populated by RepresentationModel
+    diagnostics: Dict[str, Any] = field(default_factory=dict)
