@@ -71,7 +71,7 @@ class GroupQuotaCombinationGenerator(CombinationGenerator):
     ----------
     k : int
         Number of elements in each combination (must equal sum of group quotas)
-    group_of : Dict[Hashable, Hashable]
+    slice_to_group_mapping : Dict[Hashable, Hashable]
         Mapping from candidate slice to its group label.
     group_quota : Dict[Hashable, int]
         Mapping from group label to the required count in the selection.
@@ -82,9 +82,14 @@ class GroupQuotaCombinationGenerator(CombinationGenerator):
     exactly one month per season.
     """
 
-    def __init__(self, k: int, group_of: Dict[Hashable, Hashable], group_quota: Dict[Hashable, int]) -> None:
+    def __init__(
+            self,
+            k: int,
+            slice_to_group_mapping: Dict[Hashable, Hashable],
+            group_quota: Dict[Hashable, int]
+    ) -> None:
         self.k = k
-        self.group_of = group_of
+        self.group_of = slice_to_group_mapping
         self.group_quota = group_quota
         
         # Validate that quotas sum to k
