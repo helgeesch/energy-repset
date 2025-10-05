@@ -3,9 +3,10 @@ from typing import TYPE_CHECKING, Dict
 import numpy as np
 import pandas as pd
 
+from .base_score_component import ScoreComponent
+
 if TYPE_CHECKING:
     from ..types import SliceCombination
-    from .base_score_component import ScoreComponent
     from ..context import ProblemContext
 
 

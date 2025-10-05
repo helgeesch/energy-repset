@@ -28,7 +28,7 @@ class FeaturePipeline(FeatureEngineer):
     def __init__(self, engineers: List[FeatureEngineer]):
         self.engineers = engineers
 
-    def _calc_and_get_features_df(self, context: ProblemContext) -> None:
+    def _calc_and_get_features_df(self, context: ProblemContext) -> pd.DataFrame:
         all_features = []
         for engineer in self.engineers:
             # Each engineer works on a fresh copy of the context
@@ -37,4 +37,4 @@ class FeaturePipeline(FeatureEngineer):
             all_features.append(features)
 
         # Concatenate all generated features
-        context.df_features = pd.concat(all_features, axis=1)
+        return pd.concat(all_features, axis=1)

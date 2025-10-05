@@ -62,12 +62,13 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
 
         evaluations_df = pd.DataFrame(rows)
         winning_combination = self.selection_policy.select_best(evaluations_df, self.objective_set)
+        slice_labels = context.slicer.labels_for_index(context.df_raw.index)
         result = RepSetResult(
             context=context,
             selection_space='subset',
             selection=winning_combination,
             scores=self.objective_set.evaluate(winning_combination, context),
-            representatives={s: context.df_raw.loc[s] for s in winning_combination},
+            representatives={s: context.df_raw.iloc[slice_labels == s] for s in winning_combination},
             diagnostics={'evaluations_df': evaluations_df}
         )
         return result
