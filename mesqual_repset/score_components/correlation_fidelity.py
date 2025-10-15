@@ -13,22 +13,42 @@ if TYPE_CHECKING:
 
 
 class CorrelationFidelity(ScoreComponent):
-    """
-    Preserves correlation structure by penalizing the Frobenius norm of the difference between full and subset correlation matrices.
+    """Preserves cross-variable correlation structure using Frobenius norm.
+
+    Measures how well the selection preserves the correlation structure between
+    variables by comparing the full dataset's correlation matrix with the
+    selection's correlation matrix. Uses relative Frobenius norm of the
+    difference matrix.
+
+    Lower scores indicate better preservation of variable relationships. This
+    component is important for downstream modeling tasks that depend on
+    realistic co-occurrence patterns (e.g., solar and wind generation).
+
+    Examples:
+        >>> component = CorrelationFidelity()
+        >>> component.prepare(context)
+        >>> score = component.score((0, 3, 6, 9))
+        >>> print(f"Correlation mismatch: {score:.3f}")
+        # 0.0 would be perfect preservation, 1.0+ indicates poor preservation
+
+        >>> # Combine with Wasserstein in an ObjectiveSet
+        >>> from mesqual_repset import ObjectiveSet, ObjectiveSpec
+        >>> objectives = ObjectiveSet([
+        ...     ObjectiveSpec('wasserstein', WassersteinFidelity(), weight=1.0),
+        ...     ObjectiveSpec('correlation', CorrelationFidelity(), weight=1.0)
+        ... ])
     """
 
     def __init__(self) -> None:
+        """Initialize correlation fidelity component."""
         self.name = "correlation"
         self.direction = "min"
 
     def prepare(self, context: ProblemContext) -> None:
-        """
-        Precompute the full correlation matrix.
+        """Precompute full dataset's correlation matrix.
 
-        Parameters
-        ----------
-        context
-            Your problems context.
+        Args:
+            context: Problem context with raw time-series data.
         """
         df = context.df_raw.copy()
         slicer = context.slicer
@@ -38,18 +58,14 @@ class CorrelationFidelity(ScoreComponent):
 
 
     def score(self, combination: SliceCombination) -> float:
-        """
-        Compute the correlation mismatch score.
+        """Compute relative Frobenius norm of correlation matrix difference.
 
-        Parameters
-        ----------
-        combination
-            Slice labels forming the selection.
+        Args:
+            combination: Slice identifiers forming the selection.
 
-        Returns
-        -------
-        float
-            Relative Frobenius norm of the correlation difference.
+        Returns:
+            Relative Frobenius norm ||C_full - C_sel||_F / ||C_full||_F where
+            C denotes correlation matrices. Lower is better (0 = perfect match).
         """
         sel = self.df.loc[pd.Index(self.labels).isin(combination)]
         diff = self.full_corr - sel.corr()
