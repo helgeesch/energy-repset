@@ -12,21 +12,31 @@ if TYPE_CHECKING:
 
 
 class StandardStatsFeatureEngineer(FeatureEngineer):
-    """
-    Default slice-level features with robust scaling.
+    """Extracts statistical features from time-series slices with robust scaling.
 
-    Features per original variable v and slice s:
-      - mean, std
-      - q10, q50, q90, iqr
-      - neg_share (share of values < 0)
-      - ramp_std (std of first differences)
-    Plus cross-variable correlations within slice (upper triangle, Fisher-z).
+    For each original variable and slice, computes:
+    - Central tendency: mean, median (q50)
+    - Dispersion: std, IQR (q90 - q10), q10, q90
+    - Distribution shape: neg_share (proportion of negative values)
+    - Temporal dynamics: ramp_std (std of first differences)
 
-    Options
-    -------
-    include_correlations : include cross-variable correlations per slice
-    scale : "zscore" to z-score features across slices; "none" to skip scaling
-    min_rows_for_corr : min rows per slice to compute correlations
+    Optionally includes cross-variable correlations within each slice (upper
+    triangle only, Fisher-z transformed). Features are z-score normalized
+    across slices to ensure comparability.
+
+    Examples:
+        >>> engineer = StandardStatsFeatureEngineer()
+        >>> context_with_features = engineer.run(context)
+        >>> print(context_with_features.df_features.columns)
+        # ['mean__demand', 'mean__solar', 'std__demand', 'std__solar', ...]
+
+        >>> engineer_no_corr = StandardStatsFeatureEngineer(
+        ...     include_correlations=False,
+        ...     scale='zscore'
+        ... )
+        >>> context_with_features = engineer_no_corr.run(context)
+        >>> print(context_with_features.df_features.shape)
+        # (12, 16) for 12 months, 2 variables, 8 stats each
     """
 
     def __init__(
@@ -35,6 +45,16 @@ class StandardStatsFeatureEngineer(FeatureEngineer):
             scale: Literal["zscore", "none"] = "zscore",
             min_rows_for_corr: int = 8,
     ):
+        """Initialize the statistical feature engineer.
+
+        Args:
+            include_correlations: If True, include cross-variable correlations
+                per slice (Fisher-z transformed).
+            scale: Scaling method. Currently only "zscore" is fully supported.
+            min_rows_for_corr: Minimum number of rows per slice required to
+                compute correlations. Slices with fewer rows get correlation
+                features set to 0.
+        """
         self.include_correlations = include_correlations
         self.scale = scale
         self.min_rows_for_corr = min_rows_for_corr
@@ -45,10 +65,20 @@ class StandardStatsFeatureEngineer(FeatureEngineer):
         self._feature_names_: List[str] = None
 
     def _calc_and_get_features_df(self, context: "ProblemContext") -> pd.DataFrame:
+        """Calculate statistical features and return scaled feature matrix.
+
+        Args:
+            context: Problem context with raw time-series data.
+
+        Returns:
+            DataFrame where each row is a slice and columns are scaled statistical
+            features. Column names follow pattern '{stat}__{variable}'.
+        """
         self._fit(context)
         return self._transform(context)
 
     def _fit(self, context: "ProblemContext") -> None:
+        """Compute raw features and fit scaling parameters."""
         df_raw = context.df_raw
         slicer = context.slicer
 
@@ -59,6 +89,7 @@ class StandardStatsFeatureEngineer(FeatureEngineer):
         self._feature_names_ = list(self._raw_feats_.columns)
 
     def _transform(self, context: "ProblemContext") -> pd.DataFrame:
+        """Apply scaling to raw features."""
         feats = self._raw_feats_
         if self.scale == "zscore":
             feats = (feats - self._means_) / self._stds_
@@ -68,11 +99,18 @@ class StandardStatsFeatureEngineer(FeatureEngineer):
         return feats
 
     def feature_names(self) -> List[str]:
+        """Get list of feature column names.
+
+        Returns:
+            List of feature names in the format '{stat}__{variable}' or
+            'corr__{var1}__{var2}' for correlations.
+        """
         if self._feature_names_ is None:
             return []
         return list(self._feature_names_)
 
     def _compute_raw_features(self, df: pd.DataFrame, slicer: TimeSlicer) -> pd.DataFrame:
+        """Compute raw (unscaled) statistical features for each slice."""
         X = df.select_dtypes(include=[np.number]).copy()
         labels = pd.Index(slicer.labels_for_index(X.index), name="slice")
         grp = X.groupby(labels)
