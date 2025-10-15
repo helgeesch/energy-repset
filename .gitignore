@@ -1,3 +1,17 @@
+dvc/**
+dvc/
+!dvc/**/*.dvc
+
+non_versioned/
+_tmp/
+.tmp/
+*.local/
+*.local*
+.claude/
+CLAUDE.md
+.idea/
+.DS_Store
+
 .idea
 
 # Byte-compiled / optimized / DLL files
