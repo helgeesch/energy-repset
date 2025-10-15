@@ -99,6 +99,7 @@ class ProblemContext:
         Args:
             df_features: DataFrame with slice labels as index and features as columns.
         """
+        # TODO: raise in case the df_features index does not contain all slices
         self._df_features = df_features
 
     def get_unique_slices(self) -> List[Hashable]:
