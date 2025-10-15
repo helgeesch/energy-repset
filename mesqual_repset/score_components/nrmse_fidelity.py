@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from .base_score_component import ScoreComponent
+from ..context import normalize_weights
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
@@ -25,8 +26,9 @@ class NRMSEFidelity(ScoreComponent):
     large data, consider DurationCurveFidelity which uses quantiles.
 
     Args:
-        variable_weights: Optional per-variable weights. If None, all
-            variables weighted equally.
+        variable_weights: Optional per-variable weights for prioritizing certain
+            variables in the score. If None, all variables weighted equally (1.0).
+            If specified, missing variables get weight 0.0.
 
     Examples:
         >>> from mesqual_repset.score_components import NRMSEFidelity
@@ -40,21 +42,24 @@ class NRMSEFidelity(ScoreComponent):
         >>> # Prioritize specific variables
         >>> objectives = ObjectiveSet({
         ...     'nrmse': (1.0, NRMSEFidelity(
-        ...         variable_weights={'demand': 2.0, 'solar': 1.0}
+        ...         variable_weights={'demand': 2.0, 'solar': 1.0, 'wind': 0.5}
         ...     ))
         ... })
+        >>> # demand has 2x impact, solar 1x, wind 0.5x, other variables 0x
     """
 
     def __init__(self, variable_weights: Dict[str, float] | None = None) -> None:
         """Initialize NRMSE fidelity component.
 
         Args:
-            variable_weights: Optional dict mapping variable names to weights.
-                Missing variables default to weight 1.0.
+            variable_weights: Optional per-variable weights. If None, all
+                variables weighted equally (1.0). If specified, missing
+                variables get weight 0.0.
         """
         self.name = "nrmse"
         self.direction = "min"
-        self.variable_weights = variable_weights
+        self._requested_weights = variable_weights
+        self.variable_weights: Dict[str, float] = None
 
     def prepare(self, context: ProblemContext) -> None:
         """Precompute full duration curves and normalization factors.
@@ -67,11 +72,8 @@ class NRMSEFidelity(ScoreComponent):
         self.labels = context.slicer.labels_for_index(df.index)
         self.vars = list(df.columns)
 
-        if self.variable_weights is None:
-            self.variable_weights = {v: 1.0 for v in self.vars}
-        for v in self.vars:
-            if v not in self.variable_weights:
-                self.variable_weights[v] = 1.0
+        # Normalize weights using helper function
+        self.variable_weights = normalize_weights(self._requested_weights, self.vars)
 
         self.full_curves = {
             v: np.sort(df[v].values)[::-1] for v in self.vars

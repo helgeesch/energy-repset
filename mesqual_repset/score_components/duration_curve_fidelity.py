@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from .base_score_component import ScoreComponent
+from ..context import normalize_weights
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
@@ -27,8 +28,9 @@ class DurationCurveFidelity(ScoreComponent):
     Args:
         n_quantiles: Number of quantiles to compute for duration curve
             approximation. Default is 101 (0%, 1%, ..., 100%).
-        variable_weights: Optional per-variable weights. If None, all
-            variables weighted equally.
+        variable_weights: Optional per-variable weights for prioritizing certain
+            variables in the score. If None, all variables weighted equally (1.0).
+            If specified, missing variables get weight 0.0.
 
     Examples:
         >>> from mesqual_repset.score_components import DurationCurveFidelity
@@ -48,9 +50,10 @@ class DurationCurveFidelity(ScoreComponent):
         >>> objectives = ObjectiveSet({
         ...     'duration': (1.0, DurationCurveFidelity(
         ...         n_quantiles=101,
-        ...         variable_weights={'demand': 2.0, 'solar': 1.0}
+        ...         variable_weights={'demand': 2.0, 'solar': 1.0, 'wind': 0.5}
         ...     ))
         ... })
+        >>> # demand has 2x impact, solar 1x, wind 0.5x, other variables 0x
     """
 
     def __init__(
@@ -62,13 +65,15 @@ class DurationCurveFidelity(ScoreComponent):
 
         Args:
             n_quantiles: Number of quantiles for duration curve approximation.
-            variable_weights: Optional dict mapping variable names to weights.
-                Missing variables default to weight 1.0.
+            variable_weights: Optional per-variable weights. If None, all
+                variables weighted equally (1.0). If specified, missing
+                variables get weight 0.0.
         """
         self.name = "nrmse_duration_curve"
         self.direction = "min"
         self.n_quantiles = n_quantiles
-        self.variable_weights = variable_weights
+        self._requested_weights = variable_weights
+        self.variable_weights: Dict[str, float] = None
 
     def prepare(self, context: ProblemContext) -> None:
         """Precompute quantiles and normalization factors for full dataset.
@@ -81,11 +86,8 @@ class DurationCurveFidelity(ScoreComponent):
         self.labels = context.slicer.labels_for_index(df.index)
         self.vars = list(df.columns)
 
-        if self.variable_weights is None:
-            self.variable_weights = {v: 1.0 for v in self.vars}
-        for v in self.vars:
-            if v not in self.variable_weights:
-                self.variable_weights[v] = 1.0
+        # Normalize weights using helper function
+        self.variable_weights = normalize_weights(self._requested_weights, self.vars)
 
         self.quantiles = np.linspace(0, 1, self.n_quantiles)
         self.full_quantiles = self.df.quantile(self.quantiles)

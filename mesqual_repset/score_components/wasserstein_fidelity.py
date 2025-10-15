@@ -5,6 +5,7 @@ import pandas as pd
 from scipy.stats import wasserstein_distance
 
 from .base_score_component import ScoreComponent
+from ..context import normalize_weights
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
@@ -22,7 +23,13 @@ class WassersteinFidelity(ScoreComponent):
     Lower scores indicate better distribution matching. This component is
     particularly effective for preserving statistical properties of the data.
 
+    Args:
+        variable_weights: Optional per-variable weights for prioritizing certain
+            variables in the score. If None, all variables weighted equally (1.0).
+            If specified, missing variables get weight 0.0.
+
     Examples:
+        >>> # Equal weights (default)
         >>> component = WassersteinFidelity()
         >>> component.prepare(context)
         >>> score = component.score((0, 3, 6, 9))
@@ -30,11 +37,11 @@ class WassersteinFidelity(ScoreComponent):
 
         >>> # With variable-specific weights
         >>> component = WassersteinFidelity(
-        ...     variable_weights={'demand': 2.0, 'solar': 1.0}
+        ...     variable_weights={'demand': 2.0, 'solar': 1.0, 'wind': 0.5}
         ... )
         >>> component.prepare(context)
         >>> score = component.score((0, 3, 6, 9))
-        >>> print(f"Weighted Wasserstein distance: {score:.3f}")
+        >>> # demand has 2x impact, solar 1x, wind 0.5x, other variables 0x
     """
 
     def __init__(self, variable_weights: Dict[str, float] | None = None) -> None:
@@ -42,17 +49,18 @@ class WassersteinFidelity(ScoreComponent):
 
         Args:
             variable_weights: Optional per-variable weights. If None, all
-                variables are weighted equally (1.0). Missing variables will
-                be assigned weight 1.0.
+                variables weighted equally (1.0). If specified, missing
+                variables get weight 0.0.
         """
         self.name = "wasserstein"
         self.direction = "min"
-        self.variable_weights = variable_weights
+        self._requested_weights = variable_weights
 
         self.df: pd.DataFrame = None
         self.labels = None
         self.vars = None
         self.iqr = None
+        self.variable_weights: Dict[str, float] = None
 
     def prepare(self, context: ProblemContext) -> None:
         """Precompute reference distributions and normalization factors.
@@ -67,11 +75,9 @@ class WassersteinFidelity(ScoreComponent):
         self.labels = slicer.labels_for_index(df.index)
         self.vars = list(df.columns)
         self.iqr = (df.quantile(0.75) - df.quantile(0.25)).replace(0, 1.0)
-        if self.variable_weights is None:
-            self.variable_weights = {v: 1.0 for v in self.vars}
-        for v in self.vars:
-            if v not in self.variable_weights:
-                self.variable_weights[v] = 1.0
+
+        # Normalize weights using helper function
+        self.variable_weights = normalize_weights(self._requested_weights, self.vars)
 
     def score(self, combination: SliceCombination) -> float:
         """Compute normalized Wasserstein distance between full and selection.

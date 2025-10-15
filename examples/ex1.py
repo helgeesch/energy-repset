@@ -39,8 +39,10 @@ slicer = TimeSlicer(unit="month")
 context = ProblemContext(
     df_raw=df_raw,
     slicer=slicer,
-    variable_weights={c: 1 for c in df_raw.columns},
-    feature_weights={}
+    metadata={
+        'experiment_name': 'ex1_monthly_selection',
+        'notes': 'Basic example with monthly slicing and uniform weights'
+    }
 )
 
 print(f"Problem Context created with {len(context.get_unique_slices())} candidate slices.")
