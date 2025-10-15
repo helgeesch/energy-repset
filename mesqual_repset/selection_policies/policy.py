@@ -20,17 +20,38 @@ class PolicyOutcome:
 
 
 class SelectionPolicy(ABC):
+    """Base class for selection policies that choose the best combination.
+
+    Selection policies define the strategy for choosing the winning combination
+    from a set of scored candidates. Different policies implement different
+    trade-offs between competing objectives (e.g., weighted sum vs. Pareto).
+
+    This is a key component of the Generate-and-Test workflow where the
+    SearchAlgorithm generates candidates, the ObjectiveSet scores them, and
+    the SelectionPolicy picks the winner.
+
+    Examples:
+        >>> # See WeightedSumPolicy and ParetoUtopiaPolicy for concrete examples
+        >>> class SimpleMinPolicy(SelectionPolicy):
+        ...     def select_best(self, evaluations_df: pd.DataFrame, objective_set: ObjectiveSet):
+        ...         # Just pick the row with minimum of first objective
+        ...         first_obj = list(objective_set.component_meta().keys())[0]
+        ...         best_row = evaluations_df.loc[evaluations_df[first_obj].idxmin()]
+        ...         return tuple(best_row['slices'])
+    """
 
     @abstractmethod
     def select_best(self, evaluations_df: pd.DataFrame, objective_set: ObjectiveSet) -> Tuple[Hashable, ...]:
-        """
-        Select best solution from evaluation results.
+        """Select the best combination from scored candidates.
 
         Args:
-            evaluations_df: DataFrame with columns 'slices' and objective metrics
-            objective_set: ObjectiveSet providing component metadata
+            evaluations_df: DataFrame where each row is a candidate combination
+                with columns 'slices' (the combination tuple) and score columns
+                for each objective component.
+            objective_set: Provides metadata about score components (direction,
+                weights, etc.) needed for selection logic.
 
         Returns:
-            Tuple representing the best selection
+            Tuple of slice identifiers representing the winning combination.
         """
         ...

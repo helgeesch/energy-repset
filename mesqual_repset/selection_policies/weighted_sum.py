@@ -12,6 +12,40 @@ Normalization = Literal["none", "robust_minmax", "zscore_iqr"]
 
 
 class WeightedSumPolicy(SelectionPolicy):
+    """Selects the combination minimizing a weighted sum of objectives.
+
+    Combines multiple objectives into a single scalar score using weighted
+    averaging. Objectives are oriented for minimization (max objectives are
+    negated), optionally normalized, then combined using weights from the
+    ObjectiveSet (which can be overridden).
+
+    This is the simplest multi-objective selection strategy and works well
+    when relative importance of objectives is known.
+
+    Examples:
+        >>> from mesqual_repset import ObjectiveSet, ObjectiveSpec
+        >>> from mesqual_repset.score_components import WassersteinFidelity, CorrelationFidelity
+        >>> # Default: use weights from ObjectiveSet
+        >>> policy = WeightedSumPolicy()
+        >>> objectives = ObjectiveSet([
+        ...     ObjectiveSpec('wasserstein', WassersteinFidelity(), weight=1.0),
+        ...     ObjectiveSpec('correlation', CorrelationFidelity(), weight=0.5)
+        ... ])
+        >>> # Final score = 1.0*wasserstein + 0.5*correlation
+
+        >>> # Override weights in policy
+        >>> policy = WeightedSumPolicy(
+        ...     overrides={'wasserstein': 2.0, 'correlation': 1.0}
+        ... )
+        >>> # Final score = 2.0*wasserstein + 1.0*correlation
+
+        >>> # With normalization to make objectives comparable
+        >>> policy = WeightedSumPolicy(
+        ...     normalization='robust_minmax',  # Scale to [0, 1] using 5th-95th percentiles
+        ...     tie_breakers=('wasserstein',),  # Break ties by wasserstein
+        ...     tie_dirs=('min',)
+        ... )
+    """
     def __init__(
             self,
             overrides: Optional[Dict[str, float]] = None,
@@ -19,13 +53,33 @@ class WeightedSumPolicy(SelectionPolicy):
             tie_breakers: Tuple[str, ...] = (),
             tie_dirs: Tuple[ScoreComponentDirection, ...] = (),
     ) -> None:
+        """Initialize weighted sum policy.
+
+        Args:
+            overrides: Optional dict mapping objective names to weights,
+                overriding weights from ObjectiveSet.
+            normalization: How to normalize objectives before weighting:
+                - "none": No normalization
+                - "robust_minmax": Scale to [0, 1] using 5th-95th percentiles
+                - "zscore_iqr": Z-score using median and IQR
+            tie_breakers: Tuple of objective names to use for tie-breaking.
+            tie_dirs: Corresponding directions ("min" or "max") for tie-breakers.
+        """
         self.overrides = overrides or {}
         self.normalization = normalization
         self.tie_breakers = tie_breakers
         self.tie_dirs = tie_dirs
 
     def select_best(self, evaluations_df: pd.DataFrame, objective_set: ObjectiveSet) -> Tuple[Hashable, ...]:
-        """Select best solution using weighted sum approach."""
+        """Select combination with minimum weighted sum score.
+
+        Args:
+            evaluations_df: DataFrame with 'slices' column and objective scores.
+            objective_set: Provides component metadata (direction, weights).
+
+        Returns:
+            Tuple of slice identifiers with the lowest weighted sum score.
+        """
         df = evaluations_df.copy()
         meta = objective_set.component_meta()
         oriented = df[list(meta.keys())].copy()
