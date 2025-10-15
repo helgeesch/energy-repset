@@ -15,6 +15,7 @@ from mesqual_repset.objectives import ObjectiveSet
 from mesqual_repset.problem import RepSetExperiment
 from mesqual_repset.workflow import Workflow
 from mesqual_repset.score_components import WassersteinFidelity, CorrelationFidelity
+from mesqual_repset.score_components.todo import DiversityReward, CentroidBalance
 from mesqual_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
 from mesqual_repset.selection_policies import ParetoMaxMinStrategy
 from mesqual_repset.combination_generator import ExhaustiveCombinationGenerator
@@ -24,16 +25,17 @@ from mesqual_repset.combination_generator import ExhaustiveCombinationGenerator
 # Load the raw time-series data.
 url = "https://tubcloud.tu-berlin.de/s/pKttFadrbTKSJKF/download/time-series-lecture-2.csv"
 df_raw = pd.read_csv(url, index_col=0, parse_dates=True).rename_axis('variable', axis=1)
+df_raw = df_raw.drop('prices', axis=1)
 
 
 # --- 2. Defining the Problem Context ---
 # The ProblemContext is the central hub, holding the raw data and the
 # definition of our candidate slices.
-slicer = TimeSlicer(unit="week")
+slicer = TimeSlicer(unit="month")
 context = ProblemContext(
     df_raw=df_raw,
     slicer=slicer,
-    variable_weights={c: 1 for c in df_raw.columns},  # TODO: respect variable weights
+    variable_weights={c: 1 for c in df_raw.columns},  # TODO: respect variable weights in algorithm modules
     feature_weights={}  # TODO: respect feature weights
 )
 
@@ -57,6 +59,8 @@ objective_set = ObjectiveSet(
     weighted_score_components={
         'wasserstein': (0.5, WassersteinFidelity()),
         'correlation': (0.5, CorrelationFidelity()),
+        # 'diversity': (0.5, DiversityReward()),
+        'centroid_balance': (0.5, CentroidBalance()),
     }
 )
 policy = ParetoMaxMinStrategy()
@@ -64,7 +68,7 @@ policy = ParetoMaxMinStrategy()
 # --- 5. Pillar 5: Search Algorithm ---
 # Define the engine that will search for the best subset. Here, we use a
 # combinatorial search that is constrained to pick at least one week per season.
-k = 2
+k = 3
 combo_gen = ExhaustiveCombinationGenerator(k=k)  # TODO: assess whether to bind k here or not?
 search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combo_gen)
 
