@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 import copy
-from typing import List, Dict, Hashable, TYPE_CHECKING
-from dataclasses import dataclass, field
+from typing import List, Dict, Hashable, TYPE_CHECKING, Optional
 
 import pandas as pd
 
@@ -10,7 +9,6 @@ if TYPE_CHECKING:
     from .time_slicer import TimeSlicer
 
 
-@dataclass
 class ProblemContext:
     """A data container passed through the entire workflow.
 
@@ -18,13 +16,15 @@ class ProblemContext:
     It is the central object passed between workflow stages (feature engineering,
     search algorithms, representation models).
 
-    Attributes:
+    Args:
         df_raw: Raw time-series data with datetime index and variable columns.
         slicer: TimeSlicer defining how the time index is divided into candidate periods.
         variable_weights: Optional weights per variable name for prioritizing variables
-            in score components. Empty dict means equal weights.
+            in score components. If empty/None, all variables get equal weight (1.0).
+            If provided, specified variables get their weights and missing ones get 0.0.
         feature_weights: Optional weights per feature name for prioritizing features
-            in search algorithms. Empty dict means equal weights.
+            in search algorithms. If empty/None, all features get equal weight (1.0).
+            If provided, specified features get their weights and missing ones get 0.0.
 
     Examples:
         Create a context with monthly slicing:
@@ -40,7 +40,7 @@ class ProblemContext:
         ...     'solar': np.random.rand(8760)
         ... }, index=dates)
         >>>
-        >>> # Create context
+        >>> # Create context with specific variable weights
         >>> slicer = TimeSlicer(unit='month')
         >>> context = ProblemContext(
         ...     df_raw=df,
@@ -48,13 +48,108 @@ class ProblemContext:
         ...     variable_weights={'demand': 1.5, 'solar': 1.0}
         ... )
         >>> len(context.get_unique_slices())  # 12 months
-        12
+            12
+        >>> context.variable_weights['demand']  # 1.5
+        >>> context.variable_weights['wind']  # 0.0 (missing variable)
+        >>>
+        >>> # Create context with equal weights (no weights specified)
+        >>> context2 = ProblemContext(df_raw=df, slicer=slicer)
+        >>> context2.variable_weights['demand']  # 1.0 (equal weight)
+        >>> context2.variable_weights['anything']  # 1.0 (equal weight)
     """
-    df_raw: pd.DataFrame
-    slicer: TimeSlicer
-    variable_weights: Dict = field(default_factory=dict)
-    feature_weights: Dict = field(default_factory=dict)
-    _df_features: pd.DataFrame = None
+
+    def __init__(
+        self,
+        df_raw: pd.DataFrame,
+        slicer: 'TimeSlicer',
+        variable_weights: Optional[Dict] = None,
+        feature_weights: Optional[Dict] = None
+    ):
+        """Initialize a ProblemContext.
+
+        Args:
+            df_raw: Raw time-series data with datetime index and variable columns.
+            slicer: TimeSlicer defining how the time index is divided into candidate periods.
+            variable_weights: Optional weights per variable name. None or empty dict
+                means equal weights (1.0). Non-empty dict means specified weights with
+                0.0 for missing variables.
+            feature_weights: Optional weights per feature name. None or empty dict
+                means equal weights (1.0). Non-empty dict means specified weights with
+                0.0 for missing features.
+        """
+        self.df_raw = df_raw
+        self.slicer = slicer
+        self._variable_weights = variable_weights if variable_weights is not None else {}
+        self._feature_weights = feature_weights if feature_weights is not None else {}
+        self._df_features: Optional[pd.DataFrame] = None
+
+    @property
+    def variable_weights(self) -> Dict[str, float]:
+        """Get variable weights based on actual variables in df_raw.
+
+        Returns:
+            Dictionary mapping each variable name in df_raw.columns to its weight:
+            - If no weights were specified: all variables get 1.0 (equal weights)
+            - If weights were specified: specified variables get their weight,
+              missing variables get 0.0
+
+        Examples:
+
+            >>> # No weights specified - all equal
+            >>> context = ProblemContext(df, slicer)
+            >>> context.variable_weights
+                {'demand': 1.0, 'solar': 1.0}
+            >>>
+            >>> # Weights specified - missing get 0.0
+            >>> context = ProblemContext(df, slicer, variable_weights={'demand': 2.0})
+            >>> context.variable_weights
+                {'demand': 2.0, 'solar': 0.0}
+        """
+        actual_variables = self.df_raw.columns
+
+        if not self._variable_weights:
+            # No weights specified → all get 1.0
+            return {var: 1.0 for var in actual_variables}
+        else:
+            # Weights specified → use them, missing get 0.0
+            return {var: self._variable_weights.get(var, 0.0) for var in actual_variables}
+
+    @property
+    def feature_weights(self) -> Dict[str, float]:
+        """Get feature weights based on actual features in df_features.
+
+        Returns:
+            Dictionary mapping each feature name in df_features.columns to its weight:
+            - If no weights were specified: all features get 1.0 (equal weights)
+            - If weights were specified: specified features get their weight,
+              missing features get 0.0
+            - If df_features is not set yet: returns the raw _feature_weights dict
+
+        Examples:
+
+            >>> # No weights specified - all equal
+            >>> context = ProblemContext(df, slicer)
+            >>> # After feature engineering:
+            >>> context.feature_weights
+                {'mean': 1.0, 'std': 1.0, 'max': 1.0}
+            >>>
+            >>> # Weights specified - missing get 0.0
+            >>> context = ProblemContext(df, slicer, feature_weights={'mean': 2.0})
+            >>> context.feature_weights
+                {'mean': 2.0, 'std': 0.0, 'max': 0.0}
+        """
+        if self._df_features is None:
+            # No features computed yet, return the raw weights as-is
+            return dict(self._feature_weights)
+
+        actual_features = self._df_features.columns
+
+        if not self._feature_weights:
+            # No weights specified → all get 1.0
+            return {feat: 1.0 for feat in actual_features}
+        else:
+            # Weights specified → use them, missing get 0.0
+            return {feat: self._feature_weights.get(feat, 0.0) for feat in actual_features}
 
     def copy(self) -> 'ProblemContext':
         """Create a deep copy of this ProblemContext instance.

@@ -77,7 +77,7 @@ class PCAFeatureEngineer(FeatureEngineer):
         self._pca: PCA | None = None
         self._feature_names: List[str] = []
 
-    def _calc_and_get_features_df(self, context: ProblemContext) -> pd.DataFrame:
+    def calc_and_get_features_df(self, context: ProblemContext) -> pd.DataFrame:
         """Apply PCA to existing features in context.
 
         Args:

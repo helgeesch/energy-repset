@@ -64,7 +64,7 @@ class StandardStatsFeatureEngineer(FeatureEngineer):
         self._stds_: pd.Series = None
         self._feature_names_: List[str] = None
 
-    def _calc_and_get_features_df(self, context: "ProblemContext") -> pd.DataFrame:
+    def calc_and_get_features_df(self, context: "ProblemContext") -> pd.DataFrame:
         """Calculate statistical features and return scaled feature matrix.
 
         Args:

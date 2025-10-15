@@ -48,11 +48,11 @@ class FeatureEngineer(ABC):
             feature matrix. The original context is not modified.
         """
         context_with_features = context.copy()
-        context_with_features.df_features = self._calc_and_get_features_df(context)
+        context_with_features.df_features = self.calc_and_get_features_df(context)
         return context_with_features
 
     @abstractmethod
-    def _calc_and_get_features_df(self, context: ProblemContext) -> pd.DataFrame:
+    def calc_and_get_features_df(self, context: ProblemContext) -> pd.DataFrame:
         """Calculate and return the feature matrix.
 
         Args:
@@ -91,18 +91,34 @@ class FeaturePipeline(FeatureEngineer):
         """
         self.engineers = engineers
 
-    def _calc_and_get_features_df(self, context: ProblemContext) -> pd.DataFrame:
-        """Calculate features from all engineers and concatenate them.
+    def calc_and_get_features_df(self, context: ProblemContext) -> pd.DataFrame:
+        """Calculate features from all engineers sequentially, accumulating results.
+
+        Each engineer in the pipeline sees the accumulated features from all
+        previous engineers via context.df_features. New features from each stage
+        are concatenated to the existing feature set. This allows:
+        - Early engineers to create base features (e.g., StandardStatsFeatureEngineer)
+        - Later engineers to transform or add to those features (e.g., PCAFeatureEngineer)
 
         Args:
             context: The problem context containing raw data.
 
         Returns:
             A DataFrame with columns from all engineers concatenated horizontally.
+            Each engineer's features are added to the cumulative feature set.
         """
+        # Create a mutable working copy of the context
+        working_context = context.copy()
+
+        # Accumulate features from each engineer
         all_features = []
         for engineer in self.engineers:
-            features = engineer._calc_and_get_features_df(context)
+            features = engineer.calc_and_get_features_df(working_context)
             all_features.append(features)
 
+            # Update context so next engineer can see accumulated features
+            if all_features:
+                working_context._df_features = pd.concat(all_features, axis=1)
+
+        # Return the concatenated feature set
         return pd.concat(all_features, axis=1)
