@@ -108,10 +108,8 @@ class ProblemContext:
         actual_variables = self.df_raw.columns
 
         if not self._variable_weights:
-            # No weights specified → all get 1.0
             return {var: 1.0 for var in actual_variables}
         else:
-            # Weights specified → use them, missing get 0.0
             return {var: self._variable_weights.get(var, 0.0) for var in actual_variables}
 
     @property
@@ -139,16 +137,13 @@ class ProblemContext:
                 {'mean': 2.0, 'std': 0.0, 'max': 0.0}
         """
         if self._df_features is None:
-            # No features computed yet, return the raw weights as-is
             return dict(self._feature_weights)
 
         actual_features = self._df_features.columns
 
         if not self._feature_weights:
-            # No weights specified → all get 1.0
             return {feat: 1.0 for feat in actual_features}
         else:
-            # Weights specified → use them, missing get 0.0
             return {feat: self._feature_weights.get(feat, 0.0) for feat in actual_features}
 
     def copy(self) -> 'ProblemContext':
@@ -193,9 +188,25 @@ class ProblemContext:
 
         Args:
             df_features: DataFrame with slice labels as index and features as columns.
+
+        Raises:
+            ValueError: If df_features index does not contain all expected slices
+                from the slicer.
         """
-        # TODO: raise in case the df_features index does not contain all slices
+        self._validate_all_slices_present_in_features_df(df_features)
+
         self._df_features = df_features
+
+    def _validate_all_slices_present_in_features_df(self, df_features):
+        expected_slices = set(self.get_unique_slices())
+        actual_slices = set(df_features.index)
+        if not expected_slices.issubset(actual_slices):
+            missing_slices = expected_slices - actual_slices
+            raise ValueError(
+                f"df_features is missing {len(missing_slices)} slice(s). "
+                f"Expected all slices from slicer but missing: {sorted(list(missing_slices)[:5])}"
+                f"{'...' if len(missing_slices) > 5 else ''}"
+            )
 
     def get_unique_slices(self) -> List[Hashable]:
         """Get list of all unique slice labels from the time index.
