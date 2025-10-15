@@ -14,30 +14,100 @@ if TYPE_CHECKING:
 
 
 class ObjectiveDrivenSearchAlgorithm(SearchAlgorithm, ABC):
-    """
-    A specialized base class for search algorithms that are guided by an
-    external, user-defined objective function and selection policy.
+    """Base class for search algorithms guided by external objective functions.
+
+    Provides a common structure for algorithms that rely on a user-defined
+    ObjectiveSet to score candidates and a SelectionPolicy to choose the best.
+    This pattern separates the search strategy from the objective function,
+    enabling flexible algorithm design.
+
+    Examples:
+        >>> from mesqual_repset import ObjectiveSet, ObjectiveSpec
+        >>> from mesqual_repset.score_components import WassersteinFidelity
+        >>> from mesqual_repset.selection_policies import WeightedSumPolicy
+        >>> objectives = ObjectiveSet([
+        ...     ObjectiveSpec('wasserstein', WassersteinFidelity(), weight=1.0)
+        ... ])
+        >>> policy = WeightedSumPolicy()
+        >>> # See ObjectiveDrivenCombinatorialSearchAlgorithm for concrete usage
     """
     def __init__(
             self,
             objective_set: ObjectiveSet,
             selection_policy: SelectionPolicy,
     ):
+        """Initialize objective-driven search algorithm.
+
+        Args:
+            objective_set: Collection of score components defining quality metrics.
+            selection_policy: Strategy for selecting best combination from scored
+                candidates (e.g., weighted sum, Pareto dominance).
+        """
         self.objective_set = objective_set
         self.selection_policy = selection_policy
 
 
 class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm):
+    """Generate-and-test search using a combination generator (Workflow Type 1).
+
+    Generates candidate combinations using a CombinationGenerator, scores each
+    with the ObjectiveSet, and selects the best according to the SelectionPolicy.
+    This is the canonical implementation of the Generate-and-Test workflow.
+
+    Supports exhaustive search (all k-combinations) and constrained generation
+    (e.g., seasonal quotas). Displays progress with tqdm and stores all
+    evaluations in diagnostics for analysis.
+
+    Examples:
+        >>> from mesqual_repset import (
+        ...     ObjectiveSet, ObjectiveSpec,
+        ...     ExhaustiveCombinationGenerator,
+        ...     WeightedSumPolicy
+        ... )
+        >>> from mesqual_repset.score_components import WassersteinFidelity, CorrelationFidelity
+        >>> objectives = ObjectiveSet([
+        ...     ObjectiveSpec('wasserstein', WassersteinFidelity(), weight=1.0),
+        ...     ObjectiveSpec('correlation', CorrelationFidelity(), weight=0.5)
+        ... ])
+        >>> policy = WeightedSumPolicy()
+        >>> generator = ExhaustiveCombinationGenerator(k=4)
+        >>> algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(
+        ...     objective_set=objectives,
+        ...     selection_policy=policy,
+        ...     combination_generator=generator
+        ... )
+        >>> result = algorithm.find_selection(context, k=4)
+        >>> print(result.selection)  # Best 4-month selection
+        >>> print(result.diagnostics['evaluations_df'])  # All scored combinations
+    """
     def __init__(
             self,
             objective_set: ObjectiveSet,
             selection_policy: SelectionPolicy,
             combination_generator: CombinationGenerator,
     ):
+        """Initialize combinatorial search algorithm.
+
+        Args:
+            objective_set: Collection of score components defining quality metrics.
+            selection_policy: Strategy for selecting the best combination.
+            combination_generator: Defines which k-combinations to evaluate
+                (e.g., all combinations, seasonal constraints).
+        """
         super().__init__(objective_set, selection_policy)
         self.combination_generator = combination_generator
 
     def find_selection(self, context: ProblemContext, k: int) -> RepSetResult:
+        """Find optimal selection by exhaustively scoring generated combinations.
+
+        Args:
+            context: Problem context with df_features populated.
+            k: Number of periods to select (passed to combination_generator).
+
+        Returns:
+            RepSetResult with the winning selection, scores, representatives,
+            and diagnostics containing evaluations_df with all scored combinations.
+        """
         from tqdm import tqdm
         import pandas as pd
 
