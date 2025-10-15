@@ -14,8 +14,12 @@ from mesqual_repset.feature_engineering import FeaturePipeline, StandardStatsFea
 from mesqual_repset.objectives import ObjectiveSet
 from mesqual_repset.problem import RepSetExperiment
 from mesqual_repset.workflow import Workflow
-from mesqual_repset.score_components import WassersteinFidelity, CorrelationFidelity
-from mesqual_repset.score_components.todo import DiversityReward, CentroidBalance
+from mesqual_repset.score_components import (
+    WassersteinFidelity,
+    CorrelationFidelity,
+    DiversityReward,
+    CentroidBalance
+)
 from mesqual_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
 from mesqual_repset.selection_policies import ParetoMaxMinStrategy
 from mesqual_repset.combination_generator import ExhaustiveCombinationGenerator
@@ -35,8 +39,8 @@ slicer = TimeSlicer(unit="month")
 context = ProblemContext(
     df_raw=df_raw,
     slicer=slicer,
-    variable_weights={c: 1 for c in df_raw.columns},  # TODO: respect variable weights in algorithm modules
-    feature_weights={}  # TODO: respect feature weights
+    variable_weights={c: 1 for c in df_raw.columns},
+    feature_weights={}
 )
 
 print(f"Problem Context created with {len(context.get_unique_slices())} candidate slices.")
@@ -69,7 +73,7 @@ policy = ParetoMaxMinStrategy()
 # Define the engine that will search for the best subset. Here, we use a
 # combinatorial search that is constrained to pick at least one week per season.
 k = 3
-combo_gen = ExhaustiveCombinationGenerator(k=k)  # TODO: assess whether to bind k here or not?
+combo_gen = ExhaustiveCombinationGenerator(k=k)
 search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combo_gen)
 
 # --- 6. Pillar 4: Representation Model ---
