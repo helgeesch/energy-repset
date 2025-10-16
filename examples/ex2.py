@@ -45,7 +45,7 @@ policy = ParetoMaxMinStrategy()
 
 # Hierarchical combination generator: select 4 MONTHS (1 per season), evaluate on DAYS
 # Using the factory method with automatic seasonal grouping
-combo_gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
+combi_gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
     parent_k=4,  # Select 4 parent groups (months) total
     dt_index=df_raw.index,  # DatetimeIndex
     child_slicer=child_slicer,  # Daily slicing
@@ -53,11 +53,11 @@ combo_gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
 )
 
 days = context.get_unique_slices()
-print(f"Hierarchical generator will evaluate {combo_gen.count(days)} combinations.")
+print(f"Hierarchical generator will evaluate {combi_gen.count(days)} combinations.")
 print("Each combination = 4 months (1/season), evaluated on ~120 days total.\n")
 
 # Search algorithm
-search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combo_gen)
+search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
 
 # Representation model
 representation_model = KMedoidsClustersizeRepresentation()

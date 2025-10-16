@@ -119,11 +119,11 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
         )
 
         rows = []
-        for combo in iterator:
-            metrics = self.objective_set.evaluate(combo, context)
+        for combi in iterator:
+            metrics = self.objective_set.evaluate(combi, context)
             rec = {
-                "slices": combo,
-                "label": ", ".join(str(s) for s in combo)
+                "slices": combi,
+                "label": ", ".join(str(s) for s in combi)
             }
             rec.update(metrics)
             rows.append(rec)

@@ -41,9 +41,9 @@ class Workflow:
         >>> feature_eng = StandardStatsFeatureEngineer()
         >>> objective_set = ObjectiveSet({'wass': (1.0, WassersteinFidelity())})
         >>> policy = ParetoMaxMinStrategy()
-        >>> combo_gen = ExhaustiveCombiGen(k=3)
+        >>> combi_gen = ExhaustiveCombiGen(k=3)
         >>> search_algo = ObjectiveDrivenCombinatorialSearchAlgorithm(
-        ...     objective_set, policy, combo_gen
+        ...     objective_set, policy, combi_gen
         ... )
         >>> repr_model = UniformRepresentationModel()
         >>>

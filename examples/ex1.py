@@ -134,8 +134,8 @@ policy = ParetoMaxMinStrategy()
 # Define the engine that will search for the best subset. Here, we use a
 # combinatorial search that is constrained to pick at least one week per season.
 k = 3
-combo_gen = ExhaustiveCombiGen(k=k)
-search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combo_gen)
+combi_gen = ExhaustiveCombiGen(k=k)
+search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
 
 # --- 6. Pillar 4: Representation Model ---
 # Define how the final selected weeks will represent the full year.
@@ -170,7 +170,7 @@ print("Generated: output_responsibility_weights.html")
 print("\n--- Score Component Diagnostics ---")
 
 # Get selected data for comparison
-selected_indices = context.slicer.get_indices_for_slice_combo(context.df_raw.index, result.selection)
+selected_indices = context.slicer.get_indices_for_slice_combi(context.df_raw.index, result.selection)
 df_full = context.df_raw
 df_selection = context.df_raw.loc[selected_indices]
 

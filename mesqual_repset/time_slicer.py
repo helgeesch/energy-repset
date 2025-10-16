@@ -94,7 +94,7 @@ class TimeSlicer:
         unique.sort()
         return unique
 
-    def get_indices_for_slice_combo(
+    def get_indices_for_slice_combi(
         self,
         index: pd.DatetimeIndex,
         selection: Union[Hashable, SliceCombination],
@@ -119,14 +119,14 @@ class TimeSlicer:
             >>> dates = pd.date_range('2024-01-01', periods=8760, freq='h')
             >>> slicer = TimeSlicer(unit='month')
             >>> jan_slice = slicer.unique_slices(dates)[0]  # Period('2024-01', 'M')
-            >>> jan_indices = slicer.get_indices_for_slice_combo(dates, jan_slice)
+            >>> jan_indices = slicer.get_indices_for_slice_combi(dates, jan_slice)
             >>> len(jan_indices)  # 744 hours in January 2024
                 744
 
             Get indices for multiple months (selection):
 
             >>> selection = (Period('2024-01', 'M'), Period('2024-06', 'M'))
-            >>> selected_indices = slicer.get_indices_for_slice_combo(dates, selection)
+            >>> selected_indices = slicer.get_indices_for_slice_combi(dates, selection)
             >>> len(selected_indices)  # Jan (744) + Jun (720) = 1464
                 1464
         """

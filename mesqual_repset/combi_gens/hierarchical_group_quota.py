@@ -303,13 +303,13 @@ class GroupQuotaHierarchicalCombiGen(CombinationGenerator):
             group = self.parent_to_group[parent]
             groups_of_parents.setdefault(group, []).append(parent)
 
-        per_group_combos = []
+        per_group_combis = []
         for group, quota in self.group_quota.items():
             parents_in_group = groups_of_parents.get(group, [])
-            per_group_combos.append(list(itertools.combinations(parents_in_group, quota)))
+            per_group_combis.append(list(itertools.combinations(parents_in_group, quota)))
 
-        for parent_combo_tuple in itertools.product(*per_group_combos):
-            all_selected_parents = list(itertools.chain.from_iterable(parent_combo_tuple))
+        for parent_combi_tuple in itertools.product(*per_group_combis):
+            all_selected_parents = list(itertools.chain.from_iterable(parent_combi_tuple))
             child_slices = []
             for parent in sorted(all_selected_parents):
                 child_slices.extend(parent_to_children[parent])
@@ -358,23 +358,23 @@ class GroupQuotaHierarchicalCombiGen(CombinationGenerator):
             parent = self.slice_to_parent[child]
             parent_to_children.setdefault(parent, set()).add(child)
 
-        parents_in_combo = set()
+        parents_in_combi = set()
         for child in combination:
             if child not in self.slice_to_parent:
                 return False
-            parents_in_combo.add(self.slice_to_parent[child])
+            parents_in_combi.add(self.slice_to_parent[child])
 
-        if len(parents_in_combo) != self.k:
+        if len(parents_in_combi) != self.k:
             return False
 
         expected_children = set()
-        for parent in parents_in_combo:
+        for parent in parents_in_combi:
             expected_children.update(parent_to_children[parent])
         if set(combination) != expected_children:
             return False
 
         group_count = {group: 0 for group in self.group_quota.keys()}
-        for parent in parents_in_combo:
+        for parent in parents_in_combi:
             group = self.parent_to_group[parent]
             group_count[group] += 1
 

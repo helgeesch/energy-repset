@@ -28,20 +28,20 @@ class SearchAlgorithm(ABC):
         ...     def find_selection(self, context: ProblemContext) -> RepSetResult:
         ...         # Generate all k-combinations
         ...         from itertools import combinations
-        ...         all_combos = list(combinations(context.slicer.slices, self.k))
+        ...         all_combis = list(combinations(context.slicer.slices, self.k))
         ...
         ...         # Score each combination
-        ...         scored_combos = []
-        ...         for combo in all_combos:
-        ...             scores = self.objective_set.evaluate(context, combo)
-        ...             scored_combos.append((combo, scores))
+        ...         scored_combis = []
+        ...         for combi in all_combis:
+        ...             scores = self.objective_set.evaluate(context, combi)
+        ...             scored_combis.append((combi, scores))
         ...
         ...         # Select best according to policy
-        ...         best_combo, best_scores = self.selection_policy.select(scored_combos)
+        ...         best_combi, best_scores = self.selection_policy.select(scored_combis)
         ...
         ...         return RepSetResult(
-        ...             selection=best_combo,
-        ...             weights={s: 1/self.k for s in best_combo},
+        ...             selection=best_combi,
+        ...             weights={s: 1/self.k for s in best_combi},
         ...             scores=best_scores
         ...         )
         ...

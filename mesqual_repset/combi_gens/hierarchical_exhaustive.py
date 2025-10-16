@@ -157,9 +157,9 @@ class ExhaustiveHierarchicalCombiGen(CombinationGenerator):
             parent_to_children.setdefault(parent, []).append(child)
 
         parent_ids = sorted(parent_to_children.keys())
-        for parent_combo in itertools.combinations(parent_ids, self.parent_k):
+        for parent_combi in itertools.combinations(parent_ids, self.parent_k):
             child_slices = []
-            for parent_id in sorted(parent_combo):
+            for parent_id in sorted(parent_combi):
                 child_slices.extend(parent_to_children[parent_id])
             yield tuple(child_slices)
 
@@ -198,17 +198,17 @@ class ExhaustiveHierarchicalCombiGen(CombinationGenerator):
             parent = self.slice_to_parent[child]
             parent_to_children.setdefault(parent, set()).add(child)
 
-        parents_in_combo = set()
+        parents_in_combi = set()
         for child in combination:
             if child not in self.slice_to_parent:
                 return False
-            parents_in_combo.add(self.slice_to_parent[child])
+            parents_in_combi.add(self.slice_to_parent[child])
 
-        if len(parents_in_combo) != self.parent_k:
+        if len(parents_in_combi) != self.parent_k:
             return False
 
         expected_children = set()
-        for parent in parents_in_combo:
+        for parent in parents_in_combi:
             expected_children.update(parent_to_children[parent])
 
         return set(combination) == expected_children
