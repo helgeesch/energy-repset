@@ -19,7 +19,7 @@ class CombinationGenerator(Protocol):
     Examples:
         Implementations must provide three methods:
 
-        >>> from mesqual_repset.combination_generator import ExhaustiveCombinationGenerator
+        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator
         >>> generator = ExhaustiveCombinationGenerator(k=3)
         >>> slices = ['Jan', 'Feb', 'Mar', 'Apr']
         >>> generator.count(slices)  # Number of combinations

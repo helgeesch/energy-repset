@@ -37,7 +37,7 @@ class GroupQuotaCombinationGenerator(CombinationGenerator):
     Examples:
         Example 1 - Seasonal constraints (one month per season):
 
-        >>> from mesqual_repset.combination_generator import GroupQuotaCombinationGenerator
+        >>> from mesqual_repset.combination_generators import GroupQuotaCombinationGenerator
         >>> import pandas as pd
         >>>
         >>> # Define months and their seasons

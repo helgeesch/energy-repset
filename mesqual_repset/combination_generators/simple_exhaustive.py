@@ -30,7 +30,7 @@ class ExhaustiveCombinationGenerator(CombinationGenerator):
     Examples:
         Generate all 3-month combinations from a year:
 
-        >>> from mesqual_repset.combination_generator import ExhaustiveCombinationGenerator
+        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator
         >>> import pandas as pd
         >>>
         >>> months = [pd.Period('2024-01', 'M'), pd.Period('2024-02', 'M'),
