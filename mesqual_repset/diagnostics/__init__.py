@@ -13,8 +13,10 @@ All diagnostics follow a consistent pattern:
 
 from . import feature_space
 from . import score_components
+from . import results
 
 __all__ = [
     'feature_space',
     'score_components',
+    'results',
 ]

@@ -18,13 +18,14 @@ class UniformRepresentationModel(RepresentationModel):
     it represents.
 
     Examples:
+
         >>> model = UniformRepresentationModel()
         >>> model.fit(context)
         >>> weights = model.weigh((0, 3, 6, 9))
         >>> print(weights)
-        {0: 0.25, 3: 0.25, 6: 0.25, 9: 0.25}
+            {0: 0.25, 3: 0.25, 6: 0.25, 9: 0.25}
 
-        >>> # For yearly data with k=4, each month represents ~91 days
+        >>> # For yearly data with k=4 months, each month represents ~91 days
         >>> # Weights sum to 1.0 for normalized analysis
     """
 

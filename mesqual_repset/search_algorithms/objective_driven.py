@@ -7,7 +7,7 @@ from .search_algorithm import SearchAlgorithm
 from ..results import RepSetResult
 
 if TYPE_CHECKING:
-    from ..combination_generator import CombinationGenerator
+    from ..combination_generators import CombinationGenerator
     from ..context import ProblemContext
     from ..objectives import ObjectiveSet
     from ..selection_policies import SelectionPolicy
