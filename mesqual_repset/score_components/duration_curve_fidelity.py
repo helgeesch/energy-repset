@@ -85,11 +85,7 @@ class DurationCurveFidelity(ScoreComponent):
         self.labels = context.slicer.labels_for_index(df.index)
         self.vars = list(df.columns)
 
-        # Normalize weights: None → equal (1.0), specified → use values (missing get 0.0)
-        if self._requested_weights is None:
-            self.variable_weights = {v: 1.0 for v in self.vars}
-        else:
-            self.variable_weights = {v: self._requested_weights.get(v, 0.0) for v in self.vars}
+        self.variable_weights = self._default_weight_normalization(self._requested_weights, self.vars)
 
         self.quantiles = np.linspace(0, 1, self.n_quantiles)
         self.full_quantiles = self.df.quantile(self.quantiles)

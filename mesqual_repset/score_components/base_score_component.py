@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-from typing import Protocol, TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Dict, List
+from abc import ABC, abstractmethod
 
 if TYPE_CHECKING:
     from ..context import ProblemContext
     from ..types import ScoreComponentDirection, SliceCombination
 
 
-class ScoreComponent(Protocol):
+class ScoreComponent(ABC):
     """Protocol for a single metric used in evaluating candidate selections.
 
     ScoreComponents are the building blocks of the ObjectiveSet. Each component
@@ -51,6 +52,7 @@ class ScoreComponent(Protocol):
     name: str
     direction: ScoreComponentDirection
 
+    @abstractmethod
     def prepare(self, context: ProblemContext) -> None:
         """Precompute state needed before scoring selections.
 
@@ -67,6 +69,7 @@ class ScoreComponent(Protocol):
         """
         ...
 
+    @abstractmethod
     def score(self, combination: SliceCombination) -> float:
         """Compute the component score for a candidate selection.
 
@@ -82,3 +85,39 @@ class ScoreComponent(Protocol):
             operations in prepare() to avoid redundant calculations.
         """
         ...
+
+    @staticmethod
+    def _default_weight_normalization(
+            weights: Optional[Dict[str, float]],
+            keys: List[str]
+    ) -> Dict[str, float]:
+        """Normalize weight dictionary to match actual keys.
+
+        Normalize weights: None → equal (1.0), specified → use values (missing get 0.0)
+
+        Args:
+            weights: User-specified weights, or None for equal weights.
+            keys: Actual keys that need weights (e.g., variable names, feature names).
+
+        Returns:
+            Dictionary mapping each key to its weight:
+            - If weights is None: all keys get 1.0 (equal weights)
+            - If weights is provided: specified keys get their value, missing keys get 0.0
+
+        Examples:
+
+            >>> # No weights specified - equal weights
+            >>> normalize_weights(None, ['demand', 'solar', 'wind'])
+            {'demand': 1.0, 'solar': 1.0, 'wind': 1.0}
+
+            >>> # Partial weights - missing get 0.0
+            >>> normalize_weights({'demand': 2.0, 'solar': 1.5}, ['demand', 'solar', 'wind'])
+            {'demand': 2.0, 'solar': 1.5, 'wind': 0.0}
+
+            >>> # All weights specified
+            >>> normalize_weights({'demand': 2.0, 'solar': 1.0, 'wind': 0.5}, ['demand', 'solar'])
+            {'demand': 2.0, 'solar': 1.0, 'wind': 0.5}
+        """
+        if weights is None:
+            return {key: 1.0 for key in keys}
+        return {key: weights.get(key, 0.0) for key in keys}
