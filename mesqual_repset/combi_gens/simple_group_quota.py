@@ -4,13 +4,13 @@ from typing import TYPE_CHECKING, Dict, Iterator, Sequence, Tuple, Hashable, Pro
 import itertools
 import math
 
-from .combo_generator import CombinationGenerator
+from .combination_generator import CombinationGenerator
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
 
 
-class GroupQuotaCombinationGenerator(CombinationGenerator):
+class GroupQuotaCombiGen(CombinationGenerator):
     """Generate combinations that respect exact quotas per group.
 
     This generator enforces that selections contain a specific number of elements
@@ -37,7 +37,7 @@ class GroupQuotaCombinationGenerator(CombinationGenerator):
     Examples:
         Example 1 - Seasonal constraints (one month per season):
 
-        >>> from mesqual_repset.combination_generators import GroupQuotaCombinationGenerator
+        >>> from mesqual_repset.combi_gens import GroupQuotaCombiGen
         >>> import pandas as pd
         >>>
         >>> # Define months and their seasons
@@ -50,7 +50,7 @@ class GroupQuotaCombinationGenerator(CombinationGenerator):
         ...     else: season_map[month] = 'fall'
         >>>
         >>> # Select 4 months, one per season
-        >>> generator = GroupQuotaCombinationGenerator(
+        >>> generator = GroupQuotaCombiGen(
         ...     k=4,
         ...     slice_to_group_mapping=season_map,
         ...     group_quota={'winter': 1, 'spring': 1, 'summer': 1, 'fall': 1}
@@ -67,7 +67,7 @@ class GroupQuotaCombinationGenerator(CombinationGenerator):
         >>> group_mapping[pd.Period('2024-12', 'M')] = 'must'
         >>>
         >>> # Select 4 total: 2 must-have + 2 optional
-        >>> generator = GroupQuotaCombinationGenerator(
+        >>> generator = GroupQuotaCombiGen(
         ...     k=4,
         ...     slice_to_group_mapping=group_mapping,
         ...     group_quota={'optional': 2, 'must': 2}

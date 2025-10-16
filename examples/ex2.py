@@ -9,7 +9,7 @@ from mesqual_repset.workflow import Workflow
 from mesqual_repset.score_components import WassersteinFidelity, CorrelationFidelity
 from mesqual_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
 from mesqual_repset.selection_policies import ParetoMaxMinStrategy
-from mesqual_repset.combination_generators import GroupQuotaHierarchicalCombinationGenerator
+from mesqual_repset.combi_gens import GroupQuotaHierarchicalCombiGen
 
 # Load raw time-series data
 url = "https://tubcloud.tu-berlin.de/s/pKttFadrbTKSJKF/download/time-series-lecture-2.csv"
@@ -45,7 +45,7 @@ policy = ParetoMaxMinStrategy()
 
 # Hierarchical combination generator: select 4 MONTHS (1 per season), evaluate on DAYS
 # Using the factory method with automatic seasonal grouping
-combo_gen = GroupQuotaHierarchicalCombinationGenerator.from_slicers_with_seasons(
+combo_gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
     parent_k=4,  # Select 4 parent groups (months) total
     dt_index=df_raw.index,  # DatetimeIndex
     child_slicer=child_slicer,  # Daily slicing

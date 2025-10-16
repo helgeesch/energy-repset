@@ -7,7 +7,7 @@ from .search_algorithm import SearchAlgorithm
 from ..results import RepSetResult
 
 if TYPE_CHECKING:
-    from ..combination_generators import CombinationGenerator
+    from ..combi_gens import CombinationGenerator
     from ..context import ProblemContext
     from ..objectives import ObjectiveSet
     from ..selection_policies import SelectionPolicy
@@ -60,7 +60,7 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
 
     Examples:
         >>> from mesqual_repset.objectives import ObjectiveSet, ObjectiveSpec,
-        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator,
+        >>> from mesqual_repset.combi_gens import ExhaustiveCombiGen,
         >>> from mesqual_repset.selection_policies import WeightedSumPolicy
         >>> from mesqual_repset.score_components import WassersteinFidelity, CorrelationFidelity
         >>> objectives = ObjectiveSet({
@@ -68,7 +68,7 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
         ...     'correlation': (0.5, CorrelationFidelity())
         ... })
         >>> policy = WeightedSumPolicy()
-        >>> generator = ExhaustiveCombinationGenerator(k=4)
+        >>> generator = ExhaustiveCombiGen(k=4)
         >>> algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(
         ...     objective_set=objectives,
         ...     selection_policy=policy,

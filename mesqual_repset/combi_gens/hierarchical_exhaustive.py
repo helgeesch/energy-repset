@@ -5,14 +5,14 @@ import itertools
 import math
 import pandas as pd
 
-from .combo_generator import CombinationGenerator
+from .combination_generator import CombinationGenerator
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
     from ..time_slicer import TimeSlicer
 
 
-class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
+class ExhaustiveHierarchicalCombiGen(CombinationGenerator):
     """Generate combinations where child slices are selected in complete parent groups.
 
     This generator enforces hierarchical selection: child slices (e.g., days) can only
@@ -37,7 +37,7 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
     Examples:
         Manual construction with custom grouping:
 
-        >>> from mesqual_repset.combination_generators import ExhaustiveHierarchicalCombinationGenerator
+        >>> from mesqual_repset.combi_gens import ExhaustiveHierarchicalCombiGen
         >>> import pandas as pd
         >>>
         >>> # Define child-to-parent mapping
@@ -49,7 +49,7 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
         ... }
         >>>
         >>> # Select 2 months, but combinations contain days
-        >>> gen = ExhaustiveHierarchicalCombinationGenerator(
+        >>> gen = ExhaustiveHierarchicalCombiGen(
         ...     parent_k=2,
         ...     slice_to_parent_mapping=slice_to_parent
         ... )
@@ -60,13 +60,13 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
 
         >>> import pandas as pd
         >>> from mesqual_repset.time_slicer import TimeSlicer
-        >>> from mesqual_repset.combination_generators import ExhaustiveHierarchicalCombinationGenerator
+        >>> from mesqual_repset.combi_gens import ExhaustiveHierarchicalCombiGen
         >>>
         >>> dates = pd.date_range('2024-01-01', periods=366, freq='D')
         >>> child_slicer = TimeSlicer(unit='day')
         >>> parent_slicer = TimeSlicer(unit='month')
         >>>
-        >>> gen = ExhaustiveHierarchicalCombinationGenerator.from_slicers(
+        >>> gen = ExhaustiveHierarchicalCombiGen.from_slicers(
         ...     parent_k=3,
         ...     dt_index=dates,
         ...     child_slicer=child_slicer,
@@ -99,7 +99,7 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
         dt_index: pd.DatetimeIndex,
         child_slicer: TimeSlicer,
         parent_slicer: TimeSlicer
-    ) -> ExhaustiveHierarchicalCombinationGenerator:
+    ) -> ExhaustiveHierarchicalCombiGen:
         """Factory method to create generator from child and parent TimeSlicer objects.
 
         Args:
@@ -116,13 +116,13 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
 
             >>> import pandas as pd
             >>> from mesqual_repset.time_slicer import TimeSlicer
-            >>> from mesqual_repset.combination_generators import ExhaustiveHierarchicalCombinationGenerator
+            >>> from mesqual_repset.combi_gens import ExhaustiveHierarchicalCombiGen
             >>>
             >>> dates = pd.date_range('2024-01-01', periods=366, freq='D')
             >>> child_slicer = TimeSlicer(unit='day')
             >>> parent_slicer = TimeSlicer(unit='month')
             >>>
-            >>> gen = ExhaustiveHierarchicalCombinationGenerator.from_slicers(
+            >>> gen = ExhaustiveHierarchicalCombiGen.from_slicers(
             ...     parent_k=4,
             ...     dt_index=dates,
             ...     child_slicer=child_slicer,

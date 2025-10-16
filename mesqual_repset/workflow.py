@@ -35,13 +35,13 @@ class Workflow:
         >>> from mesqual_repset.objectives import ObjectiveSet
         >>> from mesqual_repset.score_components import WassersteinFidelity
         >>> from mesqual_repset.selection_policies import ParetoMaxMinStrategy
-        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator
+        >>> from mesqual_repset.combi_gens import ExhaustiveCombiGen
         >>>
         >>> # Create components
         >>> feature_eng = StandardStatsFeatureEngineer()
         >>> objective_set = ObjectiveSet({'wass': (1.0, WassersteinFidelity())})
         >>> policy = ParetoMaxMinStrategy()
-        >>> combo_gen = ExhaustiveCombinationGenerator(k=3)
+        >>> combo_gen = ExhaustiveCombiGen(k=3)
         >>> search_algo = ObjectiveDrivenCombinatorialSearchAlgorithm(
         ...     objective_set, policy, combo_gen
         ... )

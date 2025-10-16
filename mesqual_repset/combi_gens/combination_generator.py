@@ -15,17 +15,6 @@ class CombinationGenerator(Protocol):
 
     Attributes:
         k: Number of elements in each combination to generate.
-
-    Examples:
-        Implementations must provide three methods:
-
-        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator
-        >>> generator = ExhaustiveCombinationGenerator(k=3)
-        >>> slices = ['Jan', 'Feb', 'Mar', 'Apr']
-        >>> generator.count(slices)  # Number of combinations
-        4
-        >>> list(generator.generate(slices))
-        [('Jan', 'Feb', 'Mar'), ('Jan', 'Feb', 'Apr'), ('Jan', 'Mar', 'Apr'), ('Feb', 'Mar', 'Apr')]
     """
 
     k: int

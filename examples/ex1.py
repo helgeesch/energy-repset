@@ -14,7 +14,7 @@ from mesqual_repset.score_components import (
 )
 from mesqual_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
 from mesqual_repset.selection_policies import ParetoMaxMinStrategy
-from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator
+from mesqual_repset.combi_gens import ExhaustiveCombiGen
 from mesqual_repset.diagnostics.feature_space import (
     FeatureSpaceScatter2D,
     FeatureSpaceScatter3D,
@@ -134,7 +134,7 @@ policy = ParetoMaxMinStrategy()
 # Define the engine that will search for the best subset. Here, we use a
 # combinatorial search that is constrained to pick at least one week per season.
 k = 3
-combo_gen = ExhaustiveCombinationGenerator(k=k)
+combo_gen = ExhaustiveCombiGen(k=k)
 search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combo_gen)
 
 # --- 6. Pillar 4: Representation Model ---

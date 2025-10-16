@@ -5,14 +5,14 @@ import itertools
 import math
 import pandas as pd
 
-from .combo_generator import CombinationGenerator
+from .combination_generator import CombinationGenerator
 from ..time_slicer import TimeSlicer
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
 
 
-class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
+class GroupQuotaHierarchicalCombiGen(CombinationGenerator):
     """Generate combinations respecting quotas per parent-level group.
 
     This generator combines hierarchical selection (child slices selected in complete
@@ -42,7 +42,7 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
     Examples:
         Manual construction for seasonal month selection:
 
-        >>> from mesqual_repset.combination_generators import GroupQuotaHierarchicalCombinationGenerator
+        >>> from mesqual_repset.combi_gens import GroupQuotaHierarchicalCombiGen
         >>> import pandas as pd
         >>>
         >>> slice_to_parent = {
@@ -56,7 +56,7 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
         ...     pd.Period('2024-07', 'M'): 'summer',
         ... }
         >>>
-        >>> gen = GroupQuotaHierarchicalCombinationGenerator(
+        >>> gen = GroupQuotaHierarchicalCombiGen(
         ...     parent_k=2,
         ...     slice_to_parent_mapping=slice_to_parent,
         ...     parent_to_group_mapping=parent_to_group,
@@ -101,7 +101,7 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
         parent_slicer: TimeSlicer,
         parent_to_group_mapping: Dict[Hashable, Hashable],
         group_quota: Dict[Hashable, int]
-    ) -> GroupQuotaHierarchicalCombinationGenerator:
+    ) -> GroupQuotaHierarchicalCombiGen:
         """Factory method to create generator from slicers with custom group mapping.
 
         Args:
@@ -123,7 +123,7 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
 
             >>> import pandas as pd
             >>> from mesqual_repset.time_slicer import TimeSlicer
-            >>> from mesqual_repset.combination_generators import GroupQuotaHierarchicalCombinationGenerator
+            >>> from mesqual_repset.combi_gens import GroupQuotaHierarchicalCombiGen
             >>>
             >>> dates = pd.date_range('2024-01-01', periods=366, freq='D')
             >>> child_slicer = TimeSlicer(unit='day')
@@ -135,7 +135,7 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
             ...     # ... define for all 12 months
             ... }
             >>>
-            >>> gen = GroupQuotaHierarchicalCombinationGenerator.from_slicers(
+            >>> gen = GroupQuotaHierarchicalCombiGen.from_slicers(
             ...     parent_k=4,
             ...     dt_index=dates,
             ...     child_slicer=child_slicer,
@@ -167,7 +167,7 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
         dt_index: pd.DatetimeIndex,
         child_slicer: TimeSlicer,
         group_quota: Dict[Literal['winter', 'spring', 'summer', 'fall'], int]
-    ) -> GroupQuotaHierarchicalCombinationGenerator:
+    ) -> GroupQuotaHierarchicalCombiGen:
         """Factory method with automatic seasonal grouping of months.
 
         Args:
@@ -193,12 +193,12 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
 
             >>> import pandas as pd
             >>> from mesqual_repset.time_slicer import TimeSlicer
-            >>> from mesqual_repset.combination_generators import GroupQuotaHierarchicalCombinationGenerator
+            >>> from mesqual_repset.combi_gens import GroupQuotaHierarchicalCombiGen
             >>>
             >>> dates = pd.date_range('2024-01-01', periods=366, freq='D')
             >>> child_slicer = TimeSlicer(unit='day')
             >>>
-            >>> gen = GroupQuotaHierarchicalCombinationGenerator.from_slicers_with_seasons(
+            >>> gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
             ...     parent_k=4,
             ...     dt_index=dates,
             ...     child_slicer=child_slicer,

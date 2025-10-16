@@ -4,13 +4,13 @@ from typing import TYPE_CHECKING, Dict, Iterator, Sequence, Tuple, Hashable, Pro
 import itertools
 import math
 
-from .combo_generator import CombinationGenerator
+from .combination_generator import CombinationGenerator
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
 
 
-class ExhaustiveCombinationGenerator(CombinationGenerator):
+class ExhaustiveCombiGen(CombinationGenerator):
     """Generate all k-combinations of the candidate slices.
 
     This generator produces every possible k-element subset using
@@ -30,12 +30,12 @@ class ExhaustiveCombinationGenerator(CombinationGenerator):
     Examples:
         Generate all 3-month combinations from a year:
 
-        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator
+        >>> from mesqual_repset.combi_gens import ExhaustiveCombiGen
         >>> import pandas as pd
         >>>
         >>> months = [pd.Period('2024-01', 'M'), pd.Period('2024-02', 'M'),
         ...           pd.Period('2024-03', 'M'), pd.Period('2024-04', 'M')]
-        >>> generator = ExhaustiveCombinationGenerator(k=3)
+        >>> generator = ExhaustiveCombiGen(k=3)
         >>> generator.count(months)  # 4 choose 3
             4
         >>> list(generator.generate(months))
