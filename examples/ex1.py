@@ -142,7 +142,7 @@ search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, po
 representation_model = KMedoidsClustersizeRepresentation()
 
 # --- 7. The Workflow: Executing the Workflow ---
-workflow = Workflow(feature_pipeline, search_algorithm, representation_model, k=k)
+workflow = Workflow(feature_pipeline, search_algorithm, representation_model)
 
 experiment = RepSetExperiment(context, workflow)
 result = experiment.run()
