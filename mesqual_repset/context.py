@@ -145,39 +145,3 @@ class ProblemContext:
             List of slice labels (e.g., Period objects for monthly slicing).
         """
         return self.slicer.unique_slices(self.df_raw.index)
-
-
-def normalize_weights(
-    weights: Optional[Dict[str, float]],
-    keys: List[str]
-) -> Dict[str, float]:
-    """Normalize weight dictionary to match actual keys.
-
-    Helper function for components that accept optional weight dictionaries.
-    Ensures all keys have weights assigned according to a consistent rule.
-
-    Args:
-        weights: User-specified weights, or None for equal weights.
-        keys: Actual keys that need weights (e.g., variable names, feature names).
-
-    Returns:
-        Dictionary mapping each key to its weight:
-        - If weights is None: all keys get 1.0 (equal weights)
-        - If weights is provided: specified keys get their value, missing keys get 0.0
-
-    Examples:
-        >>> # No weights specified - equal weights
-        >>> normalize_weights(None, ['demand', 'solar', 'wind'])
-        {'demand': 1.0, 'solar': 1.0, 'wind': 1.0}
-
-        >>> # Partial weights - missing get 0.0
-        >>> normalize_weights({'demand': 2.0, 'solar': 1.5}, ['demand', 'solar', 'wind'])
-        {'demand': 2.0, 'solar': 1.5, 'wind': 0.0}
-
-        >>> # All weights specified
-        >>> normalize_weights({'demand': 2.0, 'solar': 1.0, 'wind': 0.5}, ['demand', 'solar'])
-        {'demand': 2.0, 'solar': 1.0}
-    """
-    if weights is None:
-        return {key: 1.0 for key in keys}
-    return {key: weights.get(key, 0.0) for key in keys}

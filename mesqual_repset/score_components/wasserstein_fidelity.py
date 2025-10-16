@@ -5,7 +5,6 @@ import pandas as pd
 from scipy.stats import wasserstein_distance
 
 from .base_score_component import ScoreComponent
-from ..context import normalize_weights
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
@@ -76,8 +75,11 @@ class WassersteinFidelity(ScoreComponent):
         self.vars = list(df.columns)
         self.iqr = (df.quantile(0.75) - df.quantile(0.25)).replace(0, 1.0)
 
-        # Normalize weights using helper function
-        self.variable_weights = normalize_weights(self._requested_weights, self.vars)
+        # Normalize weights: None → equal (1.0), specified → use values (missing get 0.0)
+        if self._requested_weights is None:
+            self.variable_weights = {v: 1.0 for v in self.vars}
+        else:
+            self.variable_weights = {v: self._requested_weights.get(v, 0.0) for v in self.vars}
 
     def score(self, combination: SliceCombination) -> float:
         """Compute normalized Wasserstein distance between full and selection.

@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 
 from .base_score_component import ScoreComponent
-from ..context import normalize_weights
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
@@ -72,8 +71,11 @@ class NRMSEFidelity(ScoreComponent):
         self.labels = context.slicer.labels_for_index(df.index)
         self.vars = list(df.columns)
 
-        # Normalize weights using helper function
-        self.variable_weights = normalize_weights(self._requested_weights, self.vars)
+        # Normalize weights: None → equal (1.0), specified → use values (missing get 0.0)
+        if self._requested_weights is None:
+            self.variable_weights = {v: 1.0 for v in self.vars}
+        else:
+            self.variable_weights = {v: self._requested_weights.get(v, 0.0) for v in self.vars}
 
         self.full_curves = {
             v: np.sort(df[v].values)[::-1] for v in self.vars
