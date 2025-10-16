@@ -20,14 +20,15 @@ class SearchAlgorithm(ABC):
 
     Examples:
         >>> class SimpleExhaustiveSearch(SearchAlgorithm):
-        ...     def __init__(self, objective_set: ObjectiveSet, selection_policy: SelectionPolicy):
+        ...     def __init__(self, objective_set: ObjectiveSet, selection_policy: SelectionPolicy, k: int):
         ...         self.objective_set = objective_set
         ...         self.selection_policy = selection_policy
+        ...         self.k = k
         ...
-        ...     def find_selection(self, context: ProblemContext, k: int) -> RepSetResult:
+        ...     def find_selection(self, context: ProblemContext) -> RepSetResult:
         ...         # Generate all k-combinations
         ...         from itertools import combinations
-        ...         all_combos = list(combinations(context.slicer.slices, k))
+        ...         all_combos = list(combinations(context.slicer.slices, self.k))
         ...
         ...         # Score each combination
         ...         scored_combos = []
@@ -40,16 +41,17 @@ class SearchAlgorithm(ABC):
         ...
         ...         return RepSetResult(
         ...             selection=best_combo,
-        ...             weights={s: 1/k for s in best_combo},
+        ...             weights={s: 1/self.k for s in best_combo},
         ...             scores=best_scores
         ...         )
         ...
-        >>> algorithm = SimpleExhaustiveSearch(objective_set, policy)
-        >>> result = algorithm.find_selection(context, k=4)
+        >>> algorithm = SimpleExhaustiveSearch(objective_set, policy, k=4)
+        >>> result = algorithm.find_selection(context)
         >>> print(result.selection)  # e.g., (0, 3, 6, 9) - selected slice IDs
     """
+
     @abstractmethod
-    def find_selection(self, context: ProblemContext, k: int) -> RepSetResult:
+    def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Find the best subset of k representative periods.
 
         Args:

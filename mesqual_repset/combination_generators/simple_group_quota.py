@@ -56,7 +56,7 @@ class GroupQuotaCombinationGenerator(CombinationGenerator):
         ...     group_quota={'winter': 1, 'spring': 1, 'summer': 1, 'fall': 1}
         ... )
         >>> generator.count(months)  # 3 * 3 * 3 * 3 = 81 combinations
-        81
+            81
 
         Example 2 - Optional and must-have categories:
 

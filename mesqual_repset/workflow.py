@@ -52,7 +52,6 @@ class Workflow:
         ...     feature_engineer=feature_eng,
         ...     search_algorithm=search_algo,
         ...     representation_model=repr_model,
-        ...     k=3
         ... )
     """
     feature_engineer: FeatureEngineer

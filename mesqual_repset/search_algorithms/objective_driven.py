@@ -22,12 +22,12 @@ class ObjectiveDrivenSearchAlgorithm(SearchAlgorithm, ABC):
     enabling flexible algorithm design.
 
     Examples:
-        >>> from mesqual_repset import ObjectiveSet, ObjectiveSpec
+        >>> from mesqual_repset.objectives import ObjectiveSet, ObjectiveSpec
         >>> from mesqual_repset.score_components import WassersteinFidelity
         >>> from mesqual_repset.selection_policies import WeightedSumPolicy
-        >>> objectives = ObjectiveSet([
-        ...     ObjectiveSpec('wasserstein', WassersteinFidelity(), weight=1.0)
-        ... ])
+        >>> objectives = ObjectiveSet({
+        ...     'wasserstein': (1.0, WassersteinFidelity()),
+        ... })
         >>> policy = WeightedSumPolicy()
         >>> # See ObjectiveDrivenCombinatorialSearchAlgorithm for concrete usage
     """
@@ -59,16 +59,14 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
     evaluations in diagnostics for analysis.
 
     Examples:
-        >>> from mesqual_repset import (
-        ...     ObjectiveSet, ObjectiveSpec,
-        ...     ExhaustiveCombinationGenerator,
-        ...     WeightedSumPolicy
-        ... )
+        >>> from mesqual_repset.objectives import ObjectiveSet, ObjectiveSpec,
+        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator,
+        >>> from mesqual_repset.selection_policies import WeightedSumPolicy
         >>> from mesqual_repset.score_components import WassersteinFidelity, CorrelationFidelity
-        >>> objectives = ObjectiveSet([
-        ...     ObjectiveSpec('wasserstein', WassersteinFidelity(), weight=1.0),
-        ...     ObjectiveSpec('correlation', CorrelationFidelity(), weight=0.5)
-        ... ])
+        >>> objectives = ObjectiveSet({
+        ...     'wasserstein': (1.0, WassersteinFidelity()),
+        ...     'correlation': (0.5, CorrelationFidelity())
+        ... })
         >>> policy = WeightedSumPolicy()
         >>> generator = ExhaustiveCombinationGenerator(k=4)
         >>> algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(
@@ -91,13 +89,13 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
         Args:
             objective_set: Collection of score components defining quality metrics.
             selection_policy: Strategy for selecting the best combination.
-            combination_generator: Defines which k-combinations to evaluate
+            combination_generator: Defines which combinations to evaluate
                 (e.g., all combinations, seasonal constraints).
         """
         super().__init__(objective_set, selection_policy)
         self.combination_generator = combination_generator
 
-    def find_selection(self, context: ProblemContext, k: int) -> RepSetResult:
+    def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Find optimal selection by exhaustively scoring generated combinations.
 
         Args:
