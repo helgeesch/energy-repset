@@ -6,10 +6,10 @@ import math
 import pandas as pd
 
 from .combo_generator import CombinationGenerator
+from ..time_slicer import TimeSlicer
 
 if TYPE_CHECKING:
     from ..types import SliceCombination
-    from ..time_slicer import TimeSlicer
 
 
 class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
@@ -17,8 +17,8 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
 
     This generator combines hierarchical selection (child slices selected in complete
     parent groups) with group quotas (e.g., exactly 1 month per season). It enables
-    balanced, structured selection at coarse granularity while maintaining fine-grained
-    features.
+    high-resolution features (e.g. per-day) while enforcing structural constraints
+    at the parent level (e.g. months).
 
     Args:
         parent_k: Total number of parent groups to select. Must equal sum of group quotas.
@@ -28,7 +28,6 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
 
     Attributes:
         k: Number of parent groups per combination (same as parent_k for protocol compliance).
-        parent_k: Number of parent groups per combination.
         slice_to_parent: Child to parent mapping.
         parent_to_group: Parent to group label mapping.
         group_quota: Required count per group.
@@ -64,7 +63,7 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
         ...     group_quota={'winter': 1, 'summer': 1}
         ... )
         >>> gen.count(list(slice_to_parent.keys()))  # 1 * 1 = 1
-        1
+            1
     """
 
     def __init__(
@@ -83,17 +82,15 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
             group_quota: Required count per group.
 
         Raises:
-            ValueError: If sum of group quotas does not equal parent_k.
+            ValueError: If sum of group quotas does not equal parent_k, or if any
+                parent in slice_to_parent_mapping is missing from parent_to_group_mapping.
         """
         self.k = parent_k  # For CombinationGenerator protocol compliance
         self.slice_to_parent = slice_to_parent_mapping
         self.parent_to_group = parent_to_group_mapping
         self.group_quota = group_quota
 
-        if sum(group_quota.values()) != parent_k:
-            raise ValueError(
-                f"Sum of group quotas ({sum(group_quota.values())}) must equal parent_k ({parent_k})"
-            )
+        self._validate_configuration(parent_k, slice_to_parent_mapping, parent_to_group_mapping, group_quota)
 
     @classmethod
     def from_slicers(
@@ -229,6 +226,38 @@ class GroupQuotaHierarchicalCombinationGenerator(CombinationGenerator):
             parent_to_group_mapping=parent_to_group,
             group_quota=group_quota
         )
+
+    @staticmethod
+    def _validate_configuration(
+        parent_k: int,
+        slice_to_parent_mapping: Dict[Hashable, Hashable],
+        parent_to_group_mapping: Dict[Hashable, Hashable],
+        group_quota: Dict[Hashable, int]
+    ) -> None:
+        """Validate the configuration of mappings and quotas.
+
+        Args:
+            parent_k: Total number of parent groups to select.
+            slice_to_parent_mapping: Dict mapping each child slice to its parent.
+            parent_to_group_mapping: Mapping from parent ID to group label.
+            group_quota: Required count per group.
+
+        Raises:
+            ValueError: If sum of group quotas does not equal parent_k, or if any
+                parent in slice_to_parent_mapping is missing from parent_to_group_mapping.
+        """
+        if sum(group_quota.values()) != parent_k:
+            raise ValueError(
+                f"Sum of group quotas ({sum(group_quota.values())}) must equal parent_k ({parent_k})"
+            )
+
+        unique_parents = set(slice_to_parent_mapping.values())
+        missing_parents = unique_parents - set(parent_to_group_mapping.keys())
+        if missing_parents:
+            raise ValueError(
+                f"All parents in slice_to_parent_mapping must have a group mapping. "
+                f"Missing group mappings for parents: {sorted(missing_parents)}"
+            )
 
     @staticmethod
     def _assign_seasons(months: list[pd.Period]) -> Dict[pd.Period, str]:

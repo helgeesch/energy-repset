@@ -17,7 +17,7 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
 
     This generator enforces hierarchical selection: child slices (e.g., days) can only
     be selected as complete parent groups (e.g., months). It enables high-resolution
-    features (per-day) while enforcing structural constraints at the parent level (months).
+    features (e.g. per-day) while enforcing structural constraints at the parent level (e.g. months).
 
     Args:
         parent_k: Number of parent groups to select.
@@ -54,7 +54,7 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
         ...     slice_to_parent_mapping=slice_to_parent
         ... )
         >>> gen.count(list(slice_to_parent.keys()))  # C(2, 2) = 1
-        1
+            1
 
         Using factory method with TimeSlicer:
 
@@ -74,7 +74,7 @@ class ExhaustiveHierarchicalCombinationGenerator(CombinationGenerator):
         ... )
         >>> unique_days = child_slicer.unique_slices(dates)
         >>> gen.count(unique_days)  # C(12, 3) = 220 combinations of months
-        220
+            220
     """
 
     def __init__(
