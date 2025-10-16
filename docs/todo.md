@@ -1,0 +1,1 @@
+- any way or benefit to represent a month as a set of days, where you either take all days, or none? Maybe a custom combination generator that enforces that "this slice only goes in combination with that slice". The selection algorithm will see each day, but the combination generator will only generate combinations where all days of a single month are included.

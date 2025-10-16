@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Protocol, TYPE_CHECKING
+from typing import Dict, Protocol, TYPE_CHECKING
 from abc import ABC, abstractmethod
 import pandas as pd
 
@@ -74,19 +74,20 @@ class FeaturePipeline(FeatureEngineer):
     feature types (e.g., statistical summaries + PCA components).
 
     Examples:
+
         >>> from mesqual_repset.feature_engineering import StandardStatsFeatureEngineer, PCAFeatureEngineer
         >>> stats_engineer = StandardStatsFeatureEngineer()
         >>> pca_engineer = PCAFeatureEngineer(n_components=3)
-        >>> pipeline = FeaturePipeline([stats_engineer, pca_engineer])
+        >>> pipeline = FeaturePipeline({'stats': stats_engineer, 'pca': pca_engineer})
         >>> context_with_features = pipeline.run(context)
         >>> print(context_with_features.df_features.columns)
-        # Shows columns from both engineers: ['mean', 'std', 'max', 'min', 'pc1', 'pc2', 'pc3']
+            # Shows columns from both engineers: ['mean', 'std', 'max', 'min', 'pc1', 'pc2', 'pc3']
     """
-    def __init__(self, engineers: List[FeatureEngineer]):
+    def __init__(self, engineers: Dict[str, FeatureEngineer]):
         """Initialize the feature pipeline.
 
         Args:
-            engineers: List of FeatureEngineer instances to run sequentially.
+            engineers: Dict of FeatureEngineer instances to run sequentially.
                 Features from all engineers will be concatenated column-wise.
         """
         self.engineers = engineers
@@ -112,7 +113,7 @@ class FeaturePipeline(FeatureEngineer):
 
         # Accumulate features from each engineer
         all_features = []
-        for engineer in self.engineers:
+        for _, engineer in self.engineers.items():
             features = engineer.calc_and_get_features_df(working_context)
             all_features.append(features)
 

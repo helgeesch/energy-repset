@@ -35,12 +35,13 @@ class PCAFeatureEngineer(FeatureEngineer):
             results when PCA features are used with distance-based algorithms.
 
     Examples:
+
         >>> from mesqual_repset.feature_engineering import PCAFeatureEngineer
         >>> # Use PCA alone (requires context to already have df_features)
         >>> pca_engineer = PCAFeatureEngineer(n_components=5)
         >>> context_with_pca = pca_engineer.run(context_with_features)
         >>> print(context_with_pca.df_features.columns)
-        # ['pc_0', 'pc_1', 'pc_2', 'pc_3', 'pc_4']
+            ['pc_0', 'pc_1', 'pc_2', 'pc_3', 'pc_4']
 
         >>> # More common: chain with StandardStats in a pipeline
         >>> from mesqual_repset.feature_engineering import (
@@ -57,7 +58,7 @@ class PCAFeatureEngineer(FeatureEngineer):
         >>> pca_engineer = PCAFeatureEngineer(n_components=10)
         >>> context_out = pca_engineer.run(context_with_features)
         >>> print(pca_engineer.explained_variance_ratio_)
-        # [0.45, 0.22, 0.11, ...]
+            [0.45, 0.22, 0.11, ...]
     """
 
     def __init__(
@@ -137,6 +138,7 @@ class PCAFeatureEngineer(FeatureEngineer):
             Array of explained variance ratios, or None if PCA not fitted yet.
 
         Examples:
+
             >>> pca_eng = PCAFeatureEngineer(n_components=5)
             >>> context_out = pca_eng.run(context_with_features)
             >>> print(pca_eng.explained_variance_ratio_)

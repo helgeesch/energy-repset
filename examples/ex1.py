@@ -1,16 +1,8 @@
-# =============================================================================
-# A Dummy Workflow for the RepSet v2 Package
-#
-# This script illustrates the core workflow and interaction of the abstract
-# modules designed for the repset-v2 package. It demonstrates how a user
-# would define a problem, execute a search, and analyze the results.
-# =============================================================================
-
 import pandas as pd
 from mesqual_repset.context import ProblemContext
 from mesqual_repset.representation import UniformRepresentationModel
 from mesqual_repset.time_slicer import TimeSlicer
-from mesqual_repset.feature_engineering import FeaturePipeline, StandardStatsFeatureEngineer
+from mesqual_repset.feature_engineering import FeaturePipeline, StandardStatsFeatureEngineer, PCAFeatureEngineer
 from mesqual_repset.objectives import ObjectiveSet
 from mesqual_repset.problem import RepSetExperiment
 from mesqual_repset.workflow import Workflow
@@ -52,7 +44,10 @@ print(f"Problem Context created with {len(context.get_unique_slices())} candidat
 # We define a pipeline to transform the raw data into a meaningful feature space.
 # Here, we chain a statistical feature engineer with a PCA dimensionality reducer.
 feature_pipeline = FeaturePipeline(
-    engineers=[StandardStatsFeatureEngineer()]
+    engineers={
+        'stats': StandardStatsFeatureEngineer(),
+        'pca': PCAFeatureEngineer(),
+    }
 )
 
 # The pipeline is run on the context, which updates it with the new features.
