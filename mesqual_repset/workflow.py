@@ -35,7 +35,7 @@ class Workflow:
         >>> from mesqual_repset.objectives import ObjectiveSet
         >>> from mesqual_repset.score_components import WassersteinFidelity
         >>> from mesqual_repset.selection_policies import ParetoMaxMinStrategy
-        >>> from mesqual_repset.combination_generator import ExhaustiveCombinationGenerator
+        >>> from mesqual_repset.combination_generators import ExhaustiveCombinationGenerator
         >>>
         >>> # Create components
         >>> feature_eng = StandardStatsFeatureEngineer()
@@ -58,7 +58,6 @@ class Workflow:
     feature_engineer: FeatureEngineer
     search_algorithm: SearchAlgorithm
     representation_model: RepresentationModel
-    k: int
 
     def save(self, filepath: str | Path):
         """Save workflow configuration to file.
