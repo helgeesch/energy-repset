@@ -10,6 +10,7 @@ from mesqual_repset.score_components import WassersteinFidelity, CorrelationFide
 from mesqual_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
 from mesqual_repset.selection_policies import ParetoMaxMinStrategy
 from mesqual_repset.combi_gens import GroupQuotaHierarchicalCombiGen
+from mesqual_repset.diagnostics.results import ResponsibilityBars
 
 # Load raw time-series data
 url = "https://tubcloud.tu-berlin.de/s/pKttFadrbTKSJKF/download/time-series-lecture-2.csv"
@@ -80,3 +81,13 @@ for day in result.selection:
     selected_months.add(month)
 
 print(f"\nSelected Months: {sorted(selected_months)}")
+
+# Visualize responsibility weights
+responsibility_bars = ResponsibilityBars()
+fig_responsibility = responsibility_bars.plot(
+    weights=result.weights,
+    show_uniform_reference=True,
+)
+fig_responsibility.update_layout(title='Responsibility Weights per Selected Month')
+fig_responsibility.write_html('.local/dump/output_responsibility_weights.html')
+print("Generated: output_responsibility_weights.html")
