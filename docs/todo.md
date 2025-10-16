@@ -1,3 +1,0 @@
-- change to google style docs
-- provide examples in docstrings
-- visualizations
