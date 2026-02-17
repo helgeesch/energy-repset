@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 from abc import ABC
+import pandas as pd
 
 from .search_algorithm import SearchAlgorithm
 from ..results import RepSetResult
@@ -94,6 +95,7 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
         """
         super().__init__(objective_set, selection_policy)
         self.combination_generator = combination_generator
+        self._all_scores_df: pd.DataFrame | None = None
 
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Find optimal selection by exhaustively scoring generated combinations.
@@ -129,6 +131,8 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
             rows.append(rec)
 
         evaluations_df = pd.DataFrame(rows)
+        self._all_scores_df = evaluations_df.copy()
+
         winning_combination = self.selection_policy.select_best(evaluations_df, self.objective_set)
         slice_labels = context.slicer.labels_for_index(context.df_raw.index)
         result = RepSetResult(
@@ -140,3 +144,18 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
             diagnostics={'evaluations_df': evaluations_df}
         )
         return result
+
+    def get_all_scores(self) -> pd.DataFrame:
+        """Return DataFrame of all evaluated combinations with scores.
+
+        Returns:
+            DataFrame with columns: slices, label, score_comp_1, score_comp_2, ...
+
+        Raises:
+            ValueError: If find_selection() has not been called yet.
+        """
+        import pandas as pd
+
+        if self._all_scores_df is None:
+            raise ValueError("No scores available. Call find_selection() first.")
+        return self._all_scores_df.copy()

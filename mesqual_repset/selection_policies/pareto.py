@@ -42,6 +42,8 @@ class ParetoUtopiaPolicy(SelectionPolicy):
         self.tie_breakers = tie_breakers
         self.tie_dirs = tie_dirs
         self.eps = eps
+        self.pareto_mask: pd.Series | None = None
+        self.feasible_mask: pd.Series | None = None
 
     def select_best(self, evaluations_df: pd.DataFrame, objective_set: ObjectiveSet) -> Tuple[Hashable, ...]:
         """Select best solution using Pareto utopia approach."""
@@ -60,6 +62,10 @@ class ParetoUtopiaPolicy(SelectionPolicy):
         pareto_mask = self._pareto_mask(Y[feas])
         df["pareto"] = False
         df.loc[feas.index[feas].tolist(), "pareto"] = pareto_mask.values
+
+        # Store masks for diagnostics
+        self.pareto_mask = df["pareto"].copy()
+        self.feasible_mask = df["feasible"].copy()
 
         # Normalize and compute utopia distance
         Z = self._normalize(Y, self.normalization)
@@ -158,6 +164,10 @@ class ParetoMaxMinStrategy(ParetoUtopiaPolicy):
         pareto_mask = self._pareto_mask(Y[feas])
         df["pareto"] = False
         df.loc[feas.index[feas].tolist(), "pareto"] = pareto_mask.values
+
+        # Store masks for diagnostics
+        self.pareto_mask = df["pareto"].copy()
+        self.feasible_mask = df["feasible"].copy()
 
         # Normalize and compute max-min score
         Z = self._normalize(Y, self.normalization)

@@ -10,7 +10,12 @@ from mesqual_repset.score_components import WassersteinFidelity, CorrelationFide
 from mesqual_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
 from mesqual_repset.selection_policies import ParetoMaxMinStrategy
 from mesqual_repset.combi_gens import GroupQuotaHierarchicalCombiGen
-from mesqual_repset.diagnostics.results import ResponsibilityBars
+from mesqual_repset.diagnostics.results import (
+    ResponsibilityBars,
+    ParetoScatter2D,
+    ParetoParallelCoordinates,
+    ScoreContributionBars,
+)
 
 # Load raw time-series data
 url = "https://tubcloud.tu-berlin.de/s/pKttFadrbTKSJKF/download/time-series-lecture-2.csv"
@@ -91,3 +96,30 @@ fig_responsibility = responsibility_bars.plot(
 fig_responsibility.update_layout(title='Responsibility Weights per Selected Month')
 fig_responsibility.write_html('.local/dump/output_responsibility_weights.html')
 print("Generated: output_responsibility_weights.html")
+
+# Visualize Pareto front (2D scatter)
+pareto_scatter = ParetoScatter2D(
+    objective_x='wasserstein',
+    objective_y='correlation'
+)
+fig_pareto = pareto_scatter.plot(
+    search_algorithm=search_algorithm,
+    selected_combination=result.selection
+)
+fig_pareto.update_layout(title='Pareto Front: Wasserstein vs Correlation')
+fig_pareto.write_html('.local/dump/output_pareto_scatter.html')
+print("Generated: output_pareto_scatter.html")
+
+# Visualize Pareto front (parallel coordinates)
+pareto_parallel = ParetoParallelCoordinates()
+fig_parallel = pareto_parallel.plot(search_algorithm=search_algorithm)
+fig_parallel.update_layout(title='Pareto Front: Parallel Coordinates')
+fig_parallel.write_html('.local/dump/output_pareto_parallel.html')
+print("Generated: output_pareto_parallel.html")
+
+# Visualize score contributions
+score_bars = ScoreContributionBars()
+fig_scores = score_bars.plot(result.scores, normalize=True)
+fig_scores.update_layout(title='Score Component Contributions (Normalized)')
+fig_scores.write_html('.local/dump/output_score_contributions.html')
+print("Generated: output_score_contributions.html")
