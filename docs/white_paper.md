@@ -56,6 +56,8 @@ Any concrete TSA method is defined by a specific 5-tuple $(\mathcal{F},\, \mathc
 
 The five components are conceptually independent: each addresses a distinct design decision. In practice, certain combinations are more natural than others, and some methods couple components tightly. Making these couplings explicit is one of the framework's main contributions.
 
+**A note on the role of $\mathcal{R}$ during search.** The formulation above presents the ideal: the objective evaluates the quality of the *representation*, not of the raw selection. In practice, however, most combinatorial search methods ($\mathcal{A}_\text{comb}$) evaluate candidates by comparing the raw data of the selected periods against the full dataset — effectively bypassing $\mathcal{R}$ during the search and applying it only after the best selection has been identified. This is a pragmatic simplification: computing $\mathcal{R}$ for every candidate in an exhaustive search can be expensive, and for simple representation models like $\mathcal{R}_\text{equal}$ the difference is negligible. Methods that jointly optimize selection and representation — such as $\mathcal{A}_\text{optim}$ (MILP) or $\mathcal{A}_\text{construct}$ (clustering, where the assignment *is* the representation) — adhere more closely to the full formulation.
+
 <!-- [FIGURE: Diagram showing the five components and information flow: D → F → (features used by A and O) → x ∈ S → R(x, D) → O evaluates quality. Feedback loop from O to A (search).] -->
 
 The following subsections define each component, its variants, and their trade-offs.
@@ -116,6 +118,9 @@ In practice, the modeler faces a fundamental choice about *what kind of statisti
 
 - *Diversity* (mean pairwise distance in feature space): are the selected periods sufficiently different from each other?
 - *Coverage balance* (uniformity of representation responsibilities): does each selected period "cover" a roughly equal portion of the full dataset?
+- *Centroid balance* (distance from selection centroid to global center): does the selection avoid systematic bias toward extreme conditions?
+
+Note that diversity and coverage metrics evaluate properties of the selection *itself* in feature space, rather than how well the representation matches the full dataset. They complement fidelity metrics by ensuring the selection is well-spread and balanced, which is especially important when combined objectives or equal-weight constraints are in play.
 
 **Combined objectives.** In many applications, both aggregate fidelity and state-space coverage matter simultaneously. A common practical scenario is the requirement that the selected periods carry **equal weight** (see $\mathcal{R}_\text{equal}$ in Section 2.5), which means the selection must be intrinsically representative — it cannot rely on non-uniform weights to correct for bias. In this setting, the selection must:
 
@@ -209,6 +214,10 @@ The most flexible approach. Candidate selections are generated (exhaustively or 
 The main limitation is scalability. The number of possible $k$-subsets from $N$ periods is $\binom{N}{k}$, which grows combinatorially. Exhaustive enumeration is feasible only for small problems (e.g., $\binom{52}{8} \approx 7.5 \times 10^8$ is already impractical without further constraints). Metaheuristics can handle larger problems but provide no optimality guarantees.
 
 A key advantage of $\mathcal{A}_\text{comb}$ is its compatibility with multi-objective optimization: by evaluating each candidate on multiple objectives, it naturally produces Pareto fronts, enabling the modeler to inspect trade-offs explicitly.
+
+**Selection policies.** When the objective is multi-dimensional ($\mathcal{O} \to \mathbb{R}^m$), the combinatorial search produces a table of $m$ scores per candidate. A *selection policy* resolves this into a single winner. Common strategies include weighted-sum aggregation (simple but requires choosing weights a priori), utopia-distance methods (select the Pareto-optimal point closest to the ideal), and max-min fairness (select the Pareto-optimal point that maximizes the worst-performing objective). The choice of policy is a sub-decision within $\mathcal{A}_\text{comb}$ that can significantly affect which selection is returned, even when the Pareto front is identical.
+
+**Structured candidate generation.** The scalability of $\mathcal{A}_\text{comb}$ can be improved by constraining the search space at the generation stage. Beyond simple group quotas (e.g., "one period per season"), *hierarchical* generation enables evaluation at a finer granularity than the selection unit. For example, features may be computed at daily resolution while the selection operates at the monthly level: each candidate is a set of complete months, but the objective evaluates the daily data within those months. This hierarchical approach — combining group quotas with multi-resolution evaluation — dramatically reduces the combinatorial space while preserving the flexibility of the generate-and-test paradigm.
 
 #### $\mathcal{A}_\text{construct}$: Constructive algorithms
 
