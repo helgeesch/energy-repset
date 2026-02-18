@@ -1,0 +1,2359 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A unified framework for representative subset selection in multi-variate time-series spaces">
+      
+      
+      
+        <link rel="canonical" href="https://energy-repset-docs.mesqual.io/unified_framework/">
+      
+      
+        <link rel="prev" href="../getting_started/">
+      
+      
+        <link rel="next" href="../workflow/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo-red.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Unified Framework - energy-repset</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-unified-framework-for-representative-subset-selection-in-energy-time-series" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="energy-repset" class="md-header__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../assets/logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            energy-repset
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unified Framework
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../gallery/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="energy-repset" class="md-nav__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../assets/logo-white.svg" alt="logo">
+
+    </a>
+    energy-repset
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    energy-repset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unified Framework
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unified Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-unified-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Unified Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Unified Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-component-1-feature-space-mathcalf-how-we-see-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Component 1: Feature Space (\(\mathcal{F}\)) — How We See the Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-component-2-objective-mathcalo-what-we-want-to-preserve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Component 2: Objective (\(\mathcal{O}\)) — What We Want to Preserve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Component 2: Objective (\(\mathcal{O}\)) — What We Want to Preserve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-objectives-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical objectives in practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-component-3-selection-space-mathcals-what-we-are-picking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Component 3: Selection Space (\(\mathcal{S}\)) — What We Are Picking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-component-4-representation-model-mathcalr-how-the-selection-represents-the-whole" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Component 4: Representation Model (\(\mathcal{R}\)) — How the Selection Represents the Whole
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Component 4: Representation Model (\(\mathcal{R}\)) — How the Selection Represents the Whole">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathcalr_textequal-equal-weighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{R}_\text{equal}\): Equal weighting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcalr_texthard-hard-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{R}_\text{hard}\): Hard assignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcalr_textsoft-blended-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{R}_\text{soft}\): Blended representation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duration-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duration scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-component-5-search-algorithm-mathcala-how-we-find-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Component 5: Search Algorithm (\(\mathcal{A}\)) — How We Find the Solution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Component 5: Search Algorithm (\(\mathcal{A}\)) — How We Find the Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_textcomb-combinatorial-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{comb}\): Combinatorial search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_textconstruct-constructive-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{construct}\): Constructive algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_textoptim-mathematical-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{optim}\): Mathematical programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_texthybrid-multi-stage-and-composite-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{hybrid}\): Multi-stage and composite approaches
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-methods-as-framework-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Methods as Framework Instances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Methods as Framework Instances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-decomposition-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Decomposition Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Observations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Discussion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Discussion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-component-interactions-and-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Component Interactions and Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-practical-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Practical Guidance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Open Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules & Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advisor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Advisor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../gallery/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex1: Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex2: Feature Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex3: Hierarchical Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex4: Representation Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex5: Multi-Objective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context & Slicing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow & Experiment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/feature_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/objectives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/score_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Score Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/combi_gens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combination Generators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/selection_policies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selection Policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/search_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/representation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Representation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-unified-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Unified Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Unified Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-component-1-feature-space-mathcalf-how-we-see-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Component 1: Feature Space (\(\mathcal{F}\)) — How We See the Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-component-2-objective-mathcalo-what-we-want-to-preserve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Component 2: Objective (\(\mathcal{O}\)) — What We Want to Preserve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Component 2: Objective (\(\mathcal{O}\)) — What We Want to Preserve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-objectives-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical objectives in practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-component-3-selection-space-mathcals-what-we-are-picking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Component 3: Selection Space (\(\mathcal{S}\)) — What We Are Picking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-component-4-representation-model-mathcalr-how-the-selection-represents-the-whole" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Component 4: Representation Model (\(\mathcal{R}\)) — How the Selection Represents the Whole
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Component 4: Representation Model (\(\mathcal{R}\)) — How the Selection Represents the Whole">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathcalr_textequal-equal-weighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{R}_\text{equal}\): Equal weighting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcalr_texthard-hard-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{R}_\text{hard}\): Hard assignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcalr_textsoft-blended-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{R}_\text{soft}\): Blended representation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duration-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duration scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-component-5-search-algorithm-mathcala-how-we-find-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Component 5: Search Algorithm (\(\mathcal{A}\)) — How We Find the Solution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Component 5: Search Algorithm (\(\mathcal{A}\)) — How We Find the Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_textcomb-combinatorial-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{comb}\): Combinatorial search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_textconstruct-constructive-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{construct}\): Constructive algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_textoptim-mathematical-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{optim}\): Mathematical programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathcala_texthybrid-multi-stage-and-composite-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\mathcal{A}_\text{hybrid}\): Multi-stage and composite approaches
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-methods-as-framework-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Methods as Framework Instances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Methods as Framework Instances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-decomposition-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Decomposition Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Observations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Discussion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Discussion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-component-interactions-and-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Component Interactions and Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-practical-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Practical Guidance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Open Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="a-unified-framework-for-representative-subset-selection-in-energy-time-series">A Unified Framework for Representative Subset Selection in Energy Time Series<a class="headerlink" href="#a-unified-framework-for-representative-subset-selection-in-energy-time-series" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>Time series aggregation (TSA) — selecting or constructing a small set of representative periods from a larger dataset — is essential for making computationally expensive energy system models tractable. The field has produced a rich but fragmented array of methods: clustering, mathematical programming, autoencoders, greedy algorithms, and more. Each method is typically presented as a monolithic procedure, making it difficult to compare methods, understand their implicit assumptions, or assemble custom pipelines.</p>
+<p>This paper proposes a unified framework that decomposes <em>any</em> TSA method into five fundamental components: the <strong>Feature Space</strong> (how periods are represented), the <strong>Objective</strong> (what quality means), the <strong>Selection Space</strong> (what form the output takes), the <strong>Representation Model</strong> (how the selection approximates the whole), and the <strong>Search Algorithm</strong> (how the solution is found). We show that every established methodology is a specific instantiation of this five-component structure, and that the framework enables systematic comparison, exposes trade-offs, and provides an architectural blueprint for modular software.</p>
+<hr />
+<h2 id="1-introduction">1. Introduction<a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
+<p>Energy system models (ESMs) are central analytical tools for energy system planning and research. The integration of variable renewable energy sources (VRES), storage technologies, and cross-sectoral coupling demands high temporal resolution — typically hourly or sub-hourly — across a full year or longer. For many ESMs, particularly those used in capacity expansion planning, investment optimization, or market studies, this produces optimization problems that are computationally intractable.</p>
+<p>Time series aggregation addresses this by selecting a small number <span class="arithmatex">\(k\)</span> of representative periods (days, weeks, months, or even years) that preserve the essential characteristics of the full dataset. A well-chosen selection can reduce computation by orders of magnitude while maintaining the fidelity of model results.</p>
+<p>The challenge is that "representativeness" is not a single, well-defined concept. At a fundamental level, the modeler must decide <em>what</em> to represent: the statistical properties of the <em>input data</em> (e.g., weather patterns, demand profiles) or the <em>outcomes</em> of the downstream model (e.g., socio-economic welfare, system cost, capacity investments). Within these categories, the practical meaning of "representative" varies further depending on the modeling question:</p>
+<ul>
+<li><strong>Aggregate fidelity</strong>: the selected periods, when weighted appropriately, reproduce the overall statistics (means, distributions, correlations) of the full dataset — for instance, so that annualized system cost is captured accurately.</li>
+<li><strong>State-space coverage</strong>: the selected periods span the diversity of conditions that occur — high wind with high demand, low wind with high solar, peak events, etc. — so that the model encounters all operationally distinct system states.</li>
+<li><strong>A combination</strong>: cover the breadth of system states <em>while also</em> matching aggregate statistics — often under the constraint that all periods carry equal weight.</li>
+</ul>
+<p>Different TSA methods make different implicit choices about what to preserve, how to search, and what form the output takes. These choices are rarely made explicit, which makes comparison difficult.</p>
+<p>Inspired by unifying efforts in other fields — notably Powell's unified framework for sequential decision problems under uncertainty — we propose a decomposition of the TSA problem into five modular, interchangeable components. Any concrete method is a specific <em>instantiation</em> of this structure. The framework does not prescribe a single best method; rather, it provides a common language for describing, comparing, and assembling methods.</p>
+<p>The remainder of this paper is organized as follows. Section 2 presents the five-component framework. Section 3 demonstrates how established methods decompose into the framework. Section 4 discusses practical implications and open questions.</p>
+<hr />
+<h2 id="2-the-unified-framework">2. The Unified Framework<a class="headerlink" href="#2-the-unified-framework" title="Permanent link">&para;</a></h2>
+<h3 id="21-overview">2.1 Overview<a class="headerlink" href="#21-overview" title="Permanent link">&para;</a></h3>
+<p>Consider a dataset <span class="arithmatex">\(D = \{d_1, \ldots, d_N\}\)</span> of <span class="arithmatex">\(N\)</span> time periods, where each <span class="arithmatex">\(d_i\)</span> is a multivariate time series for period <span class="arithmatex">\(i\)</span>. The variables may include load, wind capacity factors, solar irradiance, temperature, and others, potentially across multiple regions — each region-variable pair is simply an additional dimension of the time series vector. The temporal granularity — days, weeks, months, years — is a problem parameter that depends on the application: one study may select representative days from a year, another representative weeks, and yet another a subset of representative years from a multi-decadal climate dataset.</p>
+<p>The goal is to find a <em>selection</em> <span class="arithmatex">\(x\)</span> of <span class="arithmatex">\(k \ll N\)</span> representative periods (or constructs derived from them) such that some quality measure is optimized. We formalize this as:</p>
+<div class="arithmatex">\[
+x^* \;=\; \underset{x \,\in\, \mathcal{S}}{\arg\min}\; \mathcal{O}\!\bigl(\mathcal{R}(x,\, D)\bigr)
+\]</div>
+<p>where:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal{F}\)</span></td>
+<td>Feature Space</td>
+<td>How periods are represented mathematically</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{O}\)</span></td>
+<td>Objective</td>
+<td>What quality measure is optimized</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{S}\)</span></td>
+<td>Selection Space</td>
+<td>What structural form the output takes</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{R}\)</span></td>
+<td>Representation Model</td>
+<td>How the selection approximates the full dataset</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{A}\)</span></td>
+<td>Search Algorithm</td>
+<td>How the optimal selection is found</td>
+</tr>
+</tbody>
+</table>
+<p>Any concrete TSA method is defined by a specific 5-tuple <span class="arithmatex">\((\mathcal{F},\, \mathcal{O},\, \mathcal{S},\, \mathcal{R},\, \mathcal{A})\)</span>.</p>
+<p>The five components are conceptually independent: each addresses a distinct design decision. In practice, certain combinations are more natural than others, and some methods couple components tightly. Making these couplings explicit is one of the framework's main contributions.</p>
+<p><strong>A note on the role of <span class="arithmatex">\(\mathcal{R}\)</span> during search.</strong> The formulation above presents the ideal: the objective evaluates the quality of the <em>representation</em>, not of the raw selection. In practice, however, most combinatorial search methods (<span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span>) evaluate candidates by comparing the raw data of the selected periods against the full dataset — effectively bypassing <span class="arithmatex">\(\mathcal{R}\)</span> during the search and applying it only after the best selection has been identified. This is a pragmatic simplification: computing <span class="arithmatex">\(\mathcal{R}\)</span> for every candidate in an exhaustive search can be expensive, and for simple representation models like <span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span> the difference is negligible. Methods that jointly optimize selection and representation — such as <span class="arithmatex">\(\mathcal{A}_\text{optim}\)</span> (MILP) or <span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering, where the assignment <em>is</em> the representation) — adhere more closely to the full formulation.</p>
+<!-- [FIGURE: Diagram showing the five components and information flow: D → F → (features used by A and O) → x ∈ S → R(x, D) → O evaluates quality. Feedback loop from O to A (search).] -->
+
+<p>The following subsections define each component, its variants, and their trade-offs.</p>
+<hr />
+<h3 id="22-component-1-feature-space-mathcalf-how-we-see-the-data">2.2 Component 1: Feature Space (<span class="arithmatex">\(\mathcal{F}\)</span>) — How We See the Data<a class="headerlink" href="#22-component-1-feature-space-mathcalf-how-we-see-the-data" title="Permanent link">&para;</a></h3>
+<p>Before periods can be compared, grouped, or evaluated, they must be represented as mathematical objects. The feature space <span class="arithmatex">\(\mathcal{F}\)</span> defines this representation:</p>
+<div class="arithmatex">\[\mathcal{F}: D \;\to\; \{z_1, \ldots, z_N\}, \quad z_i \in \mathbb{R}^p\]</div>
+<p>where <span class="arithmatex">\(z_i\)</span> is the feature vector for period <span class="arithmatex">\(i\)</span>, and <span class="arithmatex">\(p\)</span> is the dimensionality of the feature space.</p>
+<p>The choice of <span class="arithmatex">\(\mathcal{F}\)</span> is consequential: it defines what "similar" means. Two periods that are close in one feature space may be distant in another. The feature space shapes how the objective is computed and how the search algorithm operates.</p>
+<p><strong>Variants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span></td>
+<td>Raw time-series vectors. For a period of <span class="arithmatex">\(H\)</span> time steps and <span class="arithmatex">\(V\)</span> variables (where <span class="arithmatex">\(V\)</span> may include multiple regions): <span class="arithmatex">\(z_i \in \mathbb{R}^{V \times H}\)</span>. Complete but high-dimensional.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span></td>
+<td>Hand-crafted statistical summaries: means, standard deviations, quantiles, ramp rates, correlations, etc. Lower-dimensional and interpretable, but depends on the modeler's choice of features.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{F}_\text{latent}\)</span></td>
+<td>Learned low-dimensional representations via PCA, autoencoders, or other dimensionality reduction. Captures complex patterns automatically, including nonlinear structure (autoencoders).</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{F}_\text{model}\)</span></td>
+<td>Features derived from running a simplified model (e.g., a dispatch model) for each period. Model outputs — generation mix, storage dispatch, marginal prices — are used as features, potentially combined with input data. This makes the feature space "problem-aware": periods are grouped by their <em>operational impact</em>, not just their statistical appearance.</td>
+</tr>
+</tbody>
+</table>
+<p><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> is the default when no explicit feature engineering is performed (e.g., standard k-means on raw hourly data). <span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span> and <span class="arithmatex">\(\mathcal{F}_\text{latent}\)</span> trade information for computational efficiency and noise reduction. <span class="arithmatex">\(\mathcal{F}_\text{model}\)</span> is the most advanced variant, requiring preliminary model runs but offering the strongest link between input representation and downstream model fidelity.</p>
+<p>These variants can be composed: for instance, <span class="arithmatex">\(\mathcal{F}_\text{model}\)</span> features may be passed through an autoencoder to produce a <span class="arithmatex">\(\mathcal{F}_\text{latent}\)</span> representation that encodes both input patterns and model responses.</p>
+<hr />
+<h3 id="23-component-2-objective-mathcalo-what-we-want-to-preserve">2.3 Component 2: Objective (<span class="arithmatex">\(\mathcal{O}\)</span>) — What We Want to Preserve<a class="headerlink" href="#23-component-2-objective-mathcalo-what-we-want-to-preserve" title="Permanent link">&para;</a></h3>
+<p>The objective defines the quality measure that the selection should optimize. This is the most consequential choice in the framework, as it determines what "representative" means for a given application.</p>
+<div class="arithmatex">\[\mathcal{O}: \mathcal{R}(x, D) \;\to\; \mathbb{R} \quad (\text{or } \mathbb{R}^m \text{ in the multi-objective case})\]</div>
+<p>At the highest level, objectives fall into two categories:</p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span></td>
+<td><strong>Statistical fidelity.</strong> Preserve statistical properties of the input data. This is a <em>proxy</em> for the true goal.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{O}_\text{model}\)</span></td>
+<td><strong>Model outcome fidelity.</strong> Preserve the results of the downstream optimization model (total cost, capacity mix, emissions). This is the <em>true goal</em>, but typically requires running the model during the selection process.</td>
+</tr>
+</tbody>
+</table>
+<p>Most practical methods use <span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span> because evaluating <span class="arithmatex">\(\mathcal{O}_\text{model}\)</span> during the selection process is computationally expensive. The fundamental challenge of TSA is that the relationship between statistical fidelity and model outcome fidelity is complex and nonlinear: low statistical error does not guarantee accurate model results.</p>
+<h4 id="statistical-objectives-in-practice">Statistical objectives in practice<a class="headerlink" href="#statistical-objectives-in-practice" title="Permanent link">&para;</a></h4>
+<p>In practice, the modeler faces a fundamental choice about <em>what kind of statistical fidelity matters</em>:</p>
+<p><strong>Aggregate fidelity.</strong> The selection should reproduce the overall statistics of the full dataset — annual means, marginal distributions, correlation structures, duration curves. This is the right goal when the model question concerns aggregate outcomes (e.g., annualized system cost, total generation mix). Metrics include:</p>
+<ul>
+<li><em>Distributional distance</em> (Wasserstein, duration curve NRMSE): how well does the weighted selection reproduce the marginal distributions?</li>
+<li><em>Correlation fidelity</em> (Frobenius norm of correlation matrix difference): does the selection preserve the dependencies between variables?</li>
+<li><em>Diurnal pattern fidelity</em> (MSE of mean hourly profiles): does the selection reproduce typical intra-day shapes?</li>
+</ul>
+<p><strong>State-space coverage.</strong> The selection should span the diversity of conditions that occur in the full dataset — capturing distinct system states such as "high wind + low demand," "low VRES + peak demand," "shoulder season with storage cycling," etc. This is the right goal when the model question concerns system adequacy, resilience, or the identification of binding constraints. Metrics include:</p>
+<ul>
+<li><em>Diversity</em> (mean pairwise distance in feature space): are the selected periods sufficiently different from each other?</li>
+<li><em>Coverage balance</em> (uniformity of representation responsibilities): does each selected period "cover" a roughly equal portion of the full dataset?</li>
+<li><em>Centroid balance</em> (distance from selection centroid to global center): does the selection avoid systematic bias toward extreme conditions?</li>
+</ul>
+<p>Note that diversity and coverage metrics evaluate properties of the selection <em>itself</em> in feature space, rather than how well the representation matches the full dataset. They complement fidelity metrics by ensuring the selection is well-spread and balanced, which is especially important when combined objectives or equal-weight constraints are in play.</p>
+<p><strong>Combined objectives.</strong> In many applications, both aggregate fidelity and state-space coverage matter simultaneously. A common practical scenario is the requirement that the selected periods carry <strong>equal weight</strong> (see <span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span> in Section 2.5), which means the selection must be intrinsically representative — it cannot rely on non-uniform weights to correct for bias. In this setting, the selection must:</p>
+<ol>
+<li>land close to the center of the data distribution (aggregate fidelity), <em>and</em></li>
+<li>span a broad range of system states (coverage/diversity).</li>
+</ol>
+<p>These two goals are in natural tension: optimizing for aggregate fidelity tends to select "average" periods, while optimizing for coverage tends to select "extreme" or "boundary" periods. This tension is resolved through <strong>multi-objective optimization</strong>, where the trade-off frontier (Pareto front) between the objectives is computed explicitly, and the modeler chooses a preferred balance. Multi-objective formulations thus provide a systematic alternative to multi-stage approaches (see Section 2.6, <span class="arithmatex">\(\mathcal{A}_\text{hybrid}\)</span>).</p>
+<hr />
+<h3 id="24-component-3-selection-space-mathcals-what-we-are-picking">2.4 Component 3: Selection Space (<span class="arithmatex">\(\mathcal{S}\)</span>) — What We Are Picking<a class="headerlink" href="#24-component-3-selection-space-mathcals-what-we-are-picking" title="Permanent link">&para;</a></h3>
+<p>The selection space defines the structural form of the output — what kind of object <span class="arithmatex">\(x\)</span> is.</p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span></td>
+<td><strong>Historical subset.</strong> <span class="arithmatex">\(x \subset \{1, \ldots, N\}\)</span> with <span class="arithmatex">\(\lvert x \rvert = k\)</span>. The output is a set of <span class="arithmatex">\(k\)</span> actual periods from the original data.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{S}_\text{synthetic}\)</span></td>
+<td><strong>Synthetic archetypes.</strong> <span class="arithmatex">\(x = \{p_1, \ldots, p_k\}\)</span> where each <span class="arithmatex">\(p_j \in \mathbb{R}^{V \times H}\)</span> is an artificial period (e.g., a cluster centroid). These may not correspond to any historical period.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{S}_\text{chrono}\)</span></td>
+<td><strong>Chronological segments.</strong> <span class="arithmatex">\(x = \{(t_1, l_1), \ldots, (t_k, l_k)\}\)</span> where <span class="arithmatex">\((t_j, l_j)\)</span> defines a contiguous segment of variable length <span class="arithmatex">\(l_j\)</span> starting at time <span class="arithmatex">\(t_j\)</span>. Segments collectively cover the full timeline.</td>
+</tr>
+</tbody>
+</table>
+<p><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> is the most common choice because it guarantees that each representative period is a physically realistic, historical pattern. It is the natural output of k-medoids clustering, combinatorial search, and greedy selection methods.</p>
+<p><span class="arithmatex">\(\mathcal{S}_\text{synthetic}\)</span> arises from methods that construct artificial representatives, such as k-means clustering, where centroids are computed as averages over cluster members. When clustering is performed in <span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> (raw time-series space), centroids are themselves time series and can be used directly as synthetic periods — though they may produce physically unrealistic profiles (e.g., smoothed-out peaks). When clustering is performed in a reduced feature space (<span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span> or <span class="arithmatex">\(\mathcal{F}_\text{latent}\)</span>), the centroid exists in feature space, not in time-series space. Recovering a synthetic time series then requires an inverse mapping — for instance, a decoder in the case of <span class="arithmatex">\(\mathcal{F}_\text{latent}\)</span> (autoencoders). For <span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span>, no natural inverse exists, which is one reason k-medoids (<span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span>) is generally preferred over k-means (<span class="arithmatex">\(\mathcal{S}_\text{synthetic}\)</span>) when working with engineered features.</p>
+<p><span class="arithmatex">\(\mathcal{S}_\text{chrono}\)</span> preserves the chronological ordering of the original data, which is critical for models with long-duration storage or seasonal dynamics. It is the output of Chronological Time-Period Clustering (CTPC) and related methods.</p>
+<p>The choice of <span class="arithmatex">\(\mathcal{S}\)</span> interacts with other components: <span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> pairs naturally with <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> (combinatorial search) and <span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering with medoid selection), while <span class="arithmatex">\(\mathcal{S}_\text{chrono}\)</span> requires specialized constructive algorithms that enforce contiguity.</p>
+<hr />
+<h3 id="25-component-4-representation-model-mathcalr-how-the-selection-represents-the-whole">2.5 Component 4: Representation Model (<span class="arithmatex">\(\mathcal{R}\)</span>) — How the Selection Represents the Whole<a class="headerlink" href="#25-component-4-representation-model-mathcalr-how-the-selection-represents-the-whole" title="Permanent link">&para;</a></h3>
+<p>Given a selection <span class="arithmatex">\(x\)</span> of <span class="arithmatex">\(k\)</span> representatives, the representation model defines how the full dataset <span class="arithmatex">\(D\)</span> is approximated for use in the downstream model. The output of <span class="arithmatex">\(\mathcal{R}\)</span> is the <em>reduced input</em> to the downstream model: a set of representative periods and their associated weights or reconstruction rules.</p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span></td>
+<td><strong>Equal weighting.</strong> Each selected period receives weight <span class="arithmatex">\(1/k\)</span>. No assignment of original periods to representatives is performed.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span></td>
+<td><strong>Hard assignment.</strong> Each of the <span class="arithmatex">\(N\)</span> original periods is assigned to a single closest representative. The weight of representative <span class="arithmatex">\(j\)</span> is proportional to the number of periods assigned to it.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span></td>
+<td><strong>Blended representation.</strong> Each original period <span class="arithmatex">\(i\)</span> is approximated as a weighted combination of all <span class="arithmatex">\(k\)</span> representatives: <span class="arithmatex">\(d_i \approx \sum_{j=1}^k w_{ij} \cdot x_j\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mathcalr_textequal-equal-weighting"><span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span>: Equal weighting<a class="headerlink" href="#mathcalr_textequal-equal-weighting" title="Permanent link">&para;</a></h4>
+<p>The simplest representation model. Each of the <span class="arithmatex">\(k\)</span> selected periods is treated identically in the downstream model, with weight <span class="arithmatex">\(1/k\)</span>.</p>
+<p>This choice is common in practice when the downstream model cannot accommodate non-uniform period weights — for instance, when the model is formulated to run each representative period once, and the results are simply averaged. It places the strongest requirements on the selection itself: since weights cannot compensate for a biased selection, the <span class="arithmatex">\(k\)</span> periods must be <em>intrinsically</em> representative. The aggregate statistics of the equally-weighted selection must match those of the full dataset, while simultaneously covering the relevant state space.</p>
+<h4 id="mathcalr_texthard-hard-assignment"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span>: Hard assignment<a class="headerlink" href="#mathcalr_texthard-hard-assignment" title="Permanent link">&para;</a></h4>
+<p>Each original period is mapped to its single closest representative. The weight of representative <span class="arithmatex">\(j\)</span> reflects the number of original periods it represents:</p>
+<div class="arithmatex">\[w_j \;=\; \frac{|\{i : r(i) = j\}|}{N}, \quad \text{where } r(i) = \underset{j \in x}{\arg\min}\; \|z_i - z_j\|\]</div>
+<p>This is the standard output of clustering methods. The downstream model runs <span class="arithmatex">\(k\)</span> periods, each weighted by <span class="arithmatex">\(w_j\)</span>, so that the weighted aggregate approximates the full-year result.</p>
+<p>The assignment function <span class="arithmatex">\(r(\cdot)\)</span> and distance metric can vary: Euclidean distance on features, DTW distance on raw series, RBF kernel similarity, or PCA-based k-medoids assignment. The choice of assignment method is a sub-decision within <span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span>.</p>
+<p>Variants also exist where the weights are not simply cluster sizes but are <strong>optimized</strong> (e.g., via MILP) to minimize some reconstruction error, decoupling the weight computation from the cluster assignment.</p>
+<h4 id="mathcalr_textsoft-blended-representation"><span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span>: Blended representation<a class="headerlink" href="#mathcalr_textsoft-blended-representation" title="Permanent link">&para;</a></h4>
+<p>Each original period <span class="arithmatex">\(i\)</span> is approximated as a weighted combination of <em>all</em> <span class="arithmatex">\(k\)</span> representatives:</p>
+<div class="arithmatex">\[d_i \;\approx\; \sum_{j=1}^k w_{ij} \cdot x_j\]</div>
+<p>with constraints on the weight vectors <span class="arithmatex">\(w_i = (w_{i1}, \ldots, w_{ik})\)</span>, typically:</p>
+<ul>
+<li><span class="arithmatex">\(w_{ij} \geq 0\)</span> (non-negativity), and optionally</li>
+<li><span class="arithmatex">\(\sum_j w_{ij} = 1\)</span> (convex combination) or <span class="arithmatex">\(\sum_j w_{ij}\)</span> unconstrained (conic combination).</li>
+</ul>
+<p>The blended representation provides a much richer approximation: rather than collapsing each original period to a single representative, it reconstructs each one from the full basis of representatives. This is the key idea in hull clustering, where the selected periods form the vertices of a polytope that spans the data.</p>
+<p>However, <span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span> requires the downstream model to handle <em>blended inputs</em> — the time-series parameters (load, VRES profiles) for each modeled period are themselves weighted sums of the representative profiles. This requires a different ESM formulation than the standard weighted-period approach.</p>
+<h4 id="duration-scaling">Duration scaling<a class="headerlink" href="#duration-scaling" title="Permanent link">&para;</a></h4>
+<p>When periods have unequal durations — for instance, calendar months ranging from 28 to 31 days — the raw responsibility weights produced by any <span class="arithmatex">\(\mathcal{R}\)</span> variant should be adjusted to reflect the actual time span each representative covers. Without this adjustment, a representative month of 28 days and one of 31 days would receive the same weight despite covering different fractions of the year.</p>
+<p>Duration scaling is not a separate representation model but a practical post-processing refinement applicable to <span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span>, <span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span>, and <span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span> alike. The adjustment is straightforward: each weight <span class="arithmatex">\(w_j\)</span> is multiplied by the duration <span class="arithmatex">\(l_j\)</span> of period <span class="arithmatex">\(j\)</span>, and the result is renormalized so that the weights sum to the total time horizon. For <span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span> with monthly periods, this means a 31-day month receives slightly more weight than a 28-day month, ensuring that the weighted reconstruction accounts for the correct number of hours per period.</p>
+<hr />
+<h3 id="26-component-5-search-algorithm-mathcala-how-we-find-the-solution">2.6 Component 5: Search Algorithm (<span class="arithmatex">\(\mathcal{A}\)</span>) — How We Find the Solution<a class="headerlink" href="#26-component-5-search-algorithm-mathcala-how-we-find-the-solution" title="Permanent link">&para;</a></h3>
+<p>The search algorithm is the computational procedure that finds <span class="arithmatex">\(x^*\)</span> (or an approximation of it). Different algorithms impose different requirements on the other components and exhibit different computational trade-offs.</p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span></td>
+<td><strong>Combinatorial search.</strong> Enumerate or sample candidate selections from <span class="arithmatex">\(\mathcal{S}\)</span>, evaluate each via <span class="arithmatex">\(\mathcal{O}\)</span>, select the best.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span></td>
+<td><strong>Constructive algorithms.</strong> Build the solution incrementally: clustering (k-means, k-medoids, hierarchical) or greedy selection (forward selection, hull vertex identification).</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{A}_\text{optim}\)</span></td>
+<td><strong>Mathematical programming.</strong> Formulate the selection as an optimization problem (typically MILP) and solve it with a general-purpose solver.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{A}_\text{hybrid}\)</span></td>
+<td><strong>Multi-stage or composite.</strong> Combine multiple algorithms or objectives — e.g., first select "typical" periods via clustering, then add "extreme" periods via optimization.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mathcala_textcomb-combinatorial-search"><span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span>: Combinatorial search<a class="headerlink" href="#mathcala_textcomb-combinatorial-search" title="Permanent link">&para;</a></h4>
+<p>The most flexible approach. Candidate selections are generated (exhaustively or via metaheuristics such as genetic algorithms, simulated annealing, or random sampling) and evaluated against <span class="arithmatex">\(\mathcal{O}\)</span>. This decouples the search from the objective: <em>any</em> <span class="arithmatex">\(\mathcal{O}\)</span> can be used, including multi-objective formulations.</p>
+<p>The main limitation is scalability. The number of possible <span class="arithmatex">\(k\)</span>-subsets from <span class="arithmatex">\(N\)</span> periods is <span class="arithmatex">\(\binom{N}{k}\)</span>, which grows combinatorially. Exhaustive enumeration is feasible only for small problems (e.g., <span class="arithmatex">\(\binom{52}{8} \approx 7.5 \times 10^8\)</span> is already impractical without further constraints). Metaheuristics can handle larger problems but provide no optimality guarantees.</p>
+<p>A key advantage of <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> is its compatibility with multi-objective optimization: by evaluating each candidate on multiple objectives, it naturally produces Pareto fronts, enabling the modeler to inspect trade-offs explicitly.</p>
+<p><strong>Selection policies.</strong> When the objective is multi-dimensional (<span class="arithmatex">\(\mathcal{O} \to \mathbb{R}^m\)</span>), the combinatorial search produces a table of <span class="arithmatex">\(m\)</span> scores per candidate. A <em>selection policy</em> resolves this into a single winner. Common strategies include weighted-sum aggregation (simple but requires choosing weights a priori), utopia-distance methods (select the Pareto-optimal point closest to the ideal), and max-min fairness (select the Pareto-optimal point that maximizes the worst-performing objective). The choice of policy is a sub-decision within <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> that can significantly affect which selection is returned, even when the Pareto front is identical.</p>
+<p><strong>Structured candidate generation.</strong> The scalability of <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> can be improved by constraining the search space at the generation stage. Beyond simple group quotas (e.g., "one period per season"), <em>hierarchical</em> generation enables evaluation at a finer granularity than the selection unit. For example, features may be computed at daily resolution while the selection operates at the monthly level: each candidate is a set of complete months, but the objective evaluates the daily data within those months. This hierarchical approach — combining group quotas with multi-resolution evaluation — dramatically reduces the combinatorial space while preserving the flexibility of the generate-and-test paradigm.</p>
+<h4 id="mathcala_textconstruct-constructive-algorithms"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span>: Constructive algorithms<a class="headerlink" href="#mathcala_textconstruct-constructive-algorithms" title="Permanent link">&para;</a></h4>
+<p>These algorithms build the solution incrementally rather than evaluating complete candidates.</p>
+<p><strong>Clustering algorithms</strong> (k-means, k-medoids, hierarchical agglomerative) iteratively refine an assignment of periods to clusters. The output is a set of cluster representatives (centroids for k-means, medoids for k-medoids) and an implicit hard assignment. The objective is built into the algorithm: k-means minimizes within-cluster sum of squares; k-medoids minimizes within-cluster sum of distances.</p>
+<p>Note: k-medoids selects actual data points as representatives (<span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span>), while k-means produces centroids (<span class="arithmatex">\(\mathcal{S}_\text{synthetic}\)</span>). Hierarchical methods can produce either, depending on how representatives are extracted from the dendrogram.</p>
+<p><strong>Greedy algorithms</strong> build the selection one element at a time. At each step, the period that provides the greatest improvement to the objective is added. Hull clustering uses a greedy strategy to identify extreme points (hull vertices) that define the boundary of the data distribution.</p>
+<p>Constructive algorithms are typically fast and scalable, but they couple the search algorithm tightly with the objective — you cannot easily swap in a different <span class="arithmatex">\(\mathcal{O}\)</span> without changing the algorithm itself.</p>
+<h4 id="mathcala_textoptim-mathematical-programming"><span class="arithmatex">\(\mathcal{A}_\text{optim}\)</span>: Mathematical programming<a class="headerlink" href="#mathcala_textoptim-mathematical-programming" title="Permanent link">&para;</a></h4>
+<p>The selection problem is formulated as a mathematical optimization problem, typically a Mixed-Integer Linear Program (MILP), with binary decision variables <span class="arithmatex">\(y_i \in \{0, 1\}\)</span> indicating whether period <span class="arithmatex">\(i\)</span> is selected:</p>
+<div class="arithmatex">\[\min \;\mathcal{O}(\ldots) \quad \text{s.t.} \quad \sum_{i=1}^N y_i = k, \quad \text{and problem-specific constraints}\]</div>
+<p>This approach can provide global optimality guarantees (within solver tolerances) and naturally handles complex constraints. It is the standard approach for duration-curve-based selection and interregional optimization.</p>
+<p>Note that structural constraints such as "select at least one period from each season" do not necessarily require mathematical programming. They can also be enforced within <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> by constraining the candidate generation itself — for example, by enumerating only combinations that satisfy group quotas.</p>
+<p>The limitation is that the objective must be expressible in a form compatible with the solver (linear or quadratic for LP/MILP). Complex, nonlinear objectives or multi-objective formulations may be difficult to encode.</p>
+<h4 id="mathcala_texthybrid-multi-stage-and-composite-approaches"><span class="arithmatex">\(\mathcal{A}_\text{hybrid}\)</span>: Multi-stage and composite approaches<a class="headerlink" href="#mathcala_texthybrid-multi-stage-and-composite-approaches" title="Permanent link">&para;</a></h4>
+<p>Hybrid approaches combine multiple algorithms or objectives in stages. A common pattern is:</p>
+<ol>
+<li>Select <span class="arithmatex">\(k_1\)</span> "typical" periods using a clustering or combinatorial method.</li>
+<li>Select <span class="arithmatex">\(k_2 = k - k_1\)</span> "extreme" or "critical stress" periods using optimization-based identification (e.g., identifying periods with the highest system stress via slack variables in a preliminary model run).</li>
+</ol>
+<p>This is pragmatic and widely used. Alternatively, the same goal — balancing aggregate fidelity with extreme-event coverage — can be pursued through <strong>multi-objective optimization</strong> within a single <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> framework, where both fidelity and coverage are explicit objectives. One advantage of the multi-objective approach is that trade-offs are made transparent and the modeler retains full control over the balance, rather than committing to a fixed <span class="arithmatex">\(k_1\)</span>/<span class="arithmatex">\(k_2\)</span> split a priori.</p>
+<hr />
+<h2 id="3-methods-as-framework-instances">3. Methods as Framework Instances<a class="headerlink" href="#3-methods-as-framework-instances" title="Permanent link">&para;</a></h2>
+<p>The framework's utility lies in its ability to decompose any TSA method into a specific <span class="arithmatex">\((\mathcal{F}, \mathcal{O}, \mathcal{S}, \mathcal{R}, \mathcal{A})\)</span> tuple, making implicit choices explicit and enabling direct comparison.</p>
+<h3 id="31-decomposition-table">3.1 Decomposition Table<a class="headerlink" href="#31-decomposition-table" title="Permanent link">&para;</a></h3>
+<p>The table below classifies established methodologies. Each row is a specific instantiation of the five components.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Methodology</th>
+<th style="text-align: left;"><span class="arithmatex">\(\mathcal{F}\)</span></th>
+<th style="text-align: left;"><span class="arithmatex">\(\mathcal{O}\)</span></th>
+<th style="text-align: left;"><span class="arithmatex">\(\mathcal{S}\)</span></th>
+<th style="text-align: left;"><span class="arithmatex">\(\mathcal{R}\)</span></th>
+<th style="text-align: left;"><span class="arithmatex">\(\mathcal{A}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>k-means</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> or <span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. intra-cluster variance</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{synthetic}\)</span> (centroids)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (cluster size)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>k-medoids (PAM)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> or <span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. intra-cluster distance</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> (medoids)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (cluster size)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hierarchical clustering</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> or <span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: linkage criterion</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> or <span class="arithmatex">\(\mathcal{S}_\text{synthetic}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (cluster size)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duration curve MILP</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. duration curve NRMSE</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (optimized weights)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{optim}\)</span> (MILP)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Interregional MILP (NREL)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. regional errors</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (optimized weights)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{optim}\)</span> (MILP)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Autoencoder (inputs only)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{latent}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. latent distance</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> (medoids)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (cluster size)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Autoencoder (inputs + outputs)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{model}\)</span> + <span class="arithmatex">\(\mathcal{F}_\text{latent}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. latent distance</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> (medoids)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (cluster size)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DTW-based clustering</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> (DTW metric)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. DTW intra-cluster</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> or <span class="arithmatex">\(\mathcal{S}_\text{synthetic}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (cluster size)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Snippet algorithm</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> (subsequences)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. subsequence distance</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (greedy)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CTPC</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. intra-cluster distance</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{chrono}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> (implicit)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (hierarchical + contiguity)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hull clustering (blended)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{direct}\)</span> or <span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: min. projection error</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span> (hull vertices)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span> (blended)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (greedy)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Multi-objective Pareto</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{stat}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span>: multi-objective (Pareto)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span> or <span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> (exhaustive / GA)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Extreme event (slack vars)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{F}_\text{model}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{model}\)</span>: max. system stress</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{hybrid}\)</span> (model-in-loop)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hybrid (typical + extreme)</strong></td>
+<td style="text-align: left;">mixed</td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span> + <span class="arithmatex">\(\mathcal{O}_\text{model}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{S}_\text{subset}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathcal{A}_\text{hybrid}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-observations">3.2 Observations<a class="headerlink" href="#32-observations" title="Permanent link">&para;</a></h3>
+<p>Several insights emerge from the decomposition:</p>
+<ol>
+<li>
+<p><strong>Most methods differ in only one or two components.</strong> Moving from k-medoids to autoencoder-based selection changes only <span class="arithmatex">\(\mathcal{F}\)</span> (from statistical to latent/model-informed). Moving from k-medoids to hull clustering changes <span class="arithmatex">\(\mathcal{R}\)</span> (from hard to soft) and <span class="arithmatex">\(\mathcal{A}\)</span> (from centroid-based to greedy). The other components remain the same. This makes trade-offs explicit and isolable.</p>
+</li>
+<li>
+<p><strong><span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span> is uncommon in the current literature.</strong> Almost all established methods use hard assignment or equal weighting. Blended representation (hull clustering) is a recent innovation that requires changes to the downstream model formulation.</p>
+</li>
+<li>
+<p><strong><span class="arithmatex">\(\mathcal{O}_\text{model}\)</span> is the frontier.</strong> Most methods operate entirely on statistical objectives. Direct optimization for model outcome fidelity requires model-in-the-loop methods (extreme event identification via slack variables, autoencoder with model outputs), which are computationally expensive but represent the state of the art.</p>
+</li>
+<li>
+<p><strong>Multi-objective optimization offers an alternative to hybrid approaches.</strong> The hybrid approach (typical + extreme) is pragmatic and widely used for balancing aggregate fidelity with extreme-event coverage. Multi-objective formulations provide an alternative: they compute the full trade-off frontier and let the modeler choose, rather than committing to a fixed split.</p>
+</li>
+<li>
+<p><strong>The choice of <span class="arithmatex">\(\mathcal{A}\)</span> often dominates the method's identity.</strong> Methods are typically named after their search algorithm (k-means, MILP, genetic algorithm), but the other components — particularly <span class="arithmatex">\(\mathcal{F}\)</span> and <span class="arithmatex">\(\mathcal{O}\)</span> — often have a greater impact on the quality of the result. The framework redirects attention from <em>how</em> the search is conducted to <em>what</em> is being optimized and <em>how</em> quality is measured.</p>
+</li>
+</ol>
+<hr />
+<h2 id="4-discussion">4. Discussion<a class="headerlink" href="#4-discussion" title="Permanent link">&para;</a></h2>
+<h3 id="41-component-interactions-and-coupling">4.1 Component Interactions and Coupling<a class="headerlink" href="#41-component-interactions-and-coupling" title="Permanent link">&para;</a></h3>
+<p>While the five components are conceptually independent, certain combinations are tightly coupled in practice:</p>
+<ul>
+<li><strong><span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> couples <span class="arithmatex">\(\mathcal{A}\)</span> with <span class="arithmatex">\(\mathcal{O}\)</span></strong>: clustering algorithms have their objective function built in (e.g., k-means minimizes within-cluster variance). You cannot freely swap <span class="arithmatex">\(\mathcal{O}\)</span> without changing <span class="arithmatex">\(\mathcal{A}\)</span>.</li>
+<li><strong><span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span> couples <span class="arithmatex">\(\mathcal{R}\)</span> with the downstream model</strong>: the ESM must be formulated to accept blended inputs, which is a non-trivial modeling change.</li>
+<li><strong><span class="arithmatex">\(\mathcal{F}_\text{model}\)</span> couples <span class="arithmatex">\(\mathcal{F}\)</span> with a preliminary model run</strong>: model-informed features require access to a simplified ESM, creating a dependency between the feature engineering pipeline and the modeling workflow.</li>
+</ul>
+<p>The framework makes these couplings visible, helping practitioners understand which components they can modify independently and which require coordinated changes.</p>
+<h3 id="42-practical-guidance">4.2 Practical Guidance<a class="headerlink" href="#42-practical-guidance" title="Permanent link">&para;</a></h3>
+<p>The choice of components should be guided by the modeling question:</p>
+<ul>
+<li><strong>If aggregate cost accuracy is the priority</strong> and non-uniform period weights are acceptable: <span class="arithmatex">\(\mathcal{O}_\text{stat}\)</span> with distributional metrics, <span class="arithmatex">\(\mathcal{R}_\text{hard}\)</span> with optimized weights, <span class="arithmatex">\(\mathcal{A}_\text{optim}\)</span> (duration curve MILP).</li>
+<li><strong>If equal-weight periods are required</strong>: <span class="arithmatex">\(\mathcal{R}_\text{equal}\)</span>, combined with a multi-objective <span class="arithmatex">\(\mathcal{O}\)</span> that balances aggregate fidelity with coverage/diversity, and <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> for explicit trade-off analysis.</li>
+<li><strong>If the model has significant storage or temporal coupling</strong>: <span class="arithmatex">\(\mathcal{F}\)</span> should capture temporal dynamics (DTW, ramp features), or <span class="arithmatex">\(\mathcal{S}_\text{chrono}\)</span> should be used to preserve chronology.</li>
+<li><strong>If the problem space is very large</strong> (e.g., selecting 10 periods from 365 days): <span class="arithmatex">\(\mathcal{A}_\text{construct}\)</span> (clustering) or <span class="arithmatex">\(\mathcal{A}_\text{optim}\)</span> (MILP) for scalability; exhaustive <span class="arithmatex">\(\mathcal{A}_\text{comb}\)</span> is infeasible.</li>
+<li><strong>If model outcome fidelity is critical and computational budget allows</strong>: <span class="arithmatex">\(\mathcal{F}_\text{model}\)</span> with autoencoder, or <span class="arithmatex">\(\mathcal{A}_\text{hybrid}\)</span> with slack-variable-based extreme identification.</li>
+</ul>
+<h3 id="43-open-questions">4.3 Open Questions<a class="headerlink" href="#43-open-questions" title="Permanent link">&para;</a></h3>
+<p>Several aspects of the framework invite further investigation:</p>
+<ol>
+<li><strong>Systematic benchmarking.</strong> The framework enables, and calls for, controlled experiments comparing different component combinations on the same datasets and downstream models.</li>
+<li><strong>Better proxies for <span class="arithmatex">\(\mathcal{O}_\text{model}\)</span>.</strong> Developing statistical objectives that are stronger predictors of model outcome fidelity — without requiring model-in-the-loop evaluation — remains a major research gap.</li>
+<li><strong>Automated component selection.</strong> Can the best <span class="arithmatex">\((\mathcal{F}, \mathcal{O}, \mathcal{S}, \mathcal{R}, \mathcal{A})\)</span> tuple be selected automatically based on problem characteristics?</li>
+<li><strong><span class="arithmatex">\(\mathcal{R}_\text{soft}\)</span> adoption.</strong> Blended representations promise higher fidelity but require ESM reformulation. Quantifying the fidelity gain is important for motivating this effort.</li>
+</ol>
+<hr />
+<h2 id="5-conclusion">5. Conclusion<a class="headerlink" href="#5-conclusion" title="Permanent link">&para;</a></h2>
+<p>The field of representative period selection for energy time series has produced a rich and growing body of methods, each designed with care for specific use cases. However, these methods are typically presented as monolithic procedures, which obscures their shared structure and makes systematic comparison difficult.</p>
+<p>The five-component framework proposed in this paper — Feature Space, Objective, Selection Space, Representation Model, and Search Algorithm — provides a common structure for understanding any TSA method. By decomposing methods into their fundamental choices, the framework:</p>
+<ul>
+<li>makes implicit assumptions explicit,</li>
+<li>enables direct, component-level comparison between methods,</li>
+<li>guides practitioners in assembling custom pipelines suited to their specific modeling questions, and</li>
+<li>provides an architectural blueprint for modular software design.</li>
+</ul>
+<p>The framework does not claim that one component combination is universally superior. Rather, it provides the vocabulary and structure needed to make informed, transparent choices — moving the field from ad-hoc method selection toward systematic, principled design of representative period selection pipelines.</p>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p><em>[To be populated with full citations from the literature. Key references include:]</em></p>
+<ol>
+<li>Hoffmann et al. (2020). "A Review on Time Series Aggregation Methods for Energy System Models." <em>Energies</em>, 13(3), 641.</li>
+<li>Kotzur et al. (2022). "Time-series aggregation for the optimization of energy systems: Goals, challenges, approaches, and opportunities." <em>RSER</em>, 157.</li>
+<li>Nahmmacher et al. (2016). "Selecting Representative Days for Capturing the Implications of Integrating Intermittent Renewables in Generation Expansion Planning."</li>
+<li>Scott et al. (2022). "Representative period selection for power system planning using autoencoder-based dimensionality reduction." <em>arXiv:2204.13608</em>.</li>
+<li>Sun et al. (2025). "An Interregional Optimization Approach for Time Series Aggregation in Continent-Scale Electricity System Models." NREL/TP-6A20-90183.</li>
+<li>Teichgraeber &amp; Brandt (2024). "On the Selection of Intermediate Length Representative Periods for Capacity Expansion." <em>arXiv:2401.02888</em>.</li>
+<li>Hull Clustering with Blended Representative Periods (2025). <em>arXiv:2508.21641</em>.</li>
+<li>Kotzur et al. (2018). "Impact of different time series aggregation methods on optimal energy system design."</li>
+<li>Bahl et al. (2018). "Typical periods for two-stage synthesis by time-series aggregation with bounded error in objective function."</li>
+<li>Poncelet et al. (2017). "Selecting Representative Days for Investment Planning Models."</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "content.tabs.link", "navigation.sections"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

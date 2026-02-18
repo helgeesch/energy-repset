@@ -1,0 +1,4824 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A unified framework for representative subset selection in multi-variate time-series spaces">
+      
+      
+      
+        <link rel="canonical" href="https://energy-repset-docs.mesqual.io/api/combi_gens/">
+      
+      
+        <link rel="prev" href="../score_components/">
+      
+      
+        <link rel="next" href="../selection_policies/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo-red.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Combination Generators - energy-repset</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#combination-generators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="energy-repset" class="md-header__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../../assets/logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            energy-repset
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Combination Generators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../gallery/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="energy-repset" class="md-nav__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../../assets/logo-white.svg" alt="logo">
+
+    </a>
+    energy-repset
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    energy-repset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unified_framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unified Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules & Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advisor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Advisor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../gallery/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex1: Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex2: Feature Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex3: Hierarchical Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex4: Representation Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex5: Multi-Objective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context & Slicing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow & Experiment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feature_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../objectives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../score_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Score Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combination Generators
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combination Generators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CombinationGenerator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CombinationGenerator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExhaustiveCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExhaustiveCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GroupQuotaCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GroupQuotaCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExhaustiveHierarchicalCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExhaustiveHierarchicalCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.from_slicers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_slicers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GroupQuotaHierarchicalCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GroupQuotaHierarchicalCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_slicers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_slicers_with_seasons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selection_policies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selection Policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../representation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Representation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CombinationGenerator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CombinationGenerator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.CombinationGenerator.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExhaustiveCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExhaustiveCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GroupQuotaCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GroupQuotaCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExhaustiveHierarchicalCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExhaustiveHierarchicalCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.from_slicers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_slicers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GroupQuotaHierarchicalCombiGen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GroupQuotaHierarchicalCombiGen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_slicers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_slicers_with_seasons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.combination_is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combination_is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="combination-generators">Combination Generators<a class="headerlink" href="#combination-generators" title="Permanent link">&para;</a></h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="energy_repset.combi_gens.CombinationGenerator" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">CombinationGenerator</span>
+
+
+<a href="#energy_repset.combi_gens.CombinationGenerator" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.Protocol">Protocol</span></code></p>
+
+
+
+        <p>Protocol for generating and counting combinations of candidate slices.</p>
+<p>This protocol defines the interface for combination generators used in
+Generate-and-Test workflows. Implementations determine which k-element
+subsets of candidate slices should be evaluated.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.CombinationGenerator.k">k</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of elements in each combination to generate.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.CombinationGenerator.generate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">generate</span>
+
+
+<a href="#energy_repset.combi_gens.CombinationGenerator.generate" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Iterator">Iterator</span></span><span class="p">[</span><span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generate k-combinations from the candidate slices.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Yields:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuples of length k representing candidate selections.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.CombinationGenerator.count" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">count</span>
+
+
+<a href="#energy_repset.combi_gens.CombinationGenerator.count" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">count</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="int">int</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Count the total number of combinations that will be generated.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total number of k-combinations.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.CombinationGenerator.combination_is_valid" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">combination_is_valid</span>
+
+
+<a href="#energy_repset.combi_gens.CombinationGenerator.combination_is_valid" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">combination_is_valid</span><span class="p">(</span><span class="n">combination</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">,</span> <span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Check if a combination is valid according to generator constraints.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>combination</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuple of slice labels to validate.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if the combination satisfies the generator's constraints.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="energy_repset.combi_gens.ExhaustiveCombiGen" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ExhaustiveCombiGen</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveCombiGen" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            CombinationGenerator (energy_repset.combi_gens.combination_generator.CombinationGenerator)" href="#energy_repset.combi_gens.CombinationGenerator">CombinationGenerator</a></code></p>
+
+
+
+        <p>Generate all k-combinations of the candidate slices.</p>
+<p>This generator produces every possible k-element subset using
+itertools.combinations. It is suitable for small problem sizes where
+the total number of combinations (n choose k) is computationally feasible.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of elements in each combination.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.ExhaustiveCombiGen.k">k</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of elements per combination.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>The count is computed via binomial coefficient (n choose k) and matches
+the number of yielded combinations exactly.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Generate all 3-month combinations from a year:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExhaustiveCombiGen</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-02&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span>          <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-03&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-04&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span> <span class="o">=</span> <span class="n">ExhaustiveCombiGen</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">months</span><span class="p">)</span>  <span class="c1"># 4 choose 3</span>
+<span class="go">    4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">months</span><span class="p">))</span>
+<span class="go">    [(Period(&#39;2024-01&#39;, &#39;M&#39;), Period(&#39;2024-02&#39;, &#39;M&#39;), Period(&#39;2024-03&#39;, &#39;M&#39;)),</span>
+<span class="go">     (Period(&#39;2024-01&#39;, &#39;M&#39;), Period(&#39;2024-02&#39;, &#39;M&#39;), Period(&#39;2024-04&#39;, &#39;M&#39;)),</span>
+<span class="go">     (Period(&#39;2024-01&#39;, &#39;M&#39;), Period(&#39;2024-03&#39;, &#39;M&#39;), Period(&#39;2024-04&#39;, &#39;M&#39;)),</span>
+<span class="go">     (Period(&#39;2024-02&#39;, &#39;M&#39;), Period(&#39;2024-03&#39;, &#39;M&#39;), Period(&#39;2024-04&#39;, &#39;M&#39;))]</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveCombiGen.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveCombiGen.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize exhaustive generator with target combination size.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of elements in each combination.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveCombiGen.generate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">generate</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveCombiGen.generate" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Iterator">Iterator</span></span><span class="p">[</span><span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generate all k-combinations using itertools.combinations.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Yields:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>All possible k-element tuples from unique_slices.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveCombiGen.count" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">count</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveCombiGen.count" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">count</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="int">int</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Count total combinations using binomial coefficient.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>n choose k, where n is the number of unique slices.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveCombiGen.combination_is_valid" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">combination_is_valid</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveCombiGen.combination_is_valid" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">combination_is_valid</span><span class="p">(</span><span class="n">combination</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">,</span> <span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Check if combination has exactly k elements from unique_slices.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>combination</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuple of slice labels to validate.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if combination has k elements all in unique_slices.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="energy_repset.combi_gens.GroupQuotaCombiGen" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">GroupQuotaCombiGen</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaCombiGen" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            CombinationGenerator (energy_repset.combi_gens.combination_generator.CombinationGenerator)" href="#energy_repset.combi_gens.CombinationGenerator">CombinationGenerator</a></code></p>
+
+
+
+        <p>Generate combinations that respect exact quotas per group.</p>
+<p>This generator enforces that selections contain a specific number of elements
+from each group. It is useful for ensuring balanced representation across
+categories (e.g., seasons, must-have periods, etc.).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total number of elements in each combination. Must equal sum of group quotas.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>slice_to_group_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from each candidate slice to its group label.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_quota</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from group label to the required count in the selection.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.GroupQuotaCombiGen.k">k</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of elements per combination.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.GroupQuotaCombiGen.group_of">group_of</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from slice to group.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.GroupQuotaCombiGen.group_quota">group_quota</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required count per group.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If sum of group quotas does not equal k.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>Use this to enforce constraints like "exactly one month per season" or
+"2 must-have periods plus 2 optional periods".</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Example 1 - Seasonal constraints (one month per season):</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupQuotaCombiGen</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define months and their seasons</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;2024-</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">02d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">season_map</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">month</span><span class="o">.</span><span class="n">month</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span> <span class="n">season_map</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;winter&#39;</span>
+<span class="gp">... </span>    <span class="k">elif</span> <span class="n">month</span><span class="o">.</span><span class="n">month</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span> <span class="n">season_map</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;spring&#39;</span>
+<span class="gp">... </span>    <span class="k">elif</span> <span class="n">month</span><span class="o">.</span><span class="n">month</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span> <span class="n">season_map</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;summer&#39;</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span> <span class="n">season_map</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;fall&#39;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Select 4 months, one per season</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span> <span class="o">=</span> <span class="n">GroupQuotaCombiGen</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">slice_to_group_mapping</span><span class="o">=</span><span class="n">season_map</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_quota</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;winter&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;fall&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">months</span><span class="p">)</span>  <span class="c1"># 3 * 3 * 3 * 3 = 81 combinations</span>
+<span class="go">    81</span>
+</code></pre></div>
+    <p>Example 2 - Optional and must-have categories:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Force specific periods to be included</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;2024-</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">02d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="s1">&#39;optional&#39;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">months</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_mapping</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;must&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_mapping</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-12&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;must&#39;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Select 4 total: 2 must-have + 2 optional</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span> <span class="o">=</span> <span class="n">GroupQuotaCombiGen</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">slice_to_group_mapping</span><span class="o">=</span><span class="n">group_mapping</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_quota</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;optional&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;must&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># All combinations will include Jan and Dec plus 2 from the other 10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">months</span><span class="p">)</span>  <span class="c1"># 1 * 45 = 45 combinations</span>
+<span class="go">45</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaCombiGen.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaCombiGen.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">slice_to_group_mapping</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">],</span> <span class="n">group_quota</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="int">int</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize generator with group quotas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total number of elements in each combination.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>slice_to_group_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from slice to its group label.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_quota</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required count per group.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If sum of group quotas does not equal k.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaCombiGen.generate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">generate</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaCombiGen.generate" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Iterator">Iterator</span></span><span class="p">[</span><span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generate combinations respecting group quotas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Yields:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuples of length k where each group contributes exactly its quota.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaCombiGen.count" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">count</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaCombiGen.count" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">count</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="int">int</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Count total combinations respecting group quotas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Product of binomial coefficients across all groups. For each group</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>with n members and quota q, contributes C(n, q) to the product.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaCombiGen.combination_is_valid" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">combination_is_valid</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaCombiGen.combination_is_valid" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">combination_is_valid</span><span class="p">(</span><span class="n">combination</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">,</span> <span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Check if combination satisfies group quotas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>combination</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuple of slice labels to validate.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of candidate slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if combination has exactly k elements with each group contributing</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>its required quota.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ExhaustiveHierarchicalCombiGen</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            CombinationGenerator (energy_repset.combi_gens.combination_generator.CombinationGenerator)" href="#energy_repset.combi_gens.CombinationGenerator">CombinationGenerator</a></code></p>
+
+
+
+        <p>Generate combinations where child slices are selected in complete parent groups.</p>
+<p>This generator enforces hierarchical selection: child slices (e.g., days) can only
+be selected as complete parent groups (e.g., months). It enables high-resolution
+features (e.g. per-day) while enforcing structural constraints at the parent level (e.g. months).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of parent groups to select.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>slice_to_parent_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from each child slice to its parent group.
+Example: {Period('2024-01-01', 'D'): Period('2024-01', 'M'), ...}</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.k">k</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of parent groups per combination (same as parent_k for protocol compliance).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.parent_k">parent_k</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of parent groups per combination.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.slice_to_parent">slice_to_parent</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Child to parent mapping.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>The <code>generate()</code> method yields flattened tuples of child slices, but internally
+enforces parent-level constraints. Use the factory method <code>from_slicers()</code>
+for automatic parent grouping based on TimeSlicer objects.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Manual construction with custom grouping:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExhaustiveHierarchicalCombiGen</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define child-to-parent mapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slice_to_parent</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01-02&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-02-01&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-02&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-02-02&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-02&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Select 2 months, but combinations contain days</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">ExhaustiveHierarchicalCombiGen</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">parent_k</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">slice_to_parent_mapping</span><span class="o">=</span><span class="n">slice_to_parent</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">slice_to_parent</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>  <span class="c1"># C(2, 2) = 1</span>
+<span class="go">    1</span>
+</code></pre></div>
+    <p>Using factory method with TimeSlicer:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.time_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSlicer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExhaustiveHierarchicalCombiGen</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">366</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child_slicer</span> <span class="o">=</span> <span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parent_slicer</span> <span class="o">=</span> <span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">ExhaustiveHierarchicalCombiGen</span><span class="o">.</span><span class="n">from_slicers</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">parent_k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">dt_index</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">child_slicer</span><span class="o">=</span><span class="n">child_slicer</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">parent_slicer</span><span class="o">=</span><span class="n">parent_slicer</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unique_days</span> <span class="o">=</span> <span class="n">child_slicer</span><span class="o">.</span><span class="n">unique_slices</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">unique_days</span><span class="p">)</span>  <span class="c1"># C(12, 3) = 220 combinations of months</span>
+<span class="go">    220</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">parent_k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">slice_to_parent_mapping</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize hierarchical generator with child-to-parent mapping.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of parent groups to select.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>slice_to_parent_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dict mapping each child slice to its parent.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.from_slicers" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">from_slicers</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.from_slicers" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">from_slicers</span><span class="p">(</span><span class="n">parent_k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">dt_index</span><span class="p">:</span> <span class="n"><span title="pandas.DatetimeIndex">DatetimeIndex</span></span><span class="p">,</span> <span class="n">child_slicer</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></span><span class="p">,</span> <span class="n">parent_slicer</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            ExhaustiveHierarchicalCombiGen (energy_repset.combi_gens.hierarchical_exhaustive.ExhaustiveHierarchicalCombiGen)" href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen">ExhaustiveHierarchicalCombiGen</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Factory method to create generator from child and parent TimeSlicer objects.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of parent groups to select.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dt_index</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DatetimeIndex">DatetimeIndex</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DatetimeIndex of the time series data.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>child_slicer</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>TimeSlicer defining child slice granularity (e.g., daily).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_slicer</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>TimeSlicer defining parent slice granularity (e.g., monthly).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ExhaustiveHierarchicalCombiGen (energy_repset.combi_gens.hierarchical_exhaustive.ExhaustiveHierarchicalCombiGen)" href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen">ExhaustiveHierarchicalCombiGen</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ExhaustiveHierarchicalCombinationGenerator with auto-constructed mappings.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Select 4 months from a year of daily data:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.time_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSlicer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExhaustiveHierarchicalCombiGen</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">366</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child_slicer</span> <span class="o">=</span> <span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parent_slicer</span> <span class="o">=</span> <span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">ExhaustiveHierarchicalCombiGen</span><span class="o">.</span><span class="n">from_slicers</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">parent_k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">dt_index</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">child_slicer</span><span class="o">=</span><span class="n">child_slicer</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">parent_slicer</span><span class="o">=</span><span class="n">parent_slicer</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">child_slicer</span><span class="o">.</span><span class="n">unique_slices</span><span class="p">(</span><span class="n">dates</span><span class="p">))</span>  <span class="c1"># C(12, 4) = 495</span>
+<span class="go">495</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.generate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">generate</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.generate" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Iterator">Iterator</span></span><span class="p">[</span><span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generate combinations of k parent groups, yielding flattened child slices.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of child slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Yields:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuples containing all child slices from k selected parent groups.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.count" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">count</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.count" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">count</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="int">int</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Count total number of parent-level combinations.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of child slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>C(n_parents, parent_k) where n_parents is the number of unique parent groups.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.combination_is_valid" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">combination_is_valid</span>
+
+
+<a href="#energy_repset.combi_gens.ExhaustiveHierarchicalCombiGen.combination_is_valid" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">combination_is_valid</span><span class="p">(</span><span class="n">combination</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">,</span> <span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Check if combination represents exactly parent_k complete parent groups.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>combination</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuple of child slice labels to validate.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of all valid child slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if combination contains all children from exactly parent_k parent groups.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">GroupQuotaHierarchicalCombiGen</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            CombinationGenerator (energy_repset.combi_gens.combination_generator.CombinationGenerator)" href="#energy_repset.combi_gens.CombinationGenerator">CombinationGenerator</a></code></p>
+
+
+
+        <p>Generate combinations respecting quotas per parent-level group.</p>
+<p>This generator combines hierarchical selection (child slices selected in complete
+parent groups) with group quotas (e.g., exactly 1 month per season). It enables
+high-resolution features (e.g. per-day) while enforcing structural constraints
+at the parent level (e.g. months).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total number of parent groups to select. Must equal sum of group quotas.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>slice_to_parent_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from each child slice to its parent group.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_to_group_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from parent ID to its group label (e.g., season).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_quota</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required count of parents per group.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.k">k</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of parent groups per combination (same as parent_k for protocol compliance).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.slice_to_parent">slice_to_parent</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Child to parent mapping.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.parent_to_group">parent_to_group</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Parent to group label mapping.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.group_quota">group_quota</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required count per group.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If sum of group quotas does not equal parent_k.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>Use factory methods <code>from_slicers()</code> for automatic parent mapping and
+<code>from_slicers_with_seasons()</code> for automatic seasonal grouping.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Manual construction for seasonal month selection:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupQuotaHierarchicalCombiGen</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slice_to_parent</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01-02&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-07-01&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-07&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-07-02&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span> <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-07&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parent_to_group</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">):</span> <span class="s1">&#39;winter&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-07&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">):</span> <span class="s1">&#39;summer&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">GroupQuotaHierarchicalCombiGen</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">parent_k</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">slice_to_parent_mapping</span><span class="o">=</span><span class="n">slice_to_parent</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">parent_to_group_mapping</span><span class="o">=</span><span class="n">parent_to_group</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_quota</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;winter&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">slice_to_parent</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>  <span class="c1"># 1 * 1 = 1</span>
+<span class="go">    1</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">parent_k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">slice_to_parent_mapping</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">],</span> <span class="n">parent_to_group_mapping</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">],</span> <span class="n">group_quota</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="int">int</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize hierarchical quota generator.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total number of parent groups to select.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>slice_to_parent_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dict mapping each child slice to its parent.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_to_group_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from parent ID to group label.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_quota</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required count per group.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If sum of group quotas does not equal parent_k, or if any
+parent in slice_to_parent_mapping is missing from parent_to_group_mapping.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">from_slicers</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">from_slicers</span><span class="p">(</span><span class="n">parent_k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">dt_index</span><span class="p">:</span> <span class="n"><span title="pandas.DatetimeIndex">DatetimeIndex</span></span><span class="p">,</span> <span class="n">child_slicer</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></span><span class="p">,</span> <span class="n">parent_slicer</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></span><span class="p">,</span> <span class="n">parent_to_group_mapping</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">],</span> <span class="n">group_quota</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="int">int</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            GroupQuotaHierarchicalCombiGen (energy_repset.combi_gens.hierarchical_group_quota.GroupQuotaHierarchicalCombiGen)" href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen">GroupQuotaHierarchicalCombiGen</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Factory method to create generator from slicers with custom group mapping.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total number of parent groups to select.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dt_index</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DatetimeIndex">DatetimeIndex</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DatetimeIndex of the time series data.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>child_slicer</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>TimeSlicer defining child slice granularity (e.g., daily).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_slicer</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>TimeSlicer defining parent slice granularity (e.g., monthly).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_to_group_mapping</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dict mapping parent IDs to group labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_quota</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required count per group.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            GroupQuotaHierarchicalCombiGen (energy_repset.combi_gens.hierarchical_group_quota.GroupQuotaHierarchicalCombiGen)" href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen">GroupQuotaHierarchicalCombiGen</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>GroupQuotaHierarchicalCombinationGenerator with auto-constructed child-to-parent mapping.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If quotas invalid.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Custom grouping of months into seasons:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.time_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSlicer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupQuotaHierarchicalCombiGen</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">366</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child_slicer</span> <span class="o">=</span> <span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parent_slicer</span> <span class="o">=</span> <span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parent_to_group</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-01&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">):</span> <span class="s1">&#39;winter&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">pd</span><span class="o">.</span><span class="n">Period</span><span class="p">(</span><span class="s1">&#39;2024-02&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">):</span> <span class="s1">&#39;winter&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="c1"># ... define for all 12 months</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">GroupQuotaHierarchicalCombiGen</span><span class="o">.</span><span class="n">from_slicers</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">parent_k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">dt_index</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">child_slicer</span><span class="o">=</span><span class="n">child_slicer</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">parent_slicer</span><span class="o">=</span><span class="n">parent_slicer</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">parent_to_group_mapping</span><span class="o">=</span><span class="n">parent_to_group</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_quota</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;winter&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;fall&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">from_slicers_with_seasons</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">from_slicers_with_seasons</span><span class="p">(</span><span class="n">parent_k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">dt_index</span><span class="p">:</span> <span class="n"><span title="pandas.DatetimeIndex">DatetimeIndex</span></span><span class="p">,</span> <span class="n">child_slicer</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></span><span class="p">,</span> <span class="n">group_quota</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Literal">Literal</span></span><span class="p">[</span><span class="s1">&#39;winter&#39;</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">,</span> <span class="s1">&#39;fall&#39;</span><span class="p">],</span> <span class="n"><span title="int">int</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            GroupQuotaHierarchicalCombiGen (energy_repset.combi_gens.hierarchical_group_quota.GroupQuotaHierarchicalCombiGen)" href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen">GroupQuotaHierarchicalCombiGen</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Factory method with automatic seasonal grouping of months.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>parent_k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total number of parent groups to select (must equal sum of quotas).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dt_index</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DatetimeIndex">DatetimeIndex</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DatetimeIndex of the time series data.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>child_slicer</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            TimeSlicer (energy_repset.time_slicer.TimeSlicer)" href="../context/#energy_repset.time_slicer.TimeSlicer">TimeSlicer</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>TimeSlicer defining child slice granularity (e.g., daily).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_quota</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;winter&#39;, &#39;spring&#39;, &#39;summer&#39;, &#39;fall&#39;], <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required count per season. Keys must be subset of
+{'winter', 'spring', 'summer', 'fall'}.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            GroupQuotaHierarchicalCombiGen (energy_repset.combi_gens.hierarchical_group_quota.GroupQuotaHierarchicalCombiGen)" href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen">GroupQuotaHierarchicalCombiGen</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>GroupQuotaHierarchicalCombinationGenerator with seasonal parent grouping.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If quotas invalid.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>This factory method uses monthly parents regardless of child slicer.
+Seasons are assigned as: winter (Dec/Jan/Feb), spring (Mar/Apr/May),
+summer (Jun/Jul/Aug), fall (Sep/Oct/Nov).</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Select 4 months (1 per season) from daily data:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.time_slicer</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSlicer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.combi_gens</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupQuotaHierarchicalCombiGen</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2024-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">366</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child_slicer</span> <span class="o">=</span> <span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span> <span class="o">=</span> <span class="n">GroupQuotaHierarchicalCombiGen</span><span class="o">.</span><span class="n">from_slicers_with_seasons</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">parent_k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">dt_index</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">child_slicer</span><span class="o">=</span><span class="n">child_slicer</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">group_quota</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;winter&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;fall&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gen</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">child_slicer</span><span class="o">.</span><span class="n">unique_slices</span><span class="p">(</span><span class="n">dates</span><span class="p">))</span>  <span class="c1"># 3 * 3 * 3 * 3 = 81</span>
+<span class="go">    81</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.generate" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">generate</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.generate" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Iterator">Iterator</span></span><span class="p">[</span><span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generate combinations respecting group quotas, yielding flattened child slices.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of child slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Yields:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuples containing all child slices from parent_k parent groups satisfying quotas.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.count" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">count</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.count" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">count</span><span class="p">(</span><span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="int">int</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Count total combinations respecting group quotas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of child slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Product of C(n_parents_in_group, quota) across all groups.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.combination_is_valid" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">combination_is_valid</span>
+
+
+<a href="#energy_repset.combi_gens.GroupQuotaHierarchicalCombiGen.combination_is_valid" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">combination_is_valid</span><span class="p">(</span><span class="n">combination</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span><span class="p">,</span> <span class="n">unique_slices</span><span class="p">:</span> <span class="n"><span title="typing.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n"><span title="bool">bool</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Check if combination satisfies group quotas and completeness.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>combination</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuple of child slice labels to validate.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>unique_slices</code>
+            </td>
+            <td>
+                  <code><span title="typing.Sequence">Sequence</span>[<span title="typing.Hashable">Hashable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sequence of all valid child slice labels.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if combination contains complete parent groups satisfying quotas.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "content.tabs.link", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

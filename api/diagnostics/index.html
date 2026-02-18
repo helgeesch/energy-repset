@@ -1,0 +1,6008 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A unified framework for representative subset selection in multi-variate time-series spaces">
+      
+      
+      
+        <link rel="canonical" href="https://energy-repset-docs.mesqual.io/api/diagnostics/">
+      
+      
+        <link rel="prev" href="../representation/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo-red.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Diagnostics - energy-repset</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#diagnostics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="energy-repset" class="md-header__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../../assets/logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            energy-repset
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Diagnostics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../gallery/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="energy-repset" class="md-nav__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../../assets/logo-white.svg" alt="logo">
+
+    </a>
+    energy-repset
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    energy-repset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unified_framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unified Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules & Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advisor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Advisor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../gallery/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex1: Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex2: Feature Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex3: Hierarchical Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex4: Representation Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/ex5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex5: Multi-Objective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context & Slicing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow & Experiment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feature_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../objectives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../score_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Score Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combi_gens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combination Generators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selection_policies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selection Policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../representation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Representation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#feature-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureSpaceScatter2D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureSpaceScatter2D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureSpaceScatter3D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureSpaceScatter3D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureSpaceScatterMatrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureSpaceScatterMatrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PCAVarianceExplained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PCAVarianceExplained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureCorrelationHeatmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureCorrelationHeatmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureDistributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureDistributions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureDistributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureDistributions.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureDistributions.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#score-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Score Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DistributionOverlayECDF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DistributionOverlayECDF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DistributionOverlayHistogram
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DistributionOverlayHistogram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CorrelationDifferenceHeatmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CorrelationDifferenceHeatmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DiurnalProfileOverlay
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DiurnalProfileOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ResponsibilityBars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResponsibilityBars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ResponsibilityBars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ResponsibilityBars.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ResponsibilityBars.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatter2D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParetoScatter2D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParetoScatter2D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatter2D.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatter2D.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatterMatrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParetoScatterMatrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParetoScatterMatrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatterMatrix.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatterMatrix.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParetoParallelCoordinates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParetoParallelCoordinates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ScoreContributionBars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ScoreContributionBars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ScoreContributionBars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ScoreContributionBars.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#feature-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureSpaceScatter2D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureSpaceScatter2D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureSpaceScatter3D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureSpaceScatter3D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureSpaceScatterMatrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureSpaceScatterMatrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PCAVarianceExplained
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PCAVarianceExplained">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureCorrelationHeatmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureCorrelationHeatmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureDistributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FeatureDistributions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FeatureDistributions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureDistributions.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.feature_space.FeatureDistributions.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#score-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Score Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DistributionOverlayECDF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DistributionOverlayECDF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DistributionOverlayHistogram
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DistributionOverlayHistogram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CorrelationDifferenceHeatmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CorrelationDifferenceHeatmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DiurnalProfileOverlay
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DiurnalProfileOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ResponsibilityBars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ResponsibilityBars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ResponsibilityBars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ResponsibilityBars.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ResponsibilityBars.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatter2D" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParetoScatter2D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParetoScatter2D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatter2D.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatter2D.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatterMatrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParetoScatterMatrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParetoScatterMatrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatterMatrix.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoScatterMatrix.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ParetoParallelCoordinates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParetoParallelCoordinates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ScoreContributionBars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ScoreContributionBars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ScoreContributionBars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.diagnostics.results.ScoreContributionBars.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="diagnostics">Diagnostics<a class="headerlink" href="#diagnostics" title="Permanent link">&para;</a></h1>
+<h2 id="feature-space">Feature Space<a class="headerlink" href="#feature-space" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">FeatureSpaceScatter2D</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>2D scatter plot for visualizing feature space.</p>
+<p>Creates an interactive scatter plot of any two features from df_features.
+Can highlight a specific selection of slices. Works with any feature columns
+including PCA components ('pc_0', 'pc_1'), statistical features ('mean__wind'),
+or mixed features.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Visualize PCA space
+&gt;&gt;&gt; scatter = FeatureSpaceScatter2D()
+&gt;&gt;&gt; fig = scatter.plot(context.df_features, x=&#39;pc_0&#39;, y=&#39;pc_1&#39;)
+&gt;&gt;&gt; fig.update_layout(title=&#39;PCA Feature Space&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # Visualize with selection highlighted
+&gt;&gt;&gt; fig = scatter.plot(
+...     context.df_features,
+...     x=&#39;mean__demand&#39;,
+...     y=&#39;pc_0&#39;,
+...     selection=(&#39;2024-01&#39;, &#39;2024-04&#39;, &#39;2024-07&#39;)
+... )
+
+&gt;&gt;&gt; # Color by another feature
+&gt;&gt;&gt; fig = scatter.plot(
+...     context.df_features,
+...     x=&#39;pc_0&#39;,
+...     y=&#39;pc_1&#39;,
+...     color=&#39;std__wind&#39;
+... )
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the scatter plot diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter2D.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_features</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a 2D scatter plot of feature space.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_features</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Feature matrix with slices as rows, features as columns.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>x</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name for x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>y</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name for y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selection</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional tuple of slice identifiers to highlight.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>color</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional column name to use for color mapping.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If x, y, or color columns are not in df_features.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">FeatureSpaceScatter3D</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>3D scatter plot for visualizing feature space.</p>
+<p>Creates an interactive 3D scatter plot of any three features from df_features.
+Can highlight a specific selection of slices. Works with any feature columns
+including PCA components or statistical features.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Visualize 3D PCA space
+&gt;&gt;&gt; scatter = FeatureSpaceScatter3D()
+&gt;&gt;&gt; fig = scatter.plot(
+...     context.df_features,
+...     x=&#39;pc_0&#39;,
+...     y=&#39;pc_1&#39;,
+...     z=&#39;pc_2&#39;
+... )
+&gt;&gt;&gt; fig.update_layout(title=&#39;3D PCA Space&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # Highlight selection
+&gt;&gt;&gt; fig = scatter.plot(
+...     context.df_features,
+...     x=&#39;pc_0&#39;,
+...     y=&#39;pc_1&#39;,
+...     z=&#39;pc_2&#39;,
+...     selection=(&#39;2024-01&#39;, &#39;2024-04&#39;)
+... )
+
+&gt;&gt;&gt; # Color by feature value
+&gt;&gt;&gt; fig = scatter.plot(
+...     context.df_features,
+...     x=&#39;pc_0&#39;,
+...     y=&#39;pc_1&#39;,
+...     z=&#39;pc_2&#39;,
+...     color=&#39;mean__demand&#39;
+... )
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the 3D scatter plot diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatter3D.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_features</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a 3D scatter plot of feature space.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_features</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Feature matrix with slices as rows, features as columns.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>x</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name for x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>y</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name for y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>z</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name for z-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selection</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional tuple of slice identifiers to highlight.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>color</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional column name to use for color mapping.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If x, y, z, or color columns are not in df_features.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">FeatureSpaceScatterMatrix</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Scatter matrix (SPLOM) for visualizing relationships between multiple features.</p>
+<p>Creates an interactive scatter plot matrix showing pairwise relationships between
+all specified features. Can highlight a specific selection of slices. Useful for
+exploring multi-dimensional feature spaces and identifying feature correlations.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Visualize PCA components
+&gt;&gt;&gt; scatter_matrix = FeatureSpaceScatterMatrix()
+&gt;&gt;&gt; fig = scatter_matrix.plot(
+...     context.df_features,
+...     dimensions=[&#39;pc_0&#39;, &#39;pc_1&#39;, &#39;pc_2&#39;]
+... )
+&gt;&gt;&gt; fig.update_layout(title=&#39;PCA Component Relationships&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # Visualize statistical features with selection
+&gt;&gt;&gt; fig = scatter_matrix.plot(
+...     context.df_features,
+...     dimensions=[&#39;mean__demand&#39;, &#39;std__demand&#39;, &#39;max__wind&#39;],
+...     selection=(&#39;2024-01&#39;, &#39;2024-04&#39;, &#39;2024-07&#39;)
+... )
+
+&gt;&gt;&gt; # Color by a feature value
+&gt;&gt;&gt; fig = scatter_matrix.plot(
+...     context.df_features,
+...     dimensions=[&#39;pc_0&#39;, &#39;pc_1&#39;, &#39;pc_2&#39;, &#39;pc_3&#39;],
+...     color=&#39;mean__demand&#39;
+... )
+
+&gt;&gt;&gt; # All features
+&gt;&gt;&gt; fig = scatter_matrix.plot(context.df_features)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the scatter matrix diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureSpaceScatterMatrix.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_features</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">dimensions</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a scatter plot matrix of feature space.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_features</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Feature matrix with slices as rows, features as columns.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dimensions</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of column names to include in the matrix. If None,
+uses all columns (may be slow for many features).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selection</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional tuple of slice identifiers to highlight.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>color</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional column name to use for color mapping. If None and
+selection is provided, colors by selection status.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If any dimension or color column is not in df_features.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If dimensions list is empty.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.feature_space.PCAVarianceExplained" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">PCAVarianceExplained</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Visualize explained variance ratio for PCA components.</p>
+<p>Creates a bar chart showing the proportion of variance explained by each
+principal component, along with cumulative variance. Helps determine how
+many components are needed to capture most of the data's variance.</p>
+<p>This diagnostic requires the fitted PCAFeatureEngineer instance to access
+the explained_variance_ratio_ attribute.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Get PCA engineer from pipeline
+&gt;&gt;&gt; pca_engineer = pipeline.engineers[&#39;pca&#39;]
+&gt;&gt;&gt; variance_plot = PCAVarianceExplained(pca_engineer)
+&gt;&gt;&gt; fig = variance_plot.plot()
+&gt;&gt;&gt; fig.update_layout(title=&#39;PCA Variance Explained&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # With custom number of components shown
+&gt;&gt;&gt; fig = variance_plot.plot(n_components=10)
+
+&gt;&gt;&gt; # After running workflow
+&gt;&gt;&gt; context_with_features = workflow.feature_engineer.run(context)
+&gt;&gt;&gt; pca_eng = workflow.feature_engineer.engineers[&#39;pca&#39;]
+&gt;&gt;&gt; variance_plot = PCAVarianceExplained(pca_eng)
+&gt;&gt;&gt; fig = variance_plot.plot()
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.PCAVarianceExplained.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">pca_engineer</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            PCAFeatureEngineer (energy_repset.feature_engineering.pca.PCAFeatureEngineer)" href="../feature_engineering/#energy_repset.feature_engineering.PCAFeatureEngineer">PCAFeatureEngineer</a></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the PCA variance explained diagnostic.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>pca_engineer</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            PCAFeatureEngineer (energy_repset.feature_engineering.pca.PCAFeatureEngineer)" href="../feature_engineering/#energy_repset.feature_engineering.PCAFeatureEngineer">PCAFeatureEngineer</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A fitted PCAFeatureEngineer instance. Must have been
+fitted on data (i.e., calc_and_get_features_df has been called).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.PCAVarianceExplained.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.PCAVarianceExplained.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">n_components</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">show_cumulative</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a bar chart of explained variance ratios.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>n_components</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of components to show. If None, shows all components.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>show_cumulative</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, adds a line showing cumulative variance explained.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="AttributeError">AttributeError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the PCA engineer has not been fitted yet.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">FeatureCorrelationHeatmap</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Visualize correlation matrix of features.</p>
+<p>Creates an interactive heatmap showing Pearson correlations between all features
+in the feature matrix. Helps identify redundant features and understand feature
+relationships. Can optionally show only the lower triangle to avoid redundancy.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Visualize all feature correlations
+&gt;&gt;&gt; heatmap = FeatureCorrelationHeatmap()
+&gt;&gt;&gt; fig = heatmap.plot(context.df_features)
+&gt;&gt;&gt; fig.update_layout(title=&#39;Feature Correlation Matrix&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # Show only lower triangle
+&gt;&gt;&gt; fig = heatmap.plot(context.df_features, show_lower_only=True)
+
+&gt;&gt;&gt; # Subset of features
+&gt;&gt;&gt; selected_features = context.df_features[[&#39;pc_0&#39;, &#39;pc_1&#39;, &#39;mean__demand&#39;]]
+&gt;&gt;&gt; fig = heatmap.plot(selected_features)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the feature correlation heatmap diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureCorrelationHeatmap.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_features</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;pearson&#39;</span><span class="p">,</span> <span class="n">show_lower_only</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a heatmap of feature correlations.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_features</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Feature matrix with slices as rows, features as columns.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Correlation method ('pearson', 'spearman', or 'kendall').
+Default is 'pearson'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;pearson&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>show_lower_only</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, shows only the lower triangle of the
+correlation matrix (removes redundant upper triangle and diagonal).</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If method is not one of the supported correlation methods.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.feature_space.FeatureDistributions" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">FeatureDistributions</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureDistributions" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Visualize distributions of all features as histograms.</p>
+<p>Creates a grid of histograms showing the distribution of each feature across
+all slices. Helps identify feature scales, skewness, and potential outliers.
+Useful for understanding the feature space before selection.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Visualize all feature distributions
+&gt;&gt;&gt; dist_plot = FeatureDistributions()
+&gt;&gt;&gt; fig = dist_plot.plot(context.df_features)
+&gt;&gt;&gt; fig.update_layout(title=&#39;Feature Distributions&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # Subset of features
+&gt;&gt;&gt; selected_features = context.df_features[[&#39;pc_0&#39;, &#39;pc_1&#39;, &#39;mean__demand&#39;]]
+&gt;&gt;&gt; fig = dist_plot.plot(selected_features)
+
+&gt;&gt;&gt; # With custom bin count
+&gt;&gt;&gt; fig = dist_plot.plot(context.df_features, nbins=30)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureDistributions.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureDistributions.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the feature distributions diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.feature_space.FeatureDistributions.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.feature_space.FeatureDistributions.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_features</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">nbins</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a grid of histograms for all features.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_features</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Feature matrix with slices as rows, features as columns.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>nbins</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of bins for each histogram. Default is 20.</p>
+              </div>
+            </td>
+            <td>
+                  <code>20</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>cols</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of columns in the subplot grid. Default is 3.</p>
+              </div>
+            </td>
+            <td>
+                  <code>3</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If df_features is empty or nbins/cols are invalid.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="score-components">Score Components<a class="headerlink" href="#score-components" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.score_components.DistributionOverlayECDF" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">DistributionOverlayECDF</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Overlay empirical cumulative distribution functions (ECDF) to compare distributions.</p>
+<p>Creates a plot showing the ECDF of a variable for both the full dataset and
+a selection. This helps visualize how well the selection represents the full
+distribution, which is what WassersteinFidelity measures.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Compare demand distribution
+&gt;&gt;&gt; ecdf_plot = DistributionOverlayECDF()
+&gt;&gt;&gt; full_data = context.df_raw[&#39;demand&#39;]
+&gt;&gt;&gt; selected_indices = context.slicer.get_indices_for_slices(result.selection)
+&gt;&gt;&gt; selected_data = context.df_raw.loc[selected_indices, &#39;demand&#39;]
+&gt;&gt;&gt; fig = ecdf_plot.plot(full_data, selected_data)
+&gt;&gt;&gt; fig.update_layout(title=&#39;Demand Distribution: Full vs Selected&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # Alternative: using iloc
+&gt;&gt;&gt; selection_mask = context.df_raw.index.isin(selected_indices)
+&gt;&gt;&gt; fig = ecdf_plot.plot(
+...     context.df_raw[&#39;wind&#39;],
+...     context.df_raw.loc[selection_mask, &#39;wind&#39;]
+... )
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.DistributionOverlayECDF.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the ECDF overlay diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.DistributionOverlayECDF.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DistributionOverlayECDF.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_full</span><span class="p">:</span> <span class="n"><span title="pandas.Series">Series</span></span><span class="p">,</span> <span class="n">df_selection</span><span class="p">:</span> <span class="n"><span title="pandas.Series">Series</span></span><span class="p">,</span> <span class="n">full_label</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;Full&#39;</span><span class="p">,</span> <span class="n">selection_label</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;Selection&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create an ECDF overlay plot.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_full</code>
+            </td>
+            <td>
+                  <code><span title="pandas.Series">Series</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Series containing values for the full dataset.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_selection</code>
+            </td>
+            <td>
+                  <code><span title="pandas.Series">Series</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Series containing values for the selection.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>full_label</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Label for the full dataset in the legend. Default 'Full'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Full&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selection_label</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Label for the selection in the legend. Default 'Selection'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Selection&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.score_components.DistributionOverlayHistogram" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">DistributionOverlayHistogram</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Overlay histograms to compare distributions.</p>
+<p>Creates a plot showing normalized histograms of a variable for both the
+full dataset and a selection. Alternative to ECDF that may be more intuitive
+for some users. Shows probability density rather than cumulative probability.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Compare demand distribution
+&gt;&gt;&gt; hist_plot = DistributionOverlayHistogram()
+&gt;&gt;&gt; full_data = context.df_raw[&#39;demand&#39;]
+&gt;&gt;&gt; selected_indices = context.slicer.get_indices_for_slices(result.selection)
+&gt;&gt;&gt; selected_data = context.df_raw.loc[selected_indices, &#39;demand&#39;]
+&gt;&gt;&gt; fig = hist_plot.plot(full_data, selected_data)
+&gt;&gt;&gt; fig.update_layout(title=&#39;Demand Distribution: Full vs Selected&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # With custom bin count
+&gt;&gt;&gt; fig = hist_plot.plot(full_data, selected_data, nbins=50)
+
+&gt;&gt;&gt; # Using density mode
+&gt;&gt;&gt; fig = hist_plot.plot(full_data, selected_data, histnorm=&#39;probability density&#39;)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.DistributionOverlayHistogram.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the histogram overlay diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.DistributionOverlayHistogram.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DistributionOverlayHistogram.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_full</span><span class="p">:</span> <span class="n"><span title="pandas.Series">Series</span></span><span class="p">,</span> <span class="n">df_selection</span><span class="p">:</span> <span class="n"><span title="pandas.Series">Series</span></span><span class="p">,</span> <span class="n">nbins</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">histnorm</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">full_label</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;Full&#39;</span><span class="p">,</span> <span class="n">selection_label</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;Selection&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a histogram overlay plot.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_full</code>
+            </td>
+            <td>
+                  <code><span title="pandas.Series">Series</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Series containing values for the full dataset.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_selection</code>
+            </td>
+            <td>
+                  <code><span title="pandas.Series">Series</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Series containing values for the selection.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>nbins</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of bins for the histogram. Default is 30.</p>
+              </div>
+            </td>
+            <td>
+                  <code>30</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>histnorm</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Histogram normalization mode. Options: 'probability',
+'probability density', 'percent'. Default is 'probability'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;probability&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>full_label</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Label for the full dataset in the legend. Default 'Full'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Full&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selection_label</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Label for the selection in the legend. Default 'Selection'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Selection&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If histnorm is not a valid option.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">CorrelationDifferenceHeatmap</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Visualize the difference between correlation matrices.</p>
+<p>Creates a heatmap showing the difference between the correlation matrix of
+the full dataset and the selection. This helps identify which variable
+relationships are well-preserved or poorly-preserved by the selection.
+Related to CorrelationFidelity score component.</p>
+<p>Positive values (red) indicate the selection has stronger correlation than
+the full dataset. Negative values (blue) indicate weaker correlation.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Compare correlation structure
+&gt;&gt;&gt; corr_diff = CorrelationDifferenceHeatmap()
+&gt;&gt;&gt; full_data = context.df_raw[[&#39;demand&#39;, &#39;wind&#39;, &#39;solar&#39;]]
+&gt;&gt;&gt; selected_indices = context.slicer.get_indices_for_slices(result.selection)
+&gt;&gt;&gt; selected_data = context.df_raw.loc[selected_indices, [&#39;demand&#39;, &#39;wind&#39;, &#39;solar&#39;]]
+&gt;&gt;&gt; fig = corr_diff.plot(full_data, selected_data)
+&gt;&gt;&gt; fig.update_layout(title=&#39;Correlation Difference: Selection - Full&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # With Spearman correlation
+&gt;&gt;&gt; fig = corr_diff.plot(full_data, selected_data, method=&#39;spearman&#39;)
+
+&gt;&gt;&gt; # Show only lower triangle
+&gt;&gt;&gt; fig = corr_diff.plot(full_data, selected_data, show_lower_only=True)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the correlation difference heatmap diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.CorrelationDifferenceHeatmap.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_full</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">df_selection</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;pearson&#39;</span><span class="p">,</span> <span class="n">show_lower_only</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a heatmap of correlation differences.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_full</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DataFrame containing variables for the full dataset.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_selection</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DataFrame containing variables for the selection.
+Must have the same columns as df_full.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Correlation method ('pearson', 'spearman', or 'kendall').
+Default is 'pearson'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;pearson&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>show_lower_only</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, shows only the lower triangle of the
+difference matrix (removes redundant upper triangle and diagonal).</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If method is invalid or columns don't match.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.score_components.DiurnalProfileOverlay" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">DiurnalProfileOverlay</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Overlay mean diurnal (hour-of-day) profiles for full vs selected data.</p>
+<p>Creates a plot showing the average value by hour of day for each variable,
+comparing the full dataset to the selection. This helps visualize how well
+the selection preserves daily patterns, which is related to DiurnalFidelity
+score component.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; # Compare diurnal patterns
+&gt;&gt;&gt; diurnal_plot = DiurnalProfileOverlay()
+&gt;&gt;&gt; full_data = context.df_raw[[&#39;demand&#39;, &#39;wind&#39;, &#39;solar&#39;]]
+&gt;&gt;&gt; selected_indices = context.slicer.get_indices_for_slices(result.selection)
+&gt;&gt;&gt; selected_data = context.df_raw.loc[selected_indices, [&#39;demand&#39;, &#39;wind&#39;, &#39;solar&#39;]]
+&gt;&gt;&gt; fig = diurnal_plot.plot(full_data, selected_data)
+&gt;&gt;&gt; fig.update_layout(title=&#39;Diurnal Profiles: Full vs Selected&#39;)
+&gt;&gt;&gt; fig.show()
+
+&gt;&gt;&gt; # Single variable
+&gt;&gt;&gt; fig = diurnal_plot.plot(
+...     full_data[[&#39;demand&#39;]],
+...     selected_data[[&#39;demand&#39;]]
+... )
+
+&gt;&gt;&gt; # Subset of variables
+&gt;&gt;&gt; fig = diurnal_plot.plot(
+...     full_data,
+...     selected_data,
+...     variables=[&#39;demand&#39;, &#39;wind&#39;]
+... )
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.DiurnalProfileOverlay.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the diurnal profile overlay diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.score_components.DiurnalProfileOverlay.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.score_components.DiurnalProfileOverlay.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">df_full</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">df_selection</span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n">variables</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">full_label</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;Full&#39;</span><span class="p">,</span> <span class="n">selection_label</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;Selection&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a diurnal profile overlay plot.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_full</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DataFrame with DatetimeIndex and variable columns for full dataset.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>df_selection</code>
+            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DataFrame with DatetimeIndex and variable columns for selection.
+Must have the same columns as df_full.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>variables</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of variable names to include. If None, uses all columns.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>full_label</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Label suffix for full dataset traces. Default 'Full'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Full&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selection_label</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Label suffix for selection traces. Default 'Selection'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;Selection&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure object ready for display or further customization.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If DataFrames don't have DatetimeIndex or columns don't match.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.results.ResponsibilityBars" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ResponsibilityBars</span>
+
+
+<a href="#energy_repset.diagnostics.results.ResponsibilityBars" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Bar chart showing responsibility weights for selected representatives.</p>
+<p>Visualizes the weight distribution across selected periods as computed by
+a RepresentationModel. Each bar shows how much each representative
+contributes to the full dataset representation.</p>
+<p>Optionally displays a reference line showing uniform weights (1/k) for
+comparison with non-uniform weighting schemes like cluster-size based
+weights.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; from energy_repset.diagnostics.results import ResponsibilityBars
+&gt;&gt;&gt;
+&gt;&gt;&gt; # After running workflow with result containing weights
+&gt;&gt;&gt; weights = result.weights  # e.g., {Period(&#39;2024-01&#39;): 0.35, ...}
+&gt;&gt;&gt; bars = ResponsibilityBars()
+&gt;&gt;&gt; fig = bars.plot(weights, show_uniform_reference=True)
+&gt;&gt;&gt; fig.update_layout(title=&#39;Responsibility Weights&#39;)
+&gt;&gt;&gt; fig.show()
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ResponsibilityBars.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.results.ResponsibilityBars.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize ResponsibilityBars diagnostic.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ResponsibilityBars.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.results.ResponsibilityBars.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">weights</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="typing.Hashable">Hashable</span></span><span class="p">,</span> <span class="n"><span title="float">float</span></span><span class="p">],</span> <span class="n">show_uniform_reference</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create bar chart of responsibility weights.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>weights</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Hashable">Hashable</span>, <span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary mapping slice identifiers to their weights.
+Weights should sum to 1.0 for meaningful comparison with
+the uniform reference line.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>show_uniform_reference</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, adds horizontal dashed line
+showing uniform weight (1/k) for comparison.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure with bar chart. X-axis shows slice labels, Y-axis</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>shows weight values. Text labels show weights to 3 decimal places.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If weights dictionary is empty.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.results.ParetoScatter2D" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ParetoScatter2D</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoScatter2D" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>2D scatter plot of all evaluated combinations with Pareto front highlighted.</p>
+<p>Visualizes the objective space for two objectives, showing:
+- All evaluated combinations as scatter points
+- Pareto-optimal solutions highlighted
+- Selected combination (if provided) marked distinctly
+- Feasible vs infeasible solutions (if constraints exist)</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>objective_x</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of objective for x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>objective_y</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of objective for y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.diagnostics.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParetoScatter2D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scatter</span> <span class="o">=</span> <span class="n">ParetoScatter2D</span><span class="p">(</span><span class="n">objective_x</span><span class="o">=</span><span class="s1">&#39;wasserstein&#39;</span><span class="p">,</span> <span class="n">objective_y</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">scatter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">search_algorithm</span><span class="o">=</span><span class="n">workflow</span><span class="o">.</span><span class="n">search_algorithm</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">selected_combination</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">selection</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Pareto Front: Wasserstein vs Correlation&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ParetoScatter2D.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoScatter2D.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">objective_x</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">objective_y</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize Pareto scatter diagnostic.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>objective_x</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of objective for x-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>objective_y</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of objective for y-axis.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ParetoScatter2D.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoScatter2D.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">search_algorithm</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ObjectiveDrivenCombinatorialSearchAlgorithm (energy_repset.search_algorithms.objective_driven.ObjectiveDrivenCombinatorialSearchAlgorithm)" href="../search_algorithms/#energy_repset.search_algorithms.ObjectiveDrivenCombinatorialSearchAlgorithm">ObjectiveDrivenCombinatorialSearchAlgorithm</a></span><span class="p">,</span> <span class="n">selected_combination</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create 2D scatter plot of Pareto front.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>search_algorithm</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ObjectiveDrivenCombinatorialSearchAlgorithm (energy_repset.search_algorithms.objective_driven.ObjectiveDrivenCombinatorialSearchAlgorithm)" href="../search_algorithms/#energy_repset.search_algorithms.ObjectiveDrivenCombinatorialSearchAlgorithm">ObjectiveDrivenCombinatorialSearchAlgorithm</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Search algorithm after find_selection() has been called.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selected_combination</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional combination to highlight (e.g., result.selection).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure with scatter plot.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If find_selection() hasn't been called or objectives not found.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.results.ParetoScatterMatrix" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ParetoScatterMatrix</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoScatterMatrix" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Scatter matrix of all objectives showing Pareto front.</p>
+<p>Creates a scatter plot matrix (SPLOM) showing pairwise relationships between
+all objectives. Each subplot shows two objectives with Pareto front highlighted.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>objectives</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of objective names to include (None = all objectives).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.diagnostics.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParetoScatterMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scatter_matrix</span> <span class="o">=</span> <span class="n">ParetoScatterMatrix</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">objectives</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;wasserstein&#39;</span><span class="p">,</span> <span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="s1">&#39;diurnal&#39;</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">scatter_matrix</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">search_algorithm</span><span class="o">=</span><span class="n">workflow</span><span class="o">.</span><span class="n">search_algorithm</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">selected_combination</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">selection</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Pareto Front: All Objectives&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ParetoScatterMatrix.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoScatterMatrix.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">objectives</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize Pareto scatter matrix diagnostic.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>objectives</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of objective names to include (None = all).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ParetoScatterMatrix.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoScatterMatrix.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">search_algorithm</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ObjectiveDrivenCombinatorialSearchAlgorithm (energy_repset.search_algorithms.objective_driven.ObjectiveDrivenCombinatorialSearchAlgorithm)" href="../search_algorithms/#energy_repset.search_algorithms.ObjectiveDrivenCombinatorialSearchAlgorithm">ObjectiveDrivenCombinatorialSearchAlgorithm</a></span><span class="p">,</span> <span class="n">selected_combination</span><span class="p">:</span> <span class="n"><span title="energy_repset.types.SliceCombination">SliceCombination</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create scatter matrix of Pareto front.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>search_algorithm</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ObjectiveDrivenCombinatorialSearchAlgorithm (energy_repset.search_algorithms.objective_driven.ObjectiveDrivenCombinatorialSearchAlgorithm)" href="../search_algorithms/#energy_repset.search_algorithms.ObjectiveDrivenCombinatorialSearchAlgorithm">ObjectiveDrivenCombinatorialSearchAlgorithm</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Search algorithm after find_selection() has been called.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selected_combination</code>
+            </td>
+            <td>
+                  <code><span title="energy_repset.types.SliceCombination">SliceCombination</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional combination to highlight.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure with scatter matrix.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If find_selection() hasn't been called.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.results.ParetoParallelCoordinates" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ParetoParallelCoordinates</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Parallel coordinates plot of Pareto front.</p>
+<p>Visualizes multi-objective trade-offs using parallel coordinates where each
+vertical axis represents one objective. Lines connecting axes show individual
+solutions, with Pareto-optimal solutions highlighted.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>objectives</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of objective names to include (None = all objectives).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.diagnostics.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParetoParallelCoordinates</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parallel</span> <span class="o">=</span> <span class="n">ParetoParallelCoordinates</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">parallel</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">search_algorithm</span><span class="o">=</span><span class="n">workflow</span><span class="o">.</span><span class="n">search_algorithm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Pareto Front: Parallel Coordinates&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ParetoParallelCoordinates.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">objectives</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize parallel coordinates diagnostic.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>objectives</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of objective names to include (None = all).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ParetoParallelCoordinates.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.results.ParetoParallelCoordinates.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">search_algorithm</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ObjectiveDrivenCombinatorialSearchAlgorithm (energy_repset.search_algorithms.objective_driven.ObjectiveDrivenCombinatorialSearchAlgorithm)" href="../search_algorithms/#energy_repset.search_algorithms.ObjectiveDrivenCombinatorialSearchAlgorithm">ObjectiveDrivenCombinatorialSearchAlgorithm</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create parallel coordinates plot of Pareto front.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>search_algorithm</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ObjectiveDrivenCombinatorialSearchAlgorithm (energy_repset.search_algorithms.objective_driven.ObjectiveDrivenCombinatorialSearchAlgorithm)" href="../search_algorithms/#energy_repset.search_algorithms.ObjectiveDrivenCombinatorialSearchAlgorithm">ObjectiveDrivenCombinatorialSearchAlgorithm</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Search algorithm after find_selection() has been called.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure with parallel coordinates plot.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If find_selection() hasn't been called.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="energy_repset.diagnostics.results.ScoreContributionBars" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ScoreContributionBars</span>
+
+
+<a href="#energy_repset.diagnostics.results.ScoreContributionBars" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Bar chart showing final scores from each objective component.</p>
+<p>Visualizes the contribution of each score component to understand which
+objectives were most influential in the final selection. Can display
+absolute scores or normalized as fractions of total.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.diagnostics.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScoreContributionBars</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contrib</span> <span class="o">=</span> <span class="n">ScoreContributionBars</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">contrib</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">scores</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Score Component Contributions&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="energy_repset.diagnostics.results.ScoreContributionBars.plot" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#energy_repset.diagnostics.results.ScoreContributionBars.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">scores</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="float">float</span></span><span class="p">],</span> <span class="n">normalize</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="plotly.graph_objects.Figure">Figure</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create bar chart of score component contributions.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>scores</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary of scores from each component (from result.scores).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>normalize</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, show as fractions of total score.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="plotly.graph_objects.Figure">Figure</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plotly figure with bar chart.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "content.tabs.link", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

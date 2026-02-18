@@ -1,0 +1,2100 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A unified framework for representative subset selection in multi-variate time-series spaces">
+      
+      
+      
+        <link rel="canonical" href="https://energy-repset-docs.mesqual.io/advisor/">
+      
+      
+        <link rel="prev" href="../modules/">
+      
+      
+        <link rel="next" href="../gallery/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo-red.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Configuration Advisor - energy-repset</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuration-advisor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="energy-repset" class="md-header__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../assets/logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            energy-repset
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuration Advisor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../gallery/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="energy-repset" class="md-nav__button md-logo" aria-label="energy-repset" data-md-component="logo">
+      
+  <img src="../assets/logo-white.svg" alt="logo">
+
+    </a>
+    energy-repset
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    energy-repset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unified_framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unified Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules & Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Advisor
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Advisor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#component-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f-feature-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F: Feature Engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-score-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O: Score Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-combination-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S: Combination Generators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-representation-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: Representation Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A: Search Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pi-selection-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pi: Selection Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Tree
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-understand-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Understand your data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-downstream-model-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Downstream model constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-computational-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Computational budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-quality-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Quality goals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-selection-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Selection policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Configurations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal-single-objective-monthly-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal: single-objective monthly selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-objective-with-pca-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-objective with PCA features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seasonal-constraints-with-hierarchical-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seasonal constraints with hierarchical search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blended-soft-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blended (soft) representation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../gallery/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex1: Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex2: Feature Space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex3: Hierarchical Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex4: Representation Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/ex5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ex5: Multi-Objective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context & Slicing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow & Experiment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/feature_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/objectives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/score_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Score Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/combi_gens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combination Generators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/selection_policies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selection Policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/search_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/representation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Representation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#component-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f-feature-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F: Feature Engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-score-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O: Score Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-combination-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S: Combination Generators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-representation-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: Representation Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-search-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A: Search Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pi-selection-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pi: Selection Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Tree
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-understand-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Understand your data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-downstream-model-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Downstream model constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-computational-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Computational budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-quality-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Quality goals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-selection-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Selection policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Configurations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal-single-objective-monthly-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal: single-objective monthly selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-objective-with-pca-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-objective with PCA features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seasonal-constraints-with-hierarchical-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seasonal constraints with hierarchical search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blended-soft-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blended (soft) representation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="configuration-advisor">Configuration Advisor<a class="headerlink" href="#configuration-advisor" title="Permanent link">&para;</a></h1>
+<p>This document serves a dual purpose:</p>
+<ol>
+<li><strong>Human guide</strong> -- a structured decision tree for choosing energy-repset components.</li>
+<li><strong>AI system prompt</strong> -- a self-contained reference an LLM can use to interactively guide users through configuration.</li>
+</ol>
+<p>For theory, see <a href="../unified_framework/">Unified Framework</a>. For API details, see <a href="../modules/">Modules &amp; Components</a>.</p>
+<hr />
+<h2 id="component-catalog">Component Catalog<a class="headerlink" href="#component-catalog" title="Permanent link">&para;</a></h2>
+<h3 id="f-feature-engineering">F: Feature Engineering<a class="headerlink" href="#f-feature-engineering" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Import</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StandardStatsFeatureEngineer</code></td>
+<td><code>energy_repset.feature_engineering</code></td>
+<td>Statistical summaries per slice (mean, std, IQR, quantiles, ramp rates). Z-score normalized.</td>
+</tr>
+<tr>
+<td><code>PCAFeatureEngineer</code></td>
+<td><code>energy_repset.feature_engineering</code></td>
+<td>PCA dimensionality reduction. Supports variance-threshold or fixed component count.</td>
+</tr>
+<tr>
+<td><code>FeaturePipeline</code></td>
+<td><code>energy_repset.feature_engineering</code></td>
+<td>Chains multiple engineers sequentially.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Typical pipeline:</strong> <code>StandardStatsFeatureEngineer</code> -&gt; <code>PCAFeatureEngineer</code> (via <code>FeaturePipeline</code>).</p>
+<h3 id="o-score-components">O: Score Components<a class="headerlink" href="#o-score-components" title="Permanent link">&para;</a></h3>
+<p>All components implement the <code>ScoreComponent</code> protocol with <code>prepare(context)</code> and <code>score(combination)</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Direction</th>
+<th>What it Measures</th>
+<th>Import</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WassersteinFidelity</code></td>
+<td>min</td>
+<td>Marginal distribution similarity (Wasserstein distance, IQR-normalized)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>CorrelationFidelity</code></td>
+<td>min</td>
+<td>Cross-variable correlation preservation (Frobenius norm)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>DurationCurveFidelity</code></td>
+<td>min</td>
+<td>Duration curve match (quantile-based NRMSE)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>NRMSEFidelity</code></td>
+<td>min</td>
+<td>Duration curve match (full interpolation NRMSE)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>DiurnalFidelity</code></td>
+<td>min</td>
+<td>Hour-of-day profile preservation (normalized MSE)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>DiurnalDTWFidelity</code></td>
+<td>min</td>
+<td>Hour-of-day profile preservation (DTW distance)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>DTWFidelity</code></td>
+<td>min</td>
+<td>Full series shape similarity (Dynamic Time Warping)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>DiversityReward</code></td>
+<td>max</td>
+<td>Spread in feature space (avg pairwise distance)</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>CentroidBalance</code></td>
+<td>min</td>
+<td>Feature centroid deviation from global mean</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+<tr>
+<td><code>CoverageBalance</code></td>
+<td>min</td>
+<td>Balanced coverage via RBF kernel soft assignment</td>
+<td><code>energy_repset.score_components</code></td>
+</tr>
+</tbody>
+</table>
+<p>Components are bundled into an <code>ObjectiveSet</code> (<code>energy_repset.objectives</code>) with per-component weights.</p>
+<h3 id="s-combination-generators">S: Combination Generators<a class="headerlink" href="#s-combination-generators" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Import</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ExhaustiveCombiGen</code></td>
+<td><code>energy_repset.combi_gens</code></td>
+<td>All k-of-n combinations.</td>
+</tr>
+<tr>
+<td><code>GroupQuotaCombiGen</code></td>
+<td><code>energy_repset.combi_gens</code></td>
+<td>Exact quotas per group (e.g., 1 per season).</td>
+</tr>
+<tr>
+<td><code>ExhaustiveHierarchicalCombiGen</code></td>
+<td><code>energy_repset.combi_gens</code></td>
+<td>Selects parent groups, evaluates on child slices.</td>
+</tr>
+<tr>
+<td><code>GroupQuotaHierarchicalCombiGen</code></td>
+<td><code>energy_repset.combi_gens</code></td>
+<td>Hierarchical + group quotas. Has <code>from_slicers_with_seasons()</code> factory.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="r-representation-models">R: Representation Models<a class="headerlink" href="#r-representation-models" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Import</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UniformRepresentationModel</code></td>
+<td><code>energy_repset.representation</code></td>
+<td>Equal 1/k weights. Returns <code>dict</code>.</td>
+</tr>
+<tr>
+<td><code>KMedoidsClustersizeRepresentation</code></td>
+<td><code>energy_repset.representation</code></td>
+<td>Cluster-proportional weights via k-medoids. Returns <code>dict</code>.</td>
+</tr>
+<tr>
+<td><code>BlendedRepresentationModel</code></td>
+<td><code>energy_repset.representation</code></td>
+<td>Soft assignment (convex combination). Returns weight <code>DataFrame</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a-search-algorithms">A: Search Algorithms<a class="headerlink" href="#a-search-algorithms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Workflow</th>
+<th>Import</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ObjectiveDrivenCombinatorialSearchAlgorithm</code></td>
+<td>Generate-and-Test</td>
+<td><code>energy_repset.search_algorithms</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not yet implemented:</strong> Constructive algorithms (Hull Clustering, K-Medoids PAM, Snippet Algorithm), Direct Optimization (MILP).</p>
+<h3 id="pi-selection-policies">Pi: Selection Policies<a class="headerlink" href="#pi-selection-policies" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Import</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WeightedSumPolicy</code></td>
+<td><code>energy_repset.selection_policies</code></td>
+<td>Scalar aggregation. Supports <code>normalization='robust_minmax'</code>.</td>
+</tr>
+<tr>
+<td><code>ParetoMaxMinStrategy</code></td>
+<td><code>energy_repset.selection_policies</code></td>
+<td>Pareto-optimal solution maximizing worst objective.</td>
+</tr>
+<tr>
+<td><code>ParetoUtopiaPolicy</code></td>
+<td><code>energy_repset.selection_policies</code></td>
+<td>Pareto-optimal solution closest to utopia point.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="decision-tree">Decision Tree<a class="headerlink" href="#decision-tree" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-understand-your-data">Step 1: Understand your data<a class="headerlink" href="#step-1-understand-your-data" title="Permanent link">&para;</a></h3>
+<p>Ask yourself:</p>
+<ul>
+<li><strong>Resolution:</strong> Hourly? 15-minute? Daily?</li>
+<li><strong>Variables:</strong> How many time-series (load, wind, solar, prices, ...)?</li>
+<li><strong>Horizon:</strong> One year? Multiple years?</li>
+<li><strong>Candidate count:</strong> How many slices does your <code>TimeSlicer</code> produce?</li>
+<li>12 months -&gt; C(12,3) = 220 candidates for k=3</li>
+<li>52 weeks -&gt; C(52,8) = 752 million candidates for k=8</li>
+</ul>
+<p>This determines whether exhaustive search is feasible or you need constrained/hierarchical generation.</p>
+<h3 id="step-2-downstream-model-constraints">Step 2: Downstream model constraints<a class="headerlink" href="#step-2-downstream-model-constraints" title="Permanent link">&para;</a></h3>
+<p>Your energy system model may impose constraints on the representation:</p>
+<table>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model requires equal-length periods with scalar weights</td>
+<td>Use <code>UniformRepresentationModel</code> or <code>KMedoidsClustersizeRepresentation</code></td>
+</tr>
+<tr>
+<td>Model can accept blended inputs (e.g., weighted hourly profiles)</td>
+<td>Use <code>BlendedRepresentationModel</code></td>
+</tr>
+<tr>
+<td>Must cover all seasons</td>
+<td>Use <code>GroupQuotaCombiGen</code> or <code>GroupQuotaHierarchicalCombiGen</code></td>
+</tr>
+<tr>
+<td>Must preserve temporal coupling within periods (e.g., multi-day storage)</td>
+<td>Prefer weekly/multi-day slicing over monthly</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-3-computational-budget">Step 3: Computational budget<a class="headerlink" href="#step-3-computational-budget" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Candidate space size</th>
+<th>Recommended generator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 10,000</td>
+<td><code>ExhaustiveCombiGen</code> -- evaluate all</td>
+</tr>
+<tr>
+<td>10,000 -- 1,000,000</td>
+<td><code>GroupQuotaCombiGen</code> to constrain, or hierarchical generators</td>
+</tr>
+<tr>
+<td>&gt; 1,000,000</td>
+<td>Hierarchical generators, or future genetic/constructive algorithms</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hierarchical trick:</strong> Select at the month level (small combinatorial space) but evaluate on day-level features (high resolution). Use <code>ExhaustiveHierarchicalCombiGen</code> or <code>GroupQuotaHierarchicalCombiGen</code>.</p>
+<h3 id="step-4-quality-goals">Step 4: Quality goals<a class="headerlink" href="#step-4-quality-goals" title="Permanent link">&para;</a></h3>
+<p>Choose score components based on what matters for your downstream model:</p>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Recommended Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preserve marginal distributions (load duration curves)</td>
+<td><code>WassersteinFidelity</code>, <code>DurationCurveFidelity</code>, <code>NRMSEFidelity</code></td>
+</tr>
+<tr>
+<td>Preserve variable correlations (wind-solar complementarity)</td>
+<td><code>CorrelationFidelity</code></td>
+</tr>
+<tr>
+<td>Preserve diurnal patterns (solar noon peak, evening ramp)</td>
+<td><code>DiurnalFidelity</code>, <code>DiurnalDTWFidelity</code></td>
+</tr>
+<tr>
+<td>Preserve overall time-series shape</td>
+<td><code>DTWFidelity</code></td>
+</tr>
+<tr>
+<td>Ensure diverse representatives (avoid redundancy)</td>
+<td><code>DiversityReward</code></td>
+</tr>
+<tr>
+<td>Balanced coverage of the feature space</td>
+<td><code>CentroidBalance</code>, <code>CoverageBalance</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Start simple:</strong> <code>WassersteinFidelity</code> + <code>CorrelationFidelity</code> covers most needs. Add more components only if you observe specific deficiencies in the results.</p>
+<h3 id="step-5-selection-policy">Step 5: Selection policy<a class="headerlink" href="#step-5-selection-policy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Recommended Policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single objective or clear priority ranking</td>
+<td><code>WeightedSumPolicy</code> (default)</td>
+</tr>
+<tr>
+<td>Multiple objectives, want balanced trade-off</td>
+<td><code>WeightedSumPolicy(normalization='robust_minmax')</code></td>
+</tr>
+<tr>
+<td>Multiple objectives, want to avoid worst-case failure</td>
+<td><code>ParetoMaxMinStrategy</code></td>
+</tr>
+<tr>
+<td>Multiple objectives, want closest to ideal</td>
+<td><code>ParetoUtopiaPolicy</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="common-configurations">Common Configurations<a class="headerlink" href="#common-configurations" title="Permanent link">&para;</a></h2>
+<p>All examples below assume <code>import energy_repset as rep</code>.</p>
+<h3 id="minimal-single-objective-monthly-selection">Minimal: single-objective monthly selection<a class="headerlink" href="#minimal-single-objective-monthly-selection" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">energy_repset</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rep</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">ProblemContext</span><span class="p">(</span><span class="n">df_raw</span><span class="o">=</span><span class="n">df_raw</span><span class="p">,</span> <span class="n">slicer</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s2">&quot;month&quot;</span><span class="p">))</span>
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
+    <span class="n">feature_engineer</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">StandardStatsFeatureEngineer</span><span class="p">(),</span>
+    <span class="n">search_algorithm</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">ObjectiveDrivenCombinatorialSearchAlgorithm</span><span class="p">(</span>
+        <span class="n">rep</span><span class="o">.</span><span class="n">ObjectiveSet</span><span class="p">({</span><span class="s1">&#39;wass&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rep</span><span class="o">.</span><span class="n">WassersteinFidelity</span><span class="p">())}),</span>
+        <span class="n">rep</span><span class="o">.</span><span class="n">WeightedSumPolicy</span><span class="p">(),</span>
+        <span class="n">rep</span><span class="o">.</span><span class="n">ExhaustiveCombiGen</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">UniformRepresentationModel</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">workflow</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="multi-objective-with-pca-features">Multi-objective with PCA features<a class="headerlink" href="#multi-objective-with-pca-features" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">feature_pipeline</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">FeaturePipeline</span><span class="p">(</span><span class="n">engineers</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;stats&#39;</span><span class="p">:</span> <span class="n">rep</span><span class="o">.</span><span class="n">StandardStatsFeatureEngineer</span><span class="p">(),</span>
+    <span class="s1">&#39;pca&#39;</span><span class="p">:</span> <span class="n">rep</span><span class="o">.</span><span class="n">PCAFeatureEngineer</span><span class="p">(),</span>
+<span class="p">})</span>
+
+<span class="n">objective_set</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">ObjectiveSet</span><span class="p">({</span>
+    <span class="s1">&#39;wasserstein&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rep</span><span class="o">.</span><span class="n">WassersteinFidelity</span><span class="p">()),</span>
+    <span class="s1">&#39;correlation&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rep</span><span class="o">.</span><span class="n">CorrelationFidelity</span><span class="p">()),</span>
+    <span class="s1">&#39;diversity&#39;</span><span class="p">:</span>   <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">rep</span><span class="o">.</span><span class="n">DiversityReward</span><span class="p">()),</span>
+<span class="p">})</span>
+
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
+    <span class="n">feature_engineer</span><span class="o">=</span><span class="n">feature_pipeline</span><span class="p">,</span>
+    <span class="n">search_algorithm</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">ObjectiveDrivenCombinatorialSearchAlgorithm</span><span class="p">(</span>
+        <span class="n">objective_set</span><span class="p">,</span> <span class="n">rep</span><span class="o">.</span><span class="n">ParetoMaxMinStrategy</span><span class="p">(),</span> <span class="n">rep</span><span class="o">.</span><span class="n">ExhaustiveCombiGen</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">KMedoidsClustersizeRepresentation</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">workflow</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="seasonal-constraints-with-hierarchical-search">Seasonal constraints with hierarchical search<a class="headerlink" href="#seasonal-constraints-with-hierarchical-search" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">child_slicer</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">TimeSlicer</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s2">&quot;day&quot;</span><span class="p">)</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">ProblemContext</span><span class="p">(</span><span class="n">df_raw</span><span class="o">=</span><span class="n">df_raw</span><span class="p">,</span> <span class="n">slicer</span><span class="o">=</span><span class="n">child_slicer</span><span class="p">)</span>
+
+<span class="n">combi_gen</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">GroupQuotaHierarchicalCombiGen</span><span class="o">.</span><span class="n">from_slicers_with_seasons</span><span class="p">(</span>
+    <span class="n">parent_k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">dt_index</span><span class="o">=</span><span class="n">df_raw</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">child_slicer</span><span class="o">=</span><span class="n">child_slicer</span><span class="p">,</span>
+    <span class="n">group_quota</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;winter&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;fall&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
+    <span class="n">feature_engineer</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">StandardStatsFeatureEngineer</span><span class="p">(),</span>
+    <span class="n">search_algorithm</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">ObjectiveDrivenCombinatorialSearchAlgorithm</span><span class="p">(</span>
+        <span class="n">objective_set</span><span class="p">,</span> <span class="n">rep</span><span class="o">.</span><span class="n">WeightedSumPolicy</span><span class="p">(),</span> <span class="n">combi_gen</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">KMedoidsClustersizeRepresentation</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">workflow</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="blended-soft-representation">Blended (soft) representation<a class="headerlink" href="#blended-soft-representation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">workflow</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
+    <span class="n">feature_engineer</span><span class="o">=</span><span class="n">feature_pipeline</span><span class="p">,</span>
+    <span class="n">search_algorithm</span><span class="o">=</span><span class="n">search_algorithm</span><span class="p">,</span>
+    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">BlendedRepresentationModel</span><span class="p">(</span><span class="n">blend_type</span><span class="o">=</span><span class="s1">&#39;convex&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">workflow</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="c1"># result.weights is a DataFrame (not a dict) for blended models</span>
+</code></pre></div>
+<hr />
+<h2 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Blended weight aggregation:</strong> <code>BlendedRepresentationModel.weigh()</code> returns a weight <em>matrix</em>. If you sum columns for visualization, normalize the result so weights sum to 1.0 (otherwise bars show raw sums that scale with N).</p>
+</li>
+<li>
+<p><strong>Combinatorial explosion:</strong> C(52, 8) = 752 million. Always check <code>combi_gen.count(slices)</code> before running. Use hierarchical generators or group quotas to reduce the search space.</p>
+</li>
+<li>
+<p><strong>PCA without stats:</strong> <code>PCAFeatureEngineer</code> operates on existing features. It must come <em>after</em> <code>StandardStatsFeatureEngineer</code> in a <code>FeaturePipeline</code>, not as a standalone.</p>
+</li>
+<li>
+<p><strong>DTW components are slow:</strong> <code>DTWFidelity</code> and <code>DiurnalDTWFidelity</code> use dynamic time warping which is O(n^2) per pair. Suitable for small candidate sets; consider cheaper alternatives for large searches.</p>
+</li>
+<li>
+<p><strong>Direction confusion:</strong> Most fidelity components use <code>direction="min"</code> (lower is better). <code>DiversityReward</code> uses <code>direction="max"</code>. The <code>ObjectiveSet</code> and selection policies handle direction automatically -- you do not need to negate scores.</p>
+</li>
+<li>
+<p><strong>Single vs multi-objective:</strong> With a single score component, <code>WeightedSumPolicy</code> and <code>ParetoMaxMinStrategy</code> produce identical results. Pareto-based policies only add value with 2+ objectives.</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "content.tabs.link", "navigation.sections"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
