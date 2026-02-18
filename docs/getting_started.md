@@ -9,9 +9,29 @@ simple diagnostic chart.
 
 ## Installation
 
+**Option 1 -- Install directly from GitHub:**
+
 ```bash
-pip install energy-repset
+pip install git+https://github.com/mesqual/energy-repset.git
 ```
+
+**Option 2 -- Clone and install in editable mode:**
+
+```bash
+git clone https://github.com/mesqual/energy-repset.git
+cd energy-repset
+pip install -e .
+```
+
+**Option 3 -- Add as a Git submodule (useful for monorepos):**
+
+```bash
+git submodule add https://github.com/mesqual/energy-repset.git
+pip install -e energy-repset
+```
+
+Alternatively, skip the install and mark the `energy-repset` directory as a
+source root in your IDE so that `import energy_repset` resolves directly.
 
 ## Imports
 
