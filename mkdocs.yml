@@ -1,0 +1,10 @@
+site_name: energy-repset
+site_description: A unified framework for representative subset selection in multi-variate time-series spaces
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - White Paper: white_paper.md
+  - Workflow: workflow.md

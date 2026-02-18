@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.backends"
+
+[project]
+name = "energy-repset"
+version = "0.1.0"
+description = "A unified framework for representative subset selection in multi-variate time-series spaces"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "helgestefan", email = "on@hstes.de" }]
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "scikit-learn",
+    "matplotlib",
+    "plotly",
+    "tslearn",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+docs = ["mkdocs-material", "mkdocstrings[python]"]

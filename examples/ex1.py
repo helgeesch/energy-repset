@@ -1,33 +1,33 @@
 import pandas as pd
-from mesqual_repset.context import ProblemContext
-from mesqual_repset.representation import KMedoidsClustersizeRepresentation
-from mesqual_repset.time_slicer import TimeSlicer
-from mesqual_repset.feature_engineering import FeaturePipeline, StandardStatsFeatureEngineer, PCAFeatureEngineer
-from mesqual_repset.objectives import ObjectiveSet
-from mesqual_repset.problem import RepSetExperiment
-from mesqual_repset.workflow import Workflow
-from mesqual_repset.score_components import (
+from energy_repset.context import ProblemContext
+from energy_repset.representation import KMedoidsClustersizeRepresentation
+from energy_repset.time_slicer import TimeSlicer
+from energy_repset.feature_engineering import FeaturePipeline, StandardStatsFeatureEngineer, PCAFeatureEngineer
+from energy_repset.objectives import ObjectiveSet
+from energy_repset.problem import RepSetExperiment
+from energy_repset.workflow import Workflow
+from energy_repset.score_components import (
     WassersteinFidelity,
     CorrelationFidelity,
     DiversityReward,
     CentroidBalance
 )
-from mesqual_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from mesqual_repset.selection_policies import ParetoMaxMinStrategy
-from mesqual_repset.combi_gens import ExhaustiveCombiGen
-from mesqual_repset.diagnostics.feature_space import (
+from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
+from energy_repset.selection_policies import ParetoMaxMinStrategy
+from energy_repset.combi_gens import ExhaustiveCombiGen
+from energy_repset.diagnostics.feature_space import (
     FeatureSpaceScatter2D,
     FeatureSpaceScatter3D,
     FeatureSpaceScatterMatrix,
     PCAVarianceExplained,
     FeatureCorrelationHeatmap,
 )
-from mesqual_repset.diagnostics.score_components import (
+from energy_repset.diagnostics.score_components import (
     DistributionOverlayECDF,
     CorrelationDifferenceHeatmap,
     DiurnalProfileOverlay,
 )
-from mesqual_repset.diagnostics.results import ResponsibilityBars
+from energy_repset.diagnostics.results import ResponsibilityBars
 
 # --- 1. Initial Data Loading ---
 # Load the raw time-series data.
