@@ -23,37 +23,51 @@ pip install energy-repset
 ```
 
 ```python
+import pandas as pd
 from energy_repset.context import ProblemContext
 from energy_repset.time_slicer import TimeSlicer
 from energy_repset.feature_engineering import StandardStatsFeatureEngineer
 from energy_repset.objectives import ObjectiveSet
 from energy_repset.score_components import WassersteinFidelity, CorrelationFidelity
 from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.selection_policies import ParetoMaxMinStrategy
+from energy_repset.selection_policies import WeightedSumPolicy
 from energy_repset.combi_gens import ExhaustiveCombiGen
-from energy_repset.representation import KMedoidsClustersizeRepresentation
+from energy_repset.representation import UniformRepresentationModel
 from energy_repset.problem import RepSetExperiment
 from energy_repset.workflow import Workflow
 
-# Define problem
+# Load hourly time-series data (columns = variables, index = datetime)
+df_raw = pd.read_csv("your_data.csv", index_col=0, parse_dates=True)
+
+# Define problem: slice the year into monthly candidate periods
 slicer = TimeSlicer(unit="month")
 context = ProblemContext(df_raw, slicer)
 
-# Configure pipeline
+# Feature engineering: statistical summaries per month
 feature_engineer = StandardStatsFeatureEngineer()
-objective_set = ObjectiveSet.from_components(
-    WassersteinFidelity(direction="min"),
-    CorrelationFidelity(direction="min"),
-)
-search = ObjectiveDrivenCombinatorialSearchAlgorithm(
-    combination_generator=ExhaustiveCombiGen(),
-    objective_set=objective_set,
-    selection_policy=ParetoMaxMinStrategy(),
-)
-representation = KMedoidsClustersizeRepresentation()
-workflow = Workflow(feature_engineer, search, representation, k=4)
 
-# Run
+# Objective: score each candidate selection on distribution fidelity
+objective_set = ObjectiveSet({
+    'wasserstein': (1.0, WassersteinFidelity()),
+    'correlation': (1.0, CorrelationFidelity()),
+})
+
+# Search: evaluate all 4-of-12 monthly combinations
+policy = WeightedSumPolicy()
+combi_gen = ExhaustiveCombiGen(k=4)
+search = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
+
+# Representation: equal 1/k weights per selected month
+representation = UniformRepresentationModel()
+
+# Assemble and run
+workflow = Workflow(feature_engineer, search, representation)
 experiment = RepSetExperiment(context, workflow)
 result = experiment.run()
+
+print(result.selection)  # e.g., (Period('2019-01', 'M'), Period('2019-04', 'M'), ...)
+print(result.weights)    # e.g., {Period('2019-01', 'M'): 3.0, ...}
+print(result.scores)     # e.g., {'wasserstein': 0.023, 'correlation': 0.015}
 ```
+
+See the [Getting Started](getting_started.md) guide for a full walkthrough, or browse the [Gallery](gallery/index.md) for interactive examples.

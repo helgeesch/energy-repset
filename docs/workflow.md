@@ -1,6 +1,6 @@
 ### **The Three Generalized Workflows**
 
-Here are the three primary types of workflows that repset-v2 will support. Each uses the five core modules in a slightly different sequence and with different emphasis.
+Here are the three primary types of workflows that energy-repset supports. Each uses the five core modules in a slightly different sequence and with different emphasis.
 
 #### **Workflow 1: Generate-and-Test**
 
