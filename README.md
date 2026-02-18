@@ -8,7 +8,7 @@ Energy system models, capacity expansion studies, and other time-series-heavy ap
 
 `energy-repset` clears a path through the jungle in two ways:
 
-1. **A unified framework** that decomposes *any* time-series aggregation method into five interchangeable components. Every established methodology is a specific instantiation of this structure. The framework provides a common language for describing, comparing, and assembling methods. The full theoretical treatment is available in the [Unified Framework](https://helgeesch.github.io/energy-repset/unified_framework/) document.
+1. **A unified framework** that decomposes *any* time-series aggregation method into five interchangeable components. Every established methodology is a specific instantiation of this structure. The framework provides a common language for describing, comparing, and assembling methods. The full theoretical treatment is available in the [Unified Framework](https://energy-repset-docs.mesqual.io/unified_framework/) document.
 
 2. **A modular Python package** that implements this framework as a library of composable, protocol-based modules. You pick one implementation per component, wire them together, and run. Adding a new algorithm or score metric means implementing a single protocol -- everything else stays the same.
 
@@ -24,17 +24,19 @@ Energy system models, capacity expansion studies, and other time-series-heavy ap
 
 ## Navigating the project
 
-**Documentation site** ([helgeesch.github.io/energy-repset](https://helgeesch.github.io/energy-repset/)):
+**Website**: [energy-repset.mesqual.io](https://energy-repset.mesqual.io)
+
+**Documentation site** ([energy-repset-docs.mesqual.io](https://energy-repset-docs.mesqual.io)):
 
 | Section | What you'll find |
 |---------|-----------------|
-| [Unified Framework](https://helgeesch.github.io/energy-repset/unified_framework/) | The theoretical paper: problem decomposition, component taxonomy, method comparison |
-| [Workflow Types](https://helgeesch.github.io/energy-repset/workflow/) | The three workflow patterns: generate-and-test, constructive, direct optimization |
-| [Modules & Components](https://helgeesch.github.io/energy-repset/modules/) | Inventory of all implemented modules and how they map to the five components |
-| [Configuration Advisor](https://helgeesch.github.io/energy-repset/advisor/) | Decision guide for choosing components based on your problem |
-| [Getting Started](https://helgeesch.github.io/energy-repset/getting_started/) | End-to-end walkthrough from data to result |
-| [Examples](https://helgeesch.github.io/energy-repset/gallery/) | Worked examples showcasing different configurations |
-| [API Reference](https://helgeesch.github.io/energy-repset/api/) | Auto-generated class and method documentation |
+| [Unified Framework](https://energy-repset-docs.mesqual.io/unified_framework/) | The theoretical paper: problem decomposition, component taxonomy, method comparison |
+| [Workflow Types](https://energy-repset-docs.mesqual.io/workflow/) | The three workflow patterns: generate-and-test, constructive, direct optimization |
+| [Modules & Components](https://energy-repset-docs.mesqual.io/modules/) | Inventory of all implemented modules and how they map to the five components |
+| [Configuration Advisor](https://energy-repset-docs.mesqual.io/advisor/) | Decision guide for choosing components based on your problem |
+| [Getting Started](https://energy-repset-docs.mesqual.io/getting_started/) | End-to-end walkthrough from data to result |
+| [Examples](https://energy-repset-docs.mesqual.io/gallery/) | Worked examples showcasing different configurations |
+| [API Reference](https://energy-repset-docs.mesqual.io/api/) | Auto-generated class and method documentation |
 
 **Package structure** (`energy_repset/`):
 
@@ -59,45 +61,35 @@ pip install energy-repset
 
 ```python
 import pandas as pd
-from energy_repset.context import ProblemContext
-from energy_repset.time_slicer import TimeSlicer
-from energy_repset.feature_engineering import StandardStatsFeatureEngineer
-from energy_repset.objectives import ObjectiveSet
-from energy_repset.score_components import WassersteinFidelity, CorrelationFidelity
-from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.selection_policies import WeightedSumPolicy
-from energy_repset.combi_gens import ExhaustiveCombiGen
-from energy_repset.representation import UniformRepresentationModel
-from energy_repset.problem import RepSetExperiment
-from energy_repset.workflow import Workflow
+import energy_repset as rep
 
 # Load hourly time-series data (columns = variables, index = datetime)
 df_raw = pd.read_csv("your_data.csv", index_col=0, parse_dates=True)
 
 # Define problem: slice the year into monthly candidate periods
-slicer = TimeSlicer(unit="month")
-context = ProblemContext(df_raw, slicer)
+slicer = rep.TimeSlicer(unit="month")
+context = rep.ProblemContext(df_raw, slicer)
 
 # Feature engineering: statistical summaries per month
-feature_engineer = StandardStatsFeatureEngineer()
+feature_engineer = rep.StandardStatsFeatureEngineer()
 
 # Objective: score each candidate selection on distribution fidelity
-objective_set = ObjectiveSet({
-    'wasserstein': (1.0, WassersteinFidelity()),
-    'correlation': (1.0, CorrelationFidelity()),
+objective_set = rep.ObjectiveSet({
+    'wasserstein': (1.0, rep.WassersteinFidelity()),
+    'correlation': (1.0, rep.CorrelationFidelity()),
 })
 
 # Search: evaluate all 4-of-12 monthly combinations
-policy = WeightedSumPolicy()
-combi_gen = ExhaustiveCombiGen(k=4)
-search = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
+policy = rep.WeightedSumPolicy()
+combi_gen = rep.ExhaustiveCombiGen(k=4)
+search = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
 
 # Representation: equal 1/k weights per selected month
-representation = UniformRepresentationModel()
+representation = rep.UniformRepresentationModel()
 
 # Assemble and run
-workflow = Workflow(feature_engineer, search, representation)
-experiment = RepSetExperiment(context, workflow)
+workflow = rep.Workflow(feature_engineer, search, representation)
+experiment = rep.RepSetExperiment(context, workflow)
 result = experiment.run()
 
 print(result.selection)  # e.g., (Period('2019-01', 'M'), Period('2019-04', 'M'), ...)

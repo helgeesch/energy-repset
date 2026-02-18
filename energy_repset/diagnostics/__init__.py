@@ -1,9 +1,8 @@
 """Diagnostics and visualization tools for representative subset selection.
 
-This package provides diagnostic tools for analyzing and visualizing:
-- Feature spaces created by FeatureEngineer implementations
-- Selection quality measured by ScoreComponent implementations
-- Results from search algorithms and selection policies
+Usage::
+
+    import energy_repset.diagnostics as diag
 
 All diagnostics follow a consistent pattern:
 1. Dependencies are passed to the constructor (explicit dependency injection)
@@ -11,12 +10,47 @@ All diagnostics follow a consistent pattern:
 3. Users can customize titles and styling via fig.update_layout() after retrieval
 """
 
-from . import feature_space
-from . import score_components
-from . import results
+from .feature_space import (
+    FeatureSpaceScatter2D,
+    FeatureSpaceScatter3D,
+    FeatureSpaceScatterMatrix,
+    PCAVarianceExplained,
+    FeatureCorrelationHeatmap,
+    FeatureDistributions,
+)
+
+from .score_components import (
+    DistributionOverlayECDF,
+    DistributionOverlayHistogram,
+    CorrelationDifferenceHeatmap,
+    DiurnalProfileOverlay,
+)
+
+from .results import (
+    ResponsibilityBars,
+    ParetoScatter2D,
+    ParetoScatterMatrix,
+    ParetoParallelCoordinates,
+    ScoreContributionBars,
+)
 
 __all__ = [
-    'feature_space',
-    'score_components',
-    'results',
+    # Feature space
+    "FeatureSpaceScatter2D",
+    "FeatureSpaceScatter3D",
+    "FeatureSpaceScatterMatrix",
+    "PCAVarianceExplained",
+    "FeatureCorrelationHeatmap",
+    "FeatureDistributions",
+    # Score components
+    "DistributionOverlayECDF",
+    "DistributionOverlayHistogram",
+    "CorrelationDifferenceHeatmap",
+    "DiurnalProfileOverlay",
+    # Results
+    "ResponsibilityBars",
+    "ParetoScatter2D",
+    "ParetoScatterMatrix",
+    "ParetoParallelCoordinates",
+    "ScoreContributionBars",
 ]

@@ -30,17 +30,15 @@ Transforms raw time-series slices into comparable feature vectors.
 | `FeaturePipeline` | Chains multiple engineers sequentially and concatenates their outputs. |
 
 ```python
-from energy_repset.feature_engineering import (
-    FeaturePipeline, StandardStatsFeatureEngineer, PCAFeatureEngineer,
-)
+import energy_repset as rep
 
 # Single engineer
-feature_engineer = StandardStatsFeatureEngineer()
+feature_engineer = rep.StandardStatsFeatureEngineer()
 
 # Chained pipeline: compute stats, then reduce with PCA
-feature_pipeline = FeaturePipeline(engineers={
-    'stats': StandardStatsFeatureEngineer(),
-    'pca': PCAFeatureEngineer(),
+feature_pipeline = rep.FeaturePipeline(engineers={
+    'stats': rep.StandardStatsFeatureEngineer(),
+    'pca': rep.PCAFeatureEngineer(),
 })
 ```
 
@@ -66,15 +64,10 @@ full dataset along a specific dimension.
 | `CoverageBalance` | `coverage_balance` | min | Balanced coverage via RBF kernel soft assignment |
 
 ```python
-from energy_repset.objectives import ObjectiveSet
-from energy_repset.score_components import (
-    WassersteinFidelity, CorrelationFidelity, DiversityReward,
-)
-
-objective_set = ObjectiveSet({
-    'wasserstein': (1.0, WassersteinFidelity()),
-    'correlation': (1.0, CorrelationFidelity()),
-    'diversity':   (0.5, DiversityReward()),
+objective_set = rep.ObjectiveSet({
+    'wasserstein': (1.0, rep.WassersteinFidelity()),
+    'correlation': (1.0, rep.CorrelationFidelity()),
+    'diversity':   (0.5, rep.DiversityReward()),
 })
 ```
 
@@ -96,16 +89,14 @@ A `CombinationGenerator` defines which subsets the search algorithm considers.
 | `GroupQuotaHierarchicalCombiGen` | Combines hierarchical selection with group quotas. |
 
 ```python
-from energy_repset.combi_gens import ExhaustiveCombiGen, GroupQuotaHierarchicalCombiGen
-
 # Simple: all 4-of-12 monthly combinations
-combi_gen = ExhaustiveCombiGen(k=4)
+combi_gen = rep.ExhaustiveCombiGen(k=4)
 
 # Hierarchical with seasonal constraints
-combi_gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
+combi_gen = rep.GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
     parent_k=4,
     dt_index=df_raw.index,
-    child_slicer=TimeSlicer(unit="day"),
+    child_slicer=rep.TimeSlicer(unit="day"),
     group_quota={'winter': 1, 'spring': 1, 'summer': 1, 'fall': 1},
 )
 ```
@@ -124,20 +115,14 @@ responsibility weights.
 | `BlendedRepresentationModel` | Soft assignment: each original slice is a convex combination of representatives. Returns a weight *matrix* instead of a weight dict. |
 
 ```python
-from energy_repset.representation import (
-    UniformRepresentationModel,
-    KMedoidsClustersizeRepresentation,
-    BlendedRepresentationModel,
-)
-
 # Equal weights
-uniform = UniformRepresentationModel()
+uniform = rep.UniformRepresentationModel()
 
 # Cluster-proportional weights
-kmedoids = KMedoidsClustersizeRepresentation()
+kmedoids = rep.KMedoidsClustersizeRepresentation()
 
 # Soft blending (returns a DataFrame, not a dict)
-blended = BlendedRepresentationModel(blend_type='convex')
+blended = rep.BlendedRepresentationModel(blend_type='convex')
 ```
 
 ---
@@ -161,16 +146,13 @@ The policy decides *how* to pick a winner from the scored candidates:
 | `ParetoUtopiaPolicy` | Selects the Pareto-optimal solution closest to the utopia point. |
 
 ```python
-from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.selection_policies import WeightedSumPolicy, ParetoMaxMinStrategy
-
 # Weighted sum (default)
-policy = WeightedSumPolicy(normalization='robust_minmax')
-search = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
+policy = rep.WeightedSumPolicy(normalization='robust_minmax')
+search = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
 
 # Pareto max-min
-policy = ParetoMaxMinStrategy()
-search = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
+policy = rep.ParetoMaxMinStrategy()
+search = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
 ```
 
 ---
@@ -216,11 +198,8 @@ examples.
 ## Putting It Together
 
 ```python
-from energy_repset.workflow import Workflow
-from energy_repset.problem import RepSetExperiment
-
-workflow = Workflow(feature_engineer, search_algorithm, representation_model)
-experiment = RepSetExperiment(context, workflow)
+workflow = rep.Workflow(feature_engineer, search_algorithm, representation_model)
+experiment = rep.RepSetExperiment(context, workflow)
 result = experiment.run()
 
 # result.selection -> tuple of selected slice identifiers

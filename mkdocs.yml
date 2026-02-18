@@ -1,4 +1,5 @@
 site_name: energy-repset
+site_url: https://energy-repset-docs.mesqual.io
 site_description: A unified framework for representative subset selection in multi-variate time-series spaces
 
 theme:

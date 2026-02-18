@@ -13,27 +13,9 @@ selected months, illustrating the R (representation) pillar of the framework.
 
 import os
 import pandas as pd
-
-from energy_repset.context import ProblemContext
-from energy_repset.time_slicer import TimeSlicer
-from energy_repset.feature_engineering import (
-    FeaturePipeline, StandardStatsFeatureEngineer, PCAFeatureEngineer,
-)
-from energy_repset.objectives import ObjectiveSet
-from energy_repset.score_components import WassersteinFidelity, CorrelationFidelity
-from energy_repset.selection_policies import WeightedSumPolicy
-from energy_repset.combi_gens import ExhaustiveCombiGen
-from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.representation import (
-    UniformRepresentationModel,
-    KMedoidsClustersizeRepresentation,
-    BlendedRepresentationModel,
-)
-from energy_repset.workflow import Workflow
-from energy_repset.problem import RepSetExperiment
-from energy_repset.diagnostics.results import ResponsibilityBars
-from energy_repset.diagnostics.feature_space import FeatureSpaceScatter2D
-from energy_repset.diagnostics.score_components import DistributionOverlayECDF
+import plotly.express as px
+import energy_repset as rep
+import energy_repset.diagnostics as diag
 
 OUTPUT_DIR = 'docs/gallery/ex4'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -44,29 +26,29 @@ df_raw = pd.read_csv(url, index_col=0, parse_dates=True).rename_axis('variable',
 df_raw = df_raw.drop('prices', axis=1)
 
 # --- 2. Problem context and feature engineering ---
-slicer = TimeSlicer(unit="month")
-context = ProblemContext(df_raw=df_raw, slicer=slicer)
+slicer = rep.TimeSlicer(unit="month")
+context = rep.ProblemContext(df_raw=df_raw, slicer=slicer)
 
-feature_pipeline = FeaturePipeline(engineers={
-    'stats': StandardStatsFeatureEngineer(),
-    'pca': PCAFeatureEngineer(),
+feature_pipeline = rep.FeaturePipeline(engineers={
+    'stats': rep.StandardStatsFeatureEngineer(),
+    'pca': rep.PCAFeatureEngineer(),
 })
 
 # --- 3. Objective set and search ---
 k = 3
-objective_set = ObjectiveSet({
-    'wasserstein': (1.0, WassersteinFidelity()),
-    'correlation': (1.0, CorrelationFidelity()),
+objective_set = rep.ObjectiveSet({
+    'wasserstein': (1.0, rep.WassersteinFidelity()),
+    'correlation': (1.0, rep.CorrelationFidelity()),
 })
-policy = WeightedSumPolicy(normalization='robust_minmax')
-combi_gen = ExhaustiveCombiGen(k=k)
-search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(
+policy = rep.WeightedSumPolicy(normalization='robust_minmax')
+combi_gen = rep.ExhaustiveCombiGen(k=k)
+search_algorithm = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(
     objective_set, policy, combi_gen
 )
 
 # Run with uniform weights first (we only need the search result).
-workflow = Workflow(feature_pipeline, search_algorithm, UniformRepresentationModel())
-experiment = RepSetExperiment(context, workflow)
+workflow = rep.Workflow(feature_pipeline, search_algorithm, rep.UniformRepresentationModel())
+experiment = rep.RepSetExperiment(context, workflow)
 result = experiment.run()
 
 selection = result.selection
@@ -77,17 +59,17 @@ print(f"Scores: {result.scores}")
 feature_context = experiment.feature_context
 
 # Model A: Uniform
-uniform_model = UniformRepresentationModel()
+uniform_model = rep.UniformRepresentationModel()
 uniform_model.fit(feature_context)
 weights_uniform = uniform_model.weigh(selection)
 
 # Model B: KMedoids cluster-size
-kmedoids_model = KMedoidsClustersizeRepresentation()
+kmedoids_model = rep.KMedoidsClustersizeRepresentation()
 kmedoids_model.fit(feature_context)
 weights_kmedoids = kmedoids_model.weigh(selection)
 
 # Model C: Blended (soft assignment)
-blended_model = BlendedRepresentationModel(blend_type='convex')
+blended_model = rep.BlendedRepresentationModel(blend_type='convex')
 blended_model.fit(feature_context)
 weights_blended_df = blended_model.weigh(selection)
 
@@ -116,14 +98,14 @@ models = {
 }
 
 for label, weights in models.items():
-    fig = ResponsibilityBars().plot(weights, show_uniform_reference=True)
+    fig = diag.ResponsibilityBars().plot(weights, show_uniform_reference=True)
     fig.update_layout(title=f'Ex4: Responsibility Weights — {label}')
     filename = f"responsibility_{label.lower().replace(' ', '_').replace('(', '').replace(')', '')}.html"
     fig.write_html(f'{OUTPUT_DIR}/{filename}')
     print(f"Saved: {OUTPUT_DIR}/{filename}")
 
 # --- 7. Feature scatter with selection ---
-fig_scatter = FeatureSpaceScatter2D().plot(
+fig_scatter = diag.FeatureSpaceScatter2D().plot(
     feature_context.df_features, x='pc_0', y='pc_1', selection=selection
 )
 fig_scatter.update_layout(title='Ex4: Feature Space with Selection')
@@ -134,14 +116,12 @@ print(f"Saved: {OUTPUT_DIR}/feature_scatter_selection.html")
 selected_indices = slicer.get_indices_for_slice_combi(df_raw.index, selection)
 df_selection = df_raw.loc[selected_indices]
 for var in df_raw.columns:
-    fig_ecdf = DistributionOverlayECDF().plot(df_raw[var], df_selection[var])
+    fig_ecdf = diag.DistributionOverlayECDF().plot(df_raw[var], df_selection[var])
     fig_ecdf.update_layout(title=f'Ex4: ECDF Overlay -- {var}')
     fig_ecdf.write_html(f'{OUTPUT_DIR}/ecdf_{var}.html')
 print(f"Saved: {OUTPUT_DIR}/ecdf_*.html (one per variable)")
 
 # --- 9. Blended weight heatmap ---
-import plotly.express as px
-
 heatmap_df = weights_blended_df.copy()
 heatmap_df.index = heatmap_df.index.astype(str)
 heatmap_df.columns = heatmap_df.columns.astype(str)

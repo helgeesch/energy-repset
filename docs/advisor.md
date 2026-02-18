@@ -139,102 +139,82 @@ Choose score components based on what matters for your downstream model:
 
 ## Common Configurations
 
+All examples below assume `import energy_repset as rep`.
+
 ### Minimal: single-objective monthly selection
 
 ```python
-from energy_repset.context import ProblemContext
-from energy_repset.time_slicer import TimeSlicer
-from energy_repset.feature_engineering import StandardStatsFeatureEngineer
-from energy_repset.objectives import ObjectiveSet
-from energy_repset.score_components import WassersteinFidelity
-from energy_repset.selection_policies import WeightedSumPolicy
-from energy_repset.combi_gens import ExhaustiveCombiGen
-from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.representation import UniformRepresentationModel
-from energy_repset.workflow import Workflow
-from energy_repset.problem import RepSetExperiment
+import energy_repset as rep
 
-context = ProblemContext(df_raw=df_raw, slicer=TimeSlicer(unit="month"))
-workflow = Workflow(
-    feature_engineer=StandardStatsFeatureEngineer(),
-    search_algorithm=ObjectiveDrivenCombinatorialSearchAlgorithm(
-        ObjectiveSet({'wass': (1.0, WassersteinFidelity())}),
-        WeightedSumPolicy(),
-        ExhaustiveCombiGen(k=4),
+context = rep.ProblemContext(df_raw=df_raw, slicer=rep.TimeSlicer(unit="month"))
+workflow = rep.Workflow(
+    feature_engineer=rep.StandardStatsFeatureEngineer(),
+    search_algorithm=rep.ObjectiveDrivenCombinatorialSearchAlgorithm(
+        rep.ObjectiveSet({'wass': (1.0, rep.WassersteinFidelity())}),
+        rep.WeightedSumPolicy(),
+        rep.ExhaustiveCombiGen(k=4),
     ),
-    representation_model=UniformRepresentationModel(),
+    representation_model=rep.UniformRepresentationModel(),
 )
-result = RepSetExperiment(context, workflow).run()
+result = rep.RepSetExperiment(context, workflow).run()
 ```
 
 ### Multi-objective with PCA features
 
 ```python
-from energy_repset.feature_engineering import (
-    FeaturePipeline, StandardStatsFeatureEngineer, PCAFeatureEngineer,
-)
-from energy_repset.score_components import (
-    WassersteinFidelity, CorrelationFidelity, DiversityReward,
-)
-from energy_repset.selection_policies import ParetoMaxMinStrategy
-
-feature_pipeline = FeaturePipeline(engineers={
-    'stats': StandardStatsFeatureEngineer(),
-    'pca': PCAFeatureEngineer(),
+feature_pipeline = rep.FeaturePipeline(engineers={
+    'stats': rep.StandardStatsFeatureEngineer(),
+    'pca': rep.PCAFeatureEngineer(),
 })
 
-objective_set = ObjectiveSet({
-    'wasserstein': (1.0, WassersteinFidelity()),
-    'correlation': (1.0, CorrelationFidelity()),
-    'diversity':   (0.5, DiversityReward()),
+objective_set = rep.ObjectiveSet({
+    'wasserstein': (1.0, rep.WassersteinFidelity()),
+    'correlation': (1.0, rep.CorrelationFidelity()),
+    'diversity':   (0.5, rep.DiversityReward()),
 })
 
-workflow = Workflow(
+workflow = rep.Workflow(
     feature_engineer=feature_pipeline,
-    search_algorithm=ObjectiveDrivenCombinatorialSearchAlgorithm(
-        objective_set, ParetoMaxMinStrategy(), ExhaustiveCombiGen(k=3),
+    search_algorithm=rep.ObjectiveDrivenCombinatorialSearchAlgorithm(
+        objective_set, rep.ParetoMaxMinStrategy(), rep.ExhaustiveCombiGen(k=3),
     ),
-    representation_model=KMedoidsClustersizeRepresentation(),
+    representation_model=rep.KMedoidsClustersizeRepresentation(),
 )
-result = RepSetExperiment(context, workflow).run()
+result = rep.RepSetExperiment(context, workflow).run()
 ```
 
 ### Seasonal constraints with hierarchical search
 
 ```python
-from energy_repset.combi_gens import GroupQuotaHierarchicalCombiGen
+child_slicer = rep.TimeSlicer(unit="day")
+context = rep.ProblemContext(df_raw=df_raw, slicer=child_slicer)
 
-child_slicer = TimeSlicer(unit="day")
-context = ProblemContext(df_raw=df_raw, slicer=child_slicer)
-
-combi_gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
+combi_gen = rep.GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
     parent_k=4,
     dt_index=df_raw.index,
     child_slicer=child_slicer,
     group_quota={'winter': 1, 'spring': 1, 'summer': 1, 'fall': 1},
 )
 
-workflow = Workflow(
-    feature_engineer=StandardStatsFeatureEngineer(),
-    search_algorithm=ObjectiveDrivenCombinatorialSearchAlgorithm(
-        objective_set, WeightedSumPolicy(), combi_gen,
+workflow = rep.Workflow(
+    feature_engineer=rep.StandardStatsFeatureEngineer(),
+    search_algorithm=rep.ObjectiveDrivenCombinatorialSearchAlgorithm(
+        objective_set, rep.WeightedSumPolicy(), combi_gen,
     ),
-    representation_model=KMedoidsClustersizeRepresentation(),
+    representation_model=rep.KMedoidsClustersizeRepresentation(),
 )
-result = RepSetExperiment(context, workflow).run()
+result = rep.RepSetExperiment(context, workflow).run()
 ```
 
 ### Blended (soft) representation
 
 ```python
-from energy_repset.representation import BlendedRepresentationModel
-
-workflow = Workflow(
+workflow = rep.Workflow(
     feature_engineer=feature_pipeline,
     search_algorithm=search_algorithm,
-    representation_model=BlendedRepresentationModel(blend_type='convex'),
+    representation_model=rep.BlendedRepresentationModel(blend_type='convex'),
 )
-result = RepSetExperiment(context, workflow).run()
+result = rep.RepSetExperiment(context, workflow).run()
 # result.weights is a DataFrame (not a dict) for blended models
 ```
 

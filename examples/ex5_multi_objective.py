@@ -14,37 +14,8 @@ Diagnostics showcased (many not used in ex1/ex2):
 
 import os
 import pandas as pd
-
-from energy_repset.context import ProblemContext
-from energy_repset.time_slicer import TimeSlicer
-from energy_repset.feature_engineering import (
-    FeaturePipeline, StandardStatsFeatureEngineer, PCAFeatureEngineer,
-)
-from energy_repset.objectives import ObjectiveSet
-from energy_repset.score_components import (
-    WassersteinFidelity,
-    CorrelationFidelity,
-    DurationCurveFidelity,
-    DiversityReward,
-)
-from energy_repset.selection_policies import ParetoMaxMinStrategy, WeightedSumPolicy
-from energy_repset.combi_gens import ExhaustiveCombiGen
-from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.representation import UniformRepresentationModel
-from energy_repset.workflow import Workflow
-from energy_repset.problem import RepSetExperiment
-from energy_repset.diagnostics.results import (
-    ParetoScatter2D,
-    ParetoScatterMatrix,
-    ScoreContributionBars,
-    ResponsibilityBars,
-)
-from energy_repset.diagnostics.score_components import (
-    DistributionOverlayHistogram,
-    DiurnalProfileOverlay,
-    CorrelationDifferenceHeatmap,
-)
-from energy_repset.diagnostics.feature_space import FeatureDistributions
+import energy_repset as rep
+import energy_repset.diagnostics as diag
 
 OUTPUT_DIR = 'docs/gallery/ex5'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -55,12 +26,12 @@ df_raw = pd.read_csv(url, index_col=0, parse_dates=True).rename_axis('variable',
 df_raw = df_raw.drop('prices', axis=1)
 
 # --- 2. Problem context and features ---
-slicer = TimeSlicer(unit="month")
-context = ProblemContext(df_raw=df_raw, slicer=slicer)
+slicer = rep.TimeSlicer(unit="month")
+context = rep.ProblemContext(df_raw=df_raw, slicer=slicer)
 
-feature_pipeline = FeaturePipeline(engineers={
-    'stats': StandardStatsFeatureEngineer(),
-    'pca': PCAFeatureEngineer(),
+feature_pipeline = rep.FeaturePipeline(engineers={
+    'stats': rep.StandardStatsFeatureEngineer(),
+    'pca': rep.PCAFeatureEngineer(),
 })
 
 # --- 3. Rich objective set with 4 components ---
@@ -69,25 +40,25 @@ feature_pipeline = FeaturePipeline(engineers={
 #   correlation  — cross-variable correlation match   (direction: min)
 #   duration_curve — duration-curve NRMSE             (direction: min)
 #   diversity    — spread in feature space            (direction: max)
-objective_set = ObjectiveSet({
-    'wasserstein': (1.0, WassersteinFidelity()),
-    'correlation': (1.0, CorrelationFidelity()),
-    'duration_curve': (1.0, DurationCurveFidelity()),
-    'diversity': (0.5, DiversityReward()),
+objective_set = rep.ObjectiveSet({
+    'wasserstein': (1.0, rep.WassersteinFidelity()),
+    'correlation': (1.0, rep.CorrelationFidelity()),
+    'duration_curve': (1.0, rep.DurationCurveFidelity()),
+    'diversity': (0.5, rep.DiversityReward()),
 })
 
 k = 3
-combi_gen = ExhaustiveCombiGen(k=k)
-representation_model = UniformRepresentationModel()
+combi_gen = rep.ExhaustiveCombiGen(k=k)
+representation_model = rep.UniformRepresentationModel()
 
 # --- 4A. Run with ParetoMaxMinStrategy ---
 print("=== Run A: ParetoMaxMinStrategy ===")
-pareto_policy = ParetoMaxMinStrategy()
-search_pareto = ObjectiveDrivenCombinatorialSearchAlgorithm(
+pareto_policy = rep.ParetoMaxMinStrategy()
+search_pareto = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(
     objective_set, pareto_policy, combi_gen
 )
-workflow_pareto = Workflow(feature_pipeline, search_pareto, representation_model)
-experiment_pareto = RepSetExperiment(context, workflow_pareto)
+workflow_pareto = rep.Workflow(feature_pipeline, search_pareto, representation_model)
+experiment_pareto = rep.RepSetExperiment(context, workflow_pareto)
 result_pareto = experiment_pareto.run()
 print(f"Selection: {result_pareto.selection}")
 print(f"Scores:    {result_pareto.scores}")
@@ -95,12 +66,12 @@ print(f"Scores:    {result_pareto.scores}")
 # --- 4B. Run with WeightedSumPolicy ---
 # Re-use the already-computed features from run A so we skip redundant work.
 print("\n=== Run B: WeightedSumPolicy (robust_minmax normalization) ===")
-weighted_policy = WeightedSumPolicy(normalization='robust_minmax')
-search_weighted = ObjectiveDrivenCombinatorialSearchAlgorithm(
+weighted_policy = rep.WeightedSumPolicy(normalization='robust_minmax')
+search_weighted = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(
     objective_set, weighted_policy, combi_gen
 )
-workflow_weighted = Workflow(feature_pipeline, search_weighted, representation_model)
-experiment_weighted = RepSetExperiment(
+workflow_weighted = rep.Workflow(feature_pipeline, search_weighted, representation_model)
+experiment_weighted = rep.RepSetExperiment(
     experiment_pareto.feature_context, workflow_weighted
 )
 result_weighted = experiment_weighted.run()
@@ -116,14 +87,14 @@ print("\n--- Generating diagnostics ---")
 feature_context = experiment_pareto.feature_context
 
 # 6a. Pareto front visualizations (from the Pareto run)
-fig_pareto_2d = ParetoScatter2D(
+fig_pareto_2d = diag.ParetoScatter2D(
     objective_x='wasserstein', objective_y='correlation'
 ).plot(search_algorithm=search_pareto, selected_combination=result_pareto.selection)
 fig_pareto_2d.update_layout(title='Ex5: Pareto Front — Wasserstein vs Correlation')
 fig_pareto_2d.write_html(f'{OUTPUT_DIR}/pareto_scatter_2d.html')
 print(f"Saved: {OUTPUT_DIR}/pareto_scatter_2d.html")
 
-fig_pareto_matrix = ParetoScatterMatrix().plot(
+fig_pareto_matrix = diag.ParetoScatterMatrix().plot(
     search_algorithm=search_pareto,
     selected_combination=result_pareto.selection,
 )
@@ -133,14 +104,14 @@ print(f"Saved: {OUTPUT_DIR}/pareto_scatter_matrix.html")
 
 # 6b. Score contribution bars for both policies
 for label, result in [('pareto', result_pareto), ('weighted_sum', result_weighted)]:
-    fig_scores = ScoreContributionBars().plot(result.scores, normalize=True)
+    fig_scores = diag.ScoreContributionBars().plot(result.scores, normalize=True)
     fig_scores.update_layout(title=f'Ex5: Score Contributions — {label}')
     fig_scores.write_html(f'{OUTPUT_DIR}/score_contributions_{label}.html')
     print(f"Saved: {OUTPUT_DIR}/score_contributions_{label}.html")
 
 # 6c. Responsibility bars for both policies
 for label, result in [('pareto', result_pareto), ('weighted_sum', result_weighted)]:
-    fig_resp = ResponsibilityBars().plot(result.weights, show_uniform_reference=True)
+    fig_resp = diag.ResponsibilityBars().plot(result.weights, show_uniform_reference=True)
     fig_resp.update_layout(title=f'Ex5: Weights — {label}')
     fig_resp.write_html(f'{OUTPUT_DIR}/responsibility_{label}.html')
     print(f"Saved: {OUTPUT_DIR}/responsibility_{label}.html")
@@ -150,7 +121,7 @@ selected_indices = slicer.get_indices_for_slice_combi(df_raw.index, result_paret
 df_selection = df_raw.loc[selected_indices]
 
 for var in df_raw.columns:
-    fig_hist = DistributionOverlayHistogram().plot(
+    fig_hist = diag.DistributionOverlayHistogram().plot(
         df_full=df_raw[var],
         df_selection=df_selection[var],
         nbins=40,
@@ -160,20 +131,20 @@ for var in df_raw.columns:
 print(f"Saved: {OUTPUT_DIR}/histogram_*.html (one per variable)")
 
 # 6e. Feature distributions
-fig_feat = FeatureDistributions().plot(feature_context.df_features, nbins=20, cols=4)
+fig_feat = diag.FeatureDistributions().plot(feature_context.df_features, nbins=20, cols=4)
 fig_feat.update_layout(title='Ex5: Feature Distributions')
 fig_feat.write_html(f'{OUTPUT_DIR}/feature_distributions.html')
 print(f"Saved: {OUTPUT_DIR}/feature_distributions.html")
 
 # 6f. Diurnal profiles and correlation difference (Pareto selection)
-fig_diurnal = DiurnalProfileOverlay().plot(
+fig_diurnal = diag.DiurnalProfileOverlay().plot(
     df_raw, df_selection, variables=list(df_raw.columns)
 )
 fig_diurnal.update_layout(title='Ex5: Diurnal Profiles -- Full vs Selection')
 fig_diurnal.write_html(f'{OUTPUT_DIR}/diurnal_profiles.html')
 print(f"Saved: {OUTPUT_DIR}/diurnal_profiles.html")
 
-fig_corr_diff = CorrelationDifferenceHeatmap().plot(
+fig_corr_diff = diag.CorrelationDifferenceHeatmap().plot(
     df_raw, df_selection, method='pearson', show_lower_only=True
 )
 fig_corr_diff.update_layout(title='Ex5: Correlation Difference')

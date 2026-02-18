@@ -82,16 +82,15 @@ This is the most sophisticated workflow. It formulates the entire selection prob
 All three workflow types share the same assembly pattern. The `Workflow` dataclass bundles the three runtime components -- a `FeatureEngineer`, a `SearchAlgorithm`, and a `RepresentationModel` -- into a single object that `RepSetExperiment` can execute:
 
 ```python
-from energy_repset.workflow import Workflow
-from energy_repset.problem import RepSetExperiment
+import energy_repset as rep
 
-workflow = Workflow(
+workflow = rep.Workflow(
     feature_engineer=feature_engineer,   # F: transforms raw data into features
     search_algorithm=search_algorithm,   # A: finds optimal selection (uses O internally)
     representation_model=representation_model,  # R: calculates weights
 )
 
-experiment = RepSetExperiment(context, workflow)
+experiment = rep.RepSetExperiment(context, workflow)
 result = experiment.run()
 ```
 

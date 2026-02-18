@@ -1,24 +1,7 @@
 import os
 import pandas as pd
-from energy_repset.context import ProblemContext
-from energy_repset.representation import KMedoidsClustersizeRepresentation
-from energy_repset.time_slicer import TimeSlicer
-from energy_repset.feature_engineering import StandardStatsFeatureEngineer
-from energy_repset.objectives import ObjectiveSet
-from energy_repset.problem import RepSetExperiment
-from energy_repset.workflow import Workflow
-from energy_repset.score_components import WassersteinFidelity, CorrelationFidelity
-from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.selection_policies import ParetoMaxMinStrategy
-from energy_repset.combi_gens import GroupQuotaHierarchicalCombiGen
-from energy_repset.diagnostics.results import (
-    ResponsibilityBars,
-    ParetoScatter2D,
-    ParetoParallelCoordinates,
-    ScoreContributionBars,
-)
-from energy_repset.diagnostics.feature_space import FeatureSpaceScatter2D
-from energy_repset.diagnostics.score_components import DistributionOverlayECDF
+import energy_repset as rep
+import energy_repset.diagnostics as diag
 
 OUTPUT_DIR = 'docs/gallery/ex2'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -29,8 +12,8 @@ df_raw = pd.read_csv(url, index_col=0, parse_dates=True).rename_axis('variable',
 df_raw = df_raw.drop('prices', axis=1)
 
 # Define problem context with DAILY slicing (for high-resolution features)
-child_slicer = TimeSlicer(unit="day")
-context = ProblemContext(
+child_slicer = rep.TimeSlicer(unit="day")
+context = rep.ProblemContext(
     df_raw=df_raw,
     slicer=child_slicer,
     metadata={
@@ -42,22 +25,22 @@ context = ProblemContext(
 print(f"Problem Context created with {len(context.get_unique_slices())} daily slices.")
 
 # Feature engineering: compute features per day
-feature_engineer = StandardStatsFeatureEngineer()
+feature_engineer = rep.StandardStatsFeatureEngineer()
 context = feature_engineer.run(context)
 print(f"Features computed for {len(context.df_features)} daily periods.")
 
 # Define scoring and policy
-objective_set = ObjectiveSet(
+objective_set = rep.ObjectiveSet(
     weighted_score_components={
-        'wasserstein': (0.5, WassersteinFidelity()),
-        'correlation': (0.5, CorrelationFidelity()),
+        'wasserstein': (0.5, rep.WassersteinFidelity()),
+        'correlation': (0.5, rep.CorrelationFidelity()),
     }
 )
-policy = ParetoMaxMinStrategy()
+policy = rep.ParetoMaxMinStrategy()
 
 # Hierarchical combination generator: select 4 MONTHS (1 per season), evaluate on DAYS
 # Using the factory method with automatic seasonal grouping
-combi_gen = GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
+combi_gen = rep.GroupQuotaHierarchicalCombiGen.from_slicers_with_seasons(
     parent_k=4,  # Select 4 parent groups (months) total
     dt_index=df_raw.index,  # DatetimeIndex
     child_slicer=child_slicer,  # Daily slicing
@@ -69,14 +52,14 @@ print(f"Hierarchical generator will evaluate {combi_gen.count(days)} combination
 print("Each combination = 4 months (1/season), evaluated on ~120 days total.\n")
 
 # Search algorithm
-search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
+search_algorithm = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
 
 # Representation model
-representation_model = KMedoidsClustersizeRepresentation()
+representation_model = rep.KMedoidsClustersizeRepresentation()
 
 # Run workflow
-workflow = Workflow(feature_engineer, search_algorithm, representation_model)
-experiment = RepSetExperiment(context, workflow)
+workflow = rep.Workflow(feature_engineer, search_algorithm, representation_model)
+experiment = rep.RepSetExperiment(context, workflow)
 result = experiment.run()
 
 print("\n--- Workflow Complete ---")
@@ -94,7 +77,7 @@ for day in result.selection:
 print(f"\nSelected Months: {sorted(selected_months)}")
 
 # Visualize responsibility weights
-responsibility_bars = ResponsibilityBars()
+responsibility_bars = diag.ResponsibilityBars()
 fig_responsibility = responsibility_bars.plot(
     weights=result.weights,
     show_uniform_reference=True,
@@ -104,7 +87,7 @@ fig_responsibility.write_html(f'{OUTPUT_DIR}/output_responsibility_weights.html'
 print("Generated: output_responsibility_weights.html")
 
 # Visualize Pareto front (2D scatter)
-pareto_scatter = ParetoScatter2D(
+pareto_scatter = diag.ParetoScatter2D(
     objective_x='wasserstein',
     objective_y='correlation'
 )
@@ -117,14 +100,14 @@ fig_pareto.write_html(f'{OUTPUT_DIR}/output_pareto_scatter.html')
 print("Generated: output_pareto_scatter.html")
 
 # Visualize Pareto front (parallel coordinates)
-pareto_parallel = ParetoParallelCoordinates()
+pareto_parallel = diag.ParetoParallelCoordinates()
 fig_parallel = pareto_parallel.plot(search_algorithm=search_algorithm)
 fig_parallel.update_layout(title='Pareto Front: Parallel Coordinates')
 fig_parallel.write_html(f'{OUTPUT_DIR}/output_pareto_parallel.html')
 print("Generated: output_pareto_parallel.html")
 
 # Visualize score contributions
-score_bars = ScoreContributionBars()
+score_bars = diag.ScoreContributionBars()
 fig_scores = score_bars.plot(result.scores, normalize=True)
 fig_scores.update_layout(title='Score Component Contributions (Normalized)')
 fig_scores.write_html(f'{OUTPUT_DIR}/output_score_contributions.html')
@@ -132,7 +115,7 @@ print("Generated: output_score_contributions.html")
 
 # Feature space scatter (first two feature columns)
 cols = list(context.df_features.columns[:2])
-fig_scatter = FeatureSpaceScatter2D().plot(
+fig_scatter = diag.FeatureSpaceScatter2D().plot(
     context.df_features, x=cols[0], y=cols[1], selection=result.selection
 )
 fig_scatter.update_layout(title='Feature Space with Selection')
@@ -143,7 +126,7 @@ print("Generated: output_feature_scatter.html")
 selected_indices = child_slicer.get_indices_for_slice_combi(df_raw.index, result.selection)
 df_selection = df_raw.loc[selected_indices]
 for var in df_raw.columns:
-    fig_ecdf = DistributionOverlayECDF().plot(df_raw[var], df_selection[var])
+    fig_ecdf = diag.DistributionOverlayECDF().plot(df_raw[var], df_selection[var])
     fig_ecdf.update_layout(title=f'ECDF Overlay -- {var}')
     fig_ecdf.write_html(f'{OUTPUT_DIR}/output_ecdf_{var}.html')
 print("Generated: output_ecdf_*.html (one per variable)")

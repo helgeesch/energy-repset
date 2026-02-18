@@ -13,14 +13,23 @@ simple diagnostic chart.
 pip install energy-repset
 ```
 
+## Imports
+
+All framework classes are available from the top-level namespace. Diagnostics
+live one level down:
+
+```python
+import pandas as pd
+import energy_repset as rep
+import energy_repset.diagnostics as diag
+```
+
 ## Load Data
 
 energy-repset works with any `pandas.DataFrame` where the index is a
 `DatetimeIndex` and each column is a variable (e.g., load, wind, solar):
 
 ```python
-import pandas as pd
-
 url = "https://tubcloud.tu-berlin.de/s/pKttFadrbTKSJKF/download/time-series-lecture-2.csv"
 df_raw = pd.read_csv(url, index_col=0, parse_dates=True).rename_axis('variable', axis=1)
 df_raw = df_raw.drop('prices', axis=1)
@@ -33,11 +42,8 @@ how the time axis is divided into candidate periods. Here, each calendar
 month becomes one candidate:
 
 ```python
-from energy_repset.context import ProblemContext
-from energy_repset.time_slicer import TimeSlicer
-
-slicer = TimeSlicer(unit="month")
-context = ProblemContext(df_raw=df_raw, slicer=slicer)
+slicer = rep.TimeSlicer(unit="month")
+context = rep.ProblemContext(df_raw=df_raw, slicer=slicer)
 print(f"Candidate slices: {context.get_unique_slices()}")
 # -> 12 monthly periods
 ```
@@ -50,19 +56,15 @@ representation that can be compared across candidate periods.
 quantiles, ramp rates) per slice and variable:
 
 ```python
-from energy_repset.feature_engineering import StandardStatsFeatureEngineer
-
-feature_engineer = StandardStatsFeatureEngineer()
+feature_engineer = rep.StandardStatsFeatureEngineer()
 ```
 
 For richer feature spaces, you can chain engineers with a `FeaturePipeline`:
 
 ```python
-from energy_repset.feature_engineering import FeaturePipeline, PCAFeatureEngineer
-
-feature_pipeline = FeaturePipeline(engineers={
-    'stats': StandardStatsFeatureEngineer(),
-    'pca': PCAFeatureEngineer(),
+feature_pipeline = rep.FeaturePipeline(engineers={
+    'stats': rep.StandardStatsFeatureEngineer(),
+    'pca': rep.PCAFeatureEngineer(),
 })
 ```
 
@@ -76,22 +78,17 @@ objective: Wasserstein distance between the marginal distributions of the
 selection and the full year.
 
 ```python
-from energy_repset.objectives import ObjectiveSet
-from energy_repset.score_components import WassersteinFidelity
-
-objective_set = ObjectiveSet({
-    'wasserstein': (1.0, WassersteinFidelity()),
+objective_set = rep.ObjectiveSet({
+    'wasserstein': (1.0, rep.WassersteinFidelity()),
 })
 ```
 
 Multiple objectives are easy to add:
 
 ```python
-from energy_repset.score_components import CorrelationFidelity
-
-objective_set = ObjectiveSet({
-    'wasserstein': (1.0, WassersteinFidelity()),
-    'correlation': (1.0, CorrelationFidelity()),
+objective_set = rep.ObjectiveSet({
+    'wasserstein': (1.0, rep.WassersteinFidelity()),
+    'correlation': (1.0, rep.CorrelationFidelity()),
 })
 ```
 
@@ -101,10 +98,8 @@ A `CombinationGenerator` defines which subsets are considered.
 `ExhaustiveCombiGen` evaluates every possible k-of-n combination:
 
 ```python
-from energy_repset.combi_gens import ExhaustiveCombiGen
-
 k = 4
-combi_gen = ExhaustiveCombiGen(k=k)
+combi_gen = rep.ExhaustiveCombiGen(k=k)
 # For 12 months, k=4 -> C(12,4) = 495 candidates
 ```
 
@@ -115,11 +110,8 @@ workflow, it generates candidates via the `CombinationGenerator`, scores each
 with the `ObjectiveSet`, and picks a winner using the `SelectionPolicy`:
 
 ```python
-from energy_repset.search_algorithms import ObjectiveDrivenCombinatorialSearchAlgorithm
-from energy_repset.selection_policies import WeightedSumPolicy
-
-policy = WeightedSumPolicy()
-search_algorithm = ObjectiveDrivenCombinatorialSearchAlgorithm(
+policy = rep.WeightedSumPolicy()
+search_algorithm = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(
     objective_set, policy, combi_gen
 )
 ```
@@ -131,9 +123,7 @@ full year. `UniformRepresentationModel` assigns equal weight to each
 selected period:
 
 ```python
-from energy_repset.representation import UniformRepresentationModel
-
-representation_model = UniformRepresentationModel()
+representation_model = rep.UniformRepresentationModel()
 ```
 
 ## Run the Workflow
@@ -142,11 +132,8 @@ Assemble all components into a `Workflow`, wrap it in a `RepSetExperiment`,
 and run:
 
 ```python
-from energy_repset.workflow import Workflow
-from energy_repset.problem import RepSetExperiment
-
-workflow = Workflow(feature_engineer, search_algorithm, representation_model)
-experiment = RepSetExperiment(context, workflow)
+workflow = rep.Workflow(feature_engineer, search_algorithm, representation_model)
+experiment = rep.RepSetExperiment(context, workflow)
 result = experiment.run()
 ```
 
@@ -168,9 +155,7 @@ chart shows how the total representation weight is distributed across
 selected periods:
 
 ```python
-from energy_repset.diagnostics.results import ResponsibilityBars
-
-fig = ResponsibilityBars().plot(result.weights, show_uniform_reference=True)
+fig = diag.ResponsibilityBars().plot(result.weights, show_uniform_reference=True)
 fig.show()
 ```
 
@@ -181,10 +166,10 @@ The complete code is available at
 
 ## Next Steps
 
-- **Swap components**: Try `ParetoMaxMinStrategy` instead of `WeightedSumPolicy`,
-  or `KMedoidsClustersizeRepresentation` instead of uniform weights.
+- **Swap components**: Try `rep.ParetoMaxMinStrategy` instead of `rep.WeightedSumPolicy`,
+  or `rep.KMedoidsClustersizeRepresentation` instead of uniform weights.
   See the [Modules & Components](modules.md) page for all available implementations.
-- **Add objectives**: Add `CorrelationFidelity`, `DurationCurveFidelity`, or
-  `DiversityReward` to the `ObjectiveSet`.
+- **Add objectives**: Add `rep.CorrelationFidelity`, `rep.DurationCurveFidelity`, or
+  `rep.DiversityReward` to the `ObjectiveSet`.
 - **Browse examples**: The [Gallery](gallery/index.md) shows more advanced
   configurations with interactive visualizations.
