@@ -1,55 +1,67 @@
-# Example 2: Hierarchical Seasonal Selection
+# Example 2: Feature Space Exploration
 
-Selects 4 months (one per season) using day-level features and hierarchical
-combination generation. Demonstrates seasonal constraints via
-`GroupQuotaHierarchicalCombiGen` and Pareto front visualizations.
+A comprehensive workflow with monthly slicing, PCA feature engineering, Pareto
+selection, and KMedoids cluster-size representation. Showcases the full range of
+feature-space diagnostics and score-component diagnostics.
 
-**Script:** [`examples/ex2.py`](https://github.com/helgeesch/energy-repset/blob/main/examples/ex2.py)
+**Script:** [`examples/ex2_feature_space.py`](https://github.com/helgeesch/energy-repset/blob/main/examples/ex2_feature_space.py)
 
 | Pillar | Component |
 |--------|-----------|
-| F | `StandardStatsFeatureEngineer` (daily features) |
-| O | `WassersteinFidelity` + `CorrelationFidelity` |
-| S | `GroupQuotaHierarchicalCombiGen` (1 month per season) |
+| F | `FeaturePipeline` (Stats + PCA) |
+| O | `WassersteinFidelity` + `CorrelationFidelity` + `CentroidBalance` |
+| S | `ExhaustiveCombiGen(k=3)` |
 | R | `KMedoidsClustersizeRepresentation` |
 | A | `ObjectiveDrivenCombinatorialSearchAlgorithm` with `ParetoMaxMinStrategy` |
 
 ## Visualizations
 
-### Results
-
-#### Responsibility Weights
-Cluster-proportional weights for the selected daily slices.
-<iframe src="ex2/output_responsibility_weights.html" width="100%" height="500" frameborder="0"></iframe>
-
-#### Pareto Front (2D)
-Trade-off between Wasserstein distance and correlation fidelity.
-<iframe src="ex2/output_pareto_scatter.html" width="100%" height="500" frameborder="0"></iframe>
-
-#### Pareto Parallel Coordinates
-All objectives shown as parallel axes.
-<iframe src="ex2/output_pareto_parallel.html" width="100%" height="500" frameborder="0"></iframe>
-
-#### Score Contributions
-Normalized contributions of each score component.
-<iframe src="ex2/output_score_contributions.html" width="100%" height="500" frameborder="0"></iframe>
-
 ### Feature Space
 
-#### Feature Scatter with Selection
-First two feature columns with selected days highlighted.
-<iframe src="ex2/output_feature_scatter.html" width="100%" height="500" frameborder="0"></iframe>
+#### PCA Variance Explained
+Cumulative variance captured by each principal component.
+<iframe src="ex2/output_pca_variance.html" width="100%" height="500" frameborder="0"></iframe>
 
-### Distribution Fidelity (ECDF)
+#### 2D Feature Scatter (PC0 vs PC1)
+Months plotted in the first two principal components.
+<iframe src="ex2/output_feature_scatter_2d.html" width="100%" height="500" frameborder="0"></iframe>
 
-#### Load
-<iframe src="ex2/output_ecdf_load.html" width="100%" height="500" frameborder="0"></iframe>
+#### 3D PCA Projection
+Interactive 3D view of the first three principal components.
+<iframe src="ex2/output_feature_scatter_3d.html" width="100%" height="500" frameborder="0"></iframe>
 
-#### Onshore Wind
-<iframe src="ex2/output_ecdf_onwind.html" width="100%" height="500" frameborder="0"></iframe>
+#### Feature Correlation Heatmap
+Pearson correlations between statistical features.
+<iframe src="ex2/output_feature_correlation.html" width="100%" height="500" frameborder="0"></iframe>
 
-#### Offshore Wind
-<iframe src="ex2/output_ecdf_offwind.html" width="100%" height="500" frameborder="0"></iframe>
+#### Scatter Matrix (First 4 PCs)
+Pairwise scatter plots of the first four principal components.
+<iframe src="ex2/output_feature_scatter_matrix.html" width="100%" height="500" frameborder="0"></iframe>
 
-#### Solar
-<iframe src="ex2/output_ecdf_solar.html" width="100%" height="500" frameborder="0"></iframe>
+#### Feature Distributions
+Histograms of each feature column.
+<iframe src="ex2/output_feature_distributions.html" width="100%" height="500" frameborder="0"></iframe>
+
+### Results
+
+#### Feature Space with Selection
+Selected months highlighted in the PC0-PC1 plane.
+<iframe src="ex2/output_feature_scatter_with_selection.html" width="100%" height="500" frameborder="0"></iframe>
+
+#### Responsibility Weights
+Cluster-proportional weights from KMedoids representation.
+<iframe src="ex2/output_responsibility_weights.html" width="100%" height="500" frameborder="0"></iframe>
+
+### Score Component Diagnostics
+
+#### ECDF: Load
+Empirical CDF comparison of load between full year and selection.
+<iframe src="ex2/output_distribution_ecdf_load.html" width="100%" height="500" frameborder="0"></iframe>
+
+#### Correlation Difference
+Heatmap of the correlation matrix difference (selection minus full).
+<iframe src="ex2/output_correlation_difference.html" width="100%" height="500" frameborder="0"></iframe>
+
+#### Diurnal Profiles
+Hour-of-day profiles comparing full year and selection for all variables.
+<iframe src="ex2/output_diurnal_profiles.html" width="100%" height="500" frameborder="0"></iframe>

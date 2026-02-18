@@ -1,45 +1,45 @@
+"""Example 2: Feature Space Exploration.
+
+A comprehensive workflow with monthly slicing, PCA feature engineering, Pareto
+selection, and KMedoids cluster-size representation.  Showcases the full range
+of feature-space diagnostics (scatter plots, correlation heatmap, PCA variance,
+feature distributions) and score-component diagnostics (ECDF overlay,
+correlation difference, diurnal profiles).
+"""
+
 import os
 import pandas as pd
 import energy_repset as rep
 import energy_repset.diagnostics as diag
 
-OUTPUT_DIR = 'docs/gallery/ex1'
+OUTPUT_DIR = 'docs/gallery/ex2'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# --- 1. Initial Data Loading ---
-# Load the raw time-series data.
+# --- 1. Load data ---
 url = "https://tubcloud.tu-berlin.de/s/pKttFadrbTKSJKF/download/time-series-lecture-2.csv"
 df_raw = pd.read_csv(url, index_col=0, parse_dates=True).rename_axis('variable', axis=1)
 df_raw = df_raw.drop('prices', axis=1)
 
-
-# --- 2. Defining the Problem Context ---
-# The ProblemContext is the central hub, holding the raw data and the
-# definition of our candidate slices.
+# --- 2. Problem context ---
 slicer = rep.TimeSlicer(unit="month")
 context = rep.ProblemContext(
     df_raw=df_raw,
     slicer=slicer,
     metadata={
-        'experiment_name': 'ex1_monthly_selection',
-        'notes': 'Basic example with monthly slicing and uniform weights'
+        'experiment_name': 'ex2_feature_space',
+        'notes': 'Feature space exploration with PCA and full diagnostics'
     }
 )
-
 print(f"Problem Context created with {len(context.get_unique_slices())} candidate slices.")
 
-
-# --- 3. Pillar 1: Feature Engineering ---
-# We define a pipeline to transform the raw data into a meaningful feature space.
-# Here, we chain a statistical feature engineer with a PCA dimensionality reducer.
+# --- 3. Feature engineering ---
+# Chain statistical summaries with PCA dimensionality reduction.
 feature_pipeline = rep.FeaturePipeline(
     engineers={
         'stats': rep.StandardStatsFeatureEngineer(),
         'pca': rep.PCAFeatureEngineer(),
     }
 )
-
-# The pipeline is run on the context, which updates it with the new features.
 context = feature_pipeline.run(context)
 
 print("\n--- Feature Space Diagnostics ---")
@@ -100,49 +100,39 @@ fig_feat.update_layout(title='Feature Distributions')
 fig_feat.write_html(f'{OUTPUT_DIR}/output_feature_distributions.html')
 print("Generated: output_feature_distributions.html")
 
-# --- 4. Pillars 2 & 3: ObjectiveSet and Selection Policy ---
-# Define the scoring rubric (ObjectiveSet) and the rule for picking a winner (Policy).
-
+# --- 4. Objective set and policy ---
 objective_set = rep.ObjectiveSet(
     weighted_score_components={
         'wasserstein': (0.5, rep.WassersteinFidelity()),
         'correlation': (0.5, rep.CorrelationFidelity()),
-        # 'diversity': (0.5, rep.DiversityReward()),
         'centroid_balance': (0.5, rep.CentroidBalance()),
     }
 )
 policy = rep.ParetoMaxMinStrategy()
 
-# --- 5. Pillar 5: Search Algorithm ---
-# Define the engine that will search for the best subset. Here, we use a
-# combinatorial search that is constrained to pick at least one week per season.
+# --- 5. Search algorithm ---
 k = 3
 combi_gen = rep.ExhaustiveCombiGen(k=k)
 search_algorithm = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
 
-# --- 6. Pillar 4: Representation Model ---
-# Define how the final selected weeks will represent the full year.
+# --- 6. Representation model ---
 representation_model = rep.KMedoidsClustersizeRepresentation()
 
-# --- 7. The Workflow: Executing the Workflow ---
+# --- 7. Run the workflow ---
 workflow = rep.Workflow(feature_pipeline, search_algorithm, representation_model)
-
 experiment = rep.RepSetExperiment(context, workflow)
 result = experiment.run()
 
 print("\n--- Workflow Complete ---")
-
-# --- 8. Results and Diagnostics ---
-# The final result is a standardized object containing all relevant information.
 print(f"Selected Slices: {result.selection}")
 print(f"Final Weights: {result.weights}")
 print(f"Scores: {result.scores}")
 
+# --- 8. Result diagnostics ---
 print("\n--- Result Diagnostics ---")
 
-# Visualize responsibility weights
-responsibility_bars = diag.ResponsibilityBars()
-fig_responsibility = responsibility_bars.plot(
+# Responsibility weights
+fig_responsibility = diag.ResponsibilityBars().plot(
     weights=result.weights,
     show_uniform_reference=True,
 )
@@ -150,16 +140,15 @@ fig_responsibility.update_layout(title='Responsibility Weights per Selected Mont
 fig_responsibility.write_html(f'{OUTPUT_DIR}/output_responsibility_weights.html')
 print("Generated: output_responsibility_weights.html")
 
+# --- 9. Score component diagnostics ---
 print("\n--- Score Component Diagnostics ---")
 
-# Get selected data for comparison
 selected_indices = context.slicer.get_indices_for_slice_combi(context.df_raw.index, result.selection)
 df_full = context.df_raw
 df_selection = context.df_raw.loc[selected_indices]
 
 # Distribution comparison for 'load' variable
-ecdf_plot = diag.DistributionOverlayECDF()
-fig_ecdf = ecdf_plot.plot(
+fig_ecdf = diag.DistributionOverlayECDF().plot(
     df_full=df_full['load'],
     df_selection=df_selection['load'],
 )
@@ -168,8 +157,7 @@ fig_ecdf.write_html(f'{OUTPUT_DIR}/output_distribution_ecdf_load.html')
 print("Generated: output_distribution_ecdf_load.html")
 
 # Correlation difference heatmap
-corr_diff = diag.CorrelationDifferenceHeatmap()
-fig_corr_diff = corr_diff.plot(
+fig_corr_diff = diag.CorrelationDifferenceHeatmap().plot(
     df_full=df_full,
     df_selection=df_selection,
     method='pearson',
@@ -180,8 +168,7 @@ fig_corr_diff.write_html(f'{OUTPUT_DIR}/output_correlation_difference.html')
 print("Generated: output_correlation_difference.html")
 
 # Diurnal profile comparison
-diurnal_plot = diag.DiurnalProfileOverlay()
-fig_diurnal = diurnal_plot.plot(
+fig_diurnal = diag.DiurnalProfileOverlay().plot(
     df_full=df_full,
     df_selection=df_selection,
     variables=['load', 'onwind', 'offwind', 'solar'],
@@ -190,9 +177,8 @@ fig_diurnal.update_layout(title='Diurnal Profiles: Full vs Selection')
 fig_diurnal.write_html(f'{OUTPUT_DIR}/output_diurnal_profiles.html')
 print("Generated: output_diurnal_profiles.html")
 
-# Visualize selection in feature space
-scatter_2d_with_selection = diag.FeatureSpaceScatter2D()
-fig_scatter_selection = scatter_2d_with_selection.plot(
+# Selection in feature space
+fig_scatter_selection = diag.FeatureSpaceScatter2D().plot(
     df_features=context.df_features,
     x='pc_0',
     y='pc_1',

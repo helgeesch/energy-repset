@@ -162,7 +162,7 @@ fig.show()
 ## Full Script
 
 The complete code is available at
-[`examples/ex3_getting_started.py`](https://github.com/helgeesch/energy-repset/blob/main/examples/ex3_getting_started.py).
+[`examples/ex1_getting_started.py`](https://github.com/helgeesch/energy-repset/blob/main/examples/ex1_getting_started.py).
 
 ## Next Steps
 

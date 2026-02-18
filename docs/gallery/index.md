@@ -5,7 +5,21 @@ Run the scripts to regenerate outputs in `docs/gallery/`.
 
 ---
 
-## [Example 1: Feature Space Exploration](ex1.md)
+## [Example 1: Getting Started](ex1.md)
+
+The simplest possible end-to-end workflow. Selects 4 representative months
+using a single objective and uniform weights. A minimal "hello world" for
+onboarding.
+
+**Components:** `StandardStatsFeatureEngineer` | `WassersteinFidelity` |
+`WeightedSumPolicy` | `UniformRepresentationModel` |
+`ExhaustiveCombiGen(k=4)`
+
+[View details ->](ex1.md)
+
+---
+
+## [Example 2: Feature Space Exploration](ex2.md)
 
 A comprehensive workflow with monthly slicing, PCA feature engineering, Pareto
 selection, and KMedoids cluster-size representation. Showcases the full range of
@@ -17,11 +31,11 @@ correlation difference, diurnal profiles).
 `CorrelationFidelity` + `CentroidBalance` | `ParetoMaxMinStrategy` |
 `KMedoidsClustersizeRepresentation` | `ExhaustiveCombiGen(k=3)`
 
-[View details ->](ex1.md)
+[View details ->](ex2.md)
 
 ---
 
-## [Example 2: Hierarchical Seasonal Selection](ex2.md)
+## [Example 3: Hierarchical Seasonal Selection](ex3.md)
 
 Selects 4 months (one per season) using day-level features and hierarchical
 combination generation. Demonstrates seasonal constraints via
@@ -32,20 +46,6 @@ parallel coordinates.
 `GroupQuotaHierarchicalCombiGen` | `WassersteinFidelity` +
 `CorrelationFidelity` | `ParetoMaxMinStrategy` |
 `KMedoidsClustersizeRepresentation`
-
-[View details ->](ex2.md)
-
----
-
-## [Example 3: Getting Started](ex3.md)
-
-The simplest possible end-to-end workflow. Selects 4 representative months
-using a single objective and uniform weights. A minimal "hello world" for
-onboarding.
-
-**Components:** `StandardStatsFeatureEngineer` | `WassersteinFidelity` |
-`WeightedSumPolicy` | `UniformRepresentationModel` |
-`ExhaustiveCombiGen(k=4)`
 
 [View details ->](ex3.md)
 
@@ -88,7 +88,9 @@ outcome. Uses 4 objectives and compares `ParetoMaxMinStrategy` vs
 pip install -e .
 
 # Run any example
-python examples/ex3_getting_started.py
+python examples/ex1_getting_started.py
+python examples/ex2_feature_space.py
+python examples/ex3_hierarchical_selection.py
 python examples/ex4_representation_models.py
 python examples/ex5_multi_objective.py
 ```

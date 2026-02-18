@@ -29,7 +29,7 @@ class CentroidBalance(ScoreComponent):
         ...     'balance': (0.5, CentroidBalance())
         ... })
         >>>
-        >>> # Used in examples/ex1.py to maintain balanced selections
+        >>> # Used in examples/ex2_feature_space.py to maintain balanced selections
         >>> from energy_repset.score_components import WassersteinFidelity
         >>> objectives = ObjectiveSet({
         ...     'fidelity': (1.0, WassersteinFidelity()),

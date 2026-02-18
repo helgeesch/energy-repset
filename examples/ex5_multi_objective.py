@@ -5,7 +5,7 @@ affect the outcome.  It sets up a rich ObjectiveSet with four components, then
 runs the same search twice — once with ParetoMaxMinStrategy and once with
 WeightedSumPolicy — to compare the winning selections and visualize trade-offs.
 
-Diagnostics showcased (many not used in ex1/ex2):
+Diagnostics showcased (many not used in ex2/ex3):
   - ParetoScatter2D and ParetoScatterMatrix
   - ScoreContributionBars (side-by-side for both policies)
   - DistributionOverlayHistogram

@@ -25,7 +25,7 @@ This is the classic combinatorial search approach. Its philosophy is to create m
 | Evaluation | `ObjectiveSet` with `ScoreComponent` instances | `energy_repset.objectives` |
 | Decision | `WeightedSumPolicy`, `ParetoMaxMinStrategy`, `ParetoUtopiaPolicy` | `energy_repset.selection_policies` |
 
-**Examples:** [Ex1: Feature Space](gallery/ex1.md), [Ex2: Hierarchical Selection](gallery/ex2.md), [Ex3: Getting Started](gallery/ex3.md), [Ex4: Representation Models](gallery/ex4.md), [Ex5: Multi-Objective](gallery/ex5.md)
+**Examples:** [Ex1: Getting Started](gallery/ex1.md), [Ex2: Feature Space](gallery/ex2.md), [Ex3: Hierarchical Selection](gallery/ex3.md), [Ex4: Representation Models](gallery/ex4.md), [Ex5: Multi-Objective](gallery/ex5.md)
 
 ---
 

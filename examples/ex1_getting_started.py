@@ -1,4 +1,4 @@
-"""Example 3: Getting Started — Minimal end-to-end workflow.
+"""Example 1: Getting Started — Minimal end-to-end workflow.
 
 This is the simplest possible energy-repset example. It selects 4
 representative months from a year of hourly time-series data using a single
@@ -17,7 +17,7 @@ import pandas as pd
 import energy_repset as rep
 import energy_repset.diagnostics as diag
 
-OUTPUT_DIR = 'docs/gallery/ex3'
+OUTPUT_DIR = 'docs/gallery/ex1'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # --- 1. Load data ---
@@ -67,6 +67,6 @@ print(f"Wasserstein score: {result.scores['wasserstein']:.4f}")
 
 # --- 9. Diagnostic: responsibility bar chart ---
 fig = diag.ResponsibilityBars().plot(result.weights, show_uniform_reference=True)
-fig.update_layout(title='Ex3: Responsibility Weights (Uniform)')
+fig.update_layout(title='Ex1: Responsibility Weights (Uniform)')
 fig.write_html(f'{OUTPUT_DIR}/responsibility_weights.html')
 print(f"\nPlot saved to {OUTPUT_DIR}/responsibility_weights.html")
