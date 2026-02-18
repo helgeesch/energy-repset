@@ -7,7 +7,7 @@ import pytest
 
 from energy_repset.time_slicer import TimeSlicer
 from energy_repset.context import ProblemContext
-from energy_repset.feature_engineering import StandardStatsFeatureEngineer
+from energy_repset.feature_engineering import StandardStatsFeatureEngineer, DirectProfileFeatureEngineer
 
 
 @pytest.fixture(scope="session")
@@ -86,3 +86,23 @@ def monthly_slices(context_monthly) -> list:
 def sample_combination(monthly_slices) -> tuple:
     """Tuple of first 2 monthly slices for k=2 tests."""
     return tuple(monthly_slices[:2])
+
+
+@pytest.fixture(scope="session")
+def context_daily(df_raw_hourly, daily_slicer) -> ProblemContext:
+    """ProblemContext with daily slicing (90 days for 90-day data)."""
+    return ProblemContext(df_raw=df_raw_hourly, slicer=daily_slicer)
+
+
+@pytest.fixture(scope="session")
+def context_daily_with_stats_features(context_daily) -> ProblemContext:
+    """Daily ProblemContext with df_features via StandardStatsFeatureEngineer."""
+    engineer = StandardStatsFeatureEngineer()
+    return engineer.run(context_daily)
+
+
+@pytest.fixture(scope="session")
+def context_daily_with_direct_features(context_daily) -> ProblemContext:
+    """Daily ProblemContext with df_features via DirectProfileFeatureEngineer."""
+    engineer = DirectProfileFeatureEngineer()
+    return engineer.run(context_daily)

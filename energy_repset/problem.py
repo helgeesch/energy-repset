@@ -115,9 +115,9 @@ class RepSetExperiment:
         representation_model = self.workflow.representation_model
 
         result = search_algorithm.find_selection(feature_context)
-        representation_model.fit(feature_context)
-        weights = representation_model.weigh(result.selection)
-        result.weights = weights
+        if result.weights is None:
+            representation_model.fit(feature_context)
+            result.weights = representation_model.weigh(result.selection)
 
         self.result = result
         return self.result
