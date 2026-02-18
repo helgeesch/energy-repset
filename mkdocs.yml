@@ -18,4 +18,11 @@ nav:
   - Unified Framework: unified_framework.md
   - Workflow Types: workflow.md
   - Modules & Components: modules.md
-  - Gallery: gallery/index.md
+  - Configuration Advisor: advisor.md
+  - Gallery:
+    - Overview: gallery/index.md
+    - "Ex1: Feature Space": gallery/ex1.md
+    - "Ex2: Hierarchical Selection": gallery/ex2.md
+    - "Ex3: Getting Started": gallery/ex3.md
+    - "Ex4: Representation Models": gallery/ex4.md
+    - "Ex5: Multi-Objective": gallery/ex5.md

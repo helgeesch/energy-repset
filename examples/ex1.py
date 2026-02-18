@@ -22,6 +22,7 @@ from energy_repset.diagnostics.feature_space import (
     FeatureSpaceScatterMatrix,
     PCAVarianceExplained,
     FeatureCorrelationHeatmap,
+    FeatureDistributions,
 )
 from energy_repset.diagnostics.score_components import (
     DistributionOverlayECDF,
@@ -120,6 +121,12 @@ fig_splom = scatter_matrix.plot(
 fig_splom.update_layout(title='PCA Feature Space Scatter Matrix')
 fig_splom.write_html(f'{OUTPUT_DIR}/output_feature_scatter_matrix.html')
 print("Generated: output_feature_scatter_matrix.html")
+
+# Feature distributions
+fig_feat = FeatureDistributions().plot(context.df_features, nbins=20, cols=4)
+fig_feat.update_layout(title='Feature Distributions')
+fig_feat.write_html(f'{OUTPUT_DIR}/output_feature_distributions.html')
+print("Generated: output_feature_distributions.html")
 
 # --- 4. Pillars 2 & 3: ObjectiveSet and Selection Policy ---
 # Define the scoring rubric (ObjectiveSet) and the rule for picking a winner (Policy).

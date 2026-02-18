@@ -39,7 +39,11 @@ from energy_repset.diagnostics.results import (
     ScoreContributionBars,
     ResponsibilityBars,
 )
-from energy_repset.diagnostics.score_components import DistributionOverlayHistogram
+from energy_repset.diagnostics.score_components import (
+    DistributionOverlayHistogram,
+    DiurnalProfileOverlay,
+    CorrelationDifferenceHeatmap,
+)
 from energy_repset.diagnostics.feature_space import FeatureDistributions
 
 OUTPUT_DIR = 'docs/gallery/ex5'
@@ -160,5 +164,20 @@ fig_feat = FeatureDistributions().plot(feature_context.df_features, nbins=20, co
 fig_feat.update_layout(title='Ex5: Feature Distributions')
 fig_feat.write_html(f'{OUTPUT_DIR}/feature_distributions.html')
 print(f"Saved: {OUTPUT_DIR}/feature_distributions.html")
+
+# 6f. Diurnal profiles and correlation difference (Pareto selection)
+fig_diurnal = DiurnalProfileOverlay().plot(
+    df_raw, df_selection, variables=list(df_raw.columns)
+)
+fig_diurnal.update_layout(title='Ex5: Diurnal Profiles -- Full vs Selection')
+fig_diurnal.write_html(f'{OUTPUT_DIR}/diurnal_profiles.html')
+print(f"Saved: {OUTPUT_DIR}/diurnal_profiles.html")
+
+fig_corr_diff = CorrelationDifferenceHeatmap().plot(
+    df_raw, df_selection, method='pearson', show_lower_only=True
+)
+fig_corr_diff.update_layout(title='Ex5: Correlation Difference')
+fig_corr_diff.write_html(f'{OUTPUT_DIR}/correlation_difference.html')
+print(f"Saved: {OUTPUT_DIR}/correlation_difference.html")
 
 print("\n--- All diagnostics complete ---")

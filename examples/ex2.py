@@ -17,6 +17,8 @@ from energy_repset.diagnostics.results import (
     ParetoParallelCoordinates,
     ScoreContributionBars,
 )
+from energy_repset.diagnostics.feature_space import FeatureSpaceScatter2D
+from energy_repset.diagnostics.score_components import DistributionOverlayECDF
 
 OUTPUT_DIR = 'docs/gallery/ex2'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -127,3 +129,21 @@ fig_scores = score_bars.plot(result.scores, normalize=True)
 fig_scores.update_layout(title='Score Component Contributions (Normalized)')
 fig_scores.write_html(f'{OUTPUT_DIR}/output_score_contributions.html')
 print("Generated: output_score_contributions.html")
+
+# Feature space scatter (first two feature columns)
+cols = list(context.df_features.columns[:2])
+fig_scatter = FeatureSpaceScatter2D().plot(
+    context.df_features, x=cols[0], y=cols[1], selection=result.selection
+)
+fig_scatter.update_layout(title='Feature Space with Selection')
+fig_scatter.write_html(f'{OUTPUT_DIR}/output_feature_scatter.html')
+print("Generated: output_feature_scatter.html")
+
+# ECDF overlays per variable
+selected_indices = child_slicer.get_indices_for_slice_combi(df_raw.index, result.selection)
+df_selection = df_raw.loc[selected_indices]
+for var in df_raw.columns:
+    fig_ecdf = DistributionOverlayECDF().plot(df_raw[var], df_selection[var])
+    fig_ecdf.update_layout(title=f'ECDF Overlay -- {var}')
+    fig_ecdf.write_html(f'{OUTPUT_DIR}/output_ecdf_{var}.html')
+print("Generated: output_ecdf_*.html (one per variable)")

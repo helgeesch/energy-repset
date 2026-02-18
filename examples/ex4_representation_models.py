@@ -32,6 +32,8 @@ from energy_repset.representation import (
 from energy_repset.workflow import Workflow
 from energy_repset.problem import RepSetExperiment
 from energy_repset.diagnostics.results import ResponsibilityBars
+from energy_repset.diagnostics.feature_space import FeatureSpaceScatter2D
+from energy_repset.diagnostics.score_components import DistributionOverlayECDF
 
 OUTPUT_DIR = 'docs/gallery/ex4'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -101,9 +103,10 @@ print(f"\nBlended weight matrix ({weights_blended_df.shape[0]} rows x "
 print(weights_blended_df.round(3).to_string())
 
 # Aggregate blended weights: sum each column to get the total responsibility
-# per representative (comparable to the dict-based weights above).
-weights_blended_agg = weights_blended_df.sum(axis=0).to_dict()
-print(f"\nBlended (aggregated): {weights_blended_agg}")
+# per representative, then normalize so weights sum to 1.0.
+blended_column_sums = weights_blended_df.sum(axis=0)
+weights_blended_agg = (blended_column_sums / blended_column_sums.sum()).to_dict()
+print(f"\nBlended (aggregated, normalized): {weights_blended_agg}")
 
 # --- 6. Diagnostics: side-by-side responsibility bars ---
 models = {
@@ -119,7 +122,24 @@ for label, weights in models.items():
     fig.write_html(f'{OUTPUT_DIR}/{filename}')
     print(f"Saved: {OUTPUT_DIR}/{filename}")
 
-# --- 7. Blended weight heatmap ---
+# --- 7. Feature scatter with selection ---
+fig_scatter = FeatureSpaceScatter2D().plot(
+    feature_context.df_features, x='pc_0', y='pc_1', selection=selection
+)
+fig_scatter.update_layout(title='Ex4: Feature Space with Selection')
+fig_scatter.write_html(f'{OUTPUT_DIR}/feature_scatter_selection.html')
+print(f"Saved: {OUTPUT_DIR}/feature_scatter_selection.html")
+
+# --- 8. ECDF overlays per variable ---
+selected_indices = slicer.get_indices_for_slice_combi(df_raw.index, selection)
+df_selection = df_raw.loc[selected_indices]
+for var in df_raw.columns:
+    fig_ecdf = DistributionOverlayECDF().plot(df_raw[var], df_selection[var])
+    fig_ecdf.update_layout(title=f'Ex4: ECDF Overlay -- {var}')
+    fig_ecdf.write_html(f'{OUTPUT_DIR}/ecdf_{var}.html')
+print(f"Saved: {OUTPUT_DIR}/ecdf_*.html (one per variable)")
+
+# --- 9. Blended weight heatmap ---
 import plotly.express as px
 
 heatmap_df = weights_blended_df.copy()

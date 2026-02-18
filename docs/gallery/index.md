@@ -5,25 +5,23 @@ Run the scripts to regenerate outputs in `docs/gallery/`.
 
 ---
 
-## Example 1: Feature Space Exploration
-
-**Script:** `examples/ex1.py`
+## [Example 1: Feature Space Exploration](ex1.md)
 
 A comprehensive workflow with monthly slicing, PCA feature engineering, Pareto
-selection, and KMedoids cluster-size representation. Showcases feature-space
-diagnostics (scatter plots, correlation heatmap, PCA variance) and
-score-component diagnostics (ECDF overlay, correlation difference, diurnal
-profiles).
+selection, and KMedoids cluster-size representation. Showcases the full range of
+feature-space diagnostics (scatter plots, correlation heatmap, PCA variance,
+feature distributions) and score-component diagnostics (ECDF overlay,
+correlation difference, diurnal profiles).
 
 **Components:** `FeaturePipeline` (Stats + PCA) | `WassersteinFidelity` +
 `CorrelationFidelity` + `CentroidBalance` | `ParetoMaxMinStrategy` |
 `KMedoidsClustersizeRepresentation` | `ExhaustiveCombiGen(k=3)`
 
+[View details ->](ex1.md)
+
 ---
 
-## Example 2: Hierarchical Seasonal Selection
-
-**Script:** `examples/ex2.py`
+## [Example 2: Hierarchical Seasonal Selection](ex2.md)
 
 Selects 4 months (one per season) using day-level features and hierarchical
 combination generation. Demonstrates seasonal constraints via
@@ -35,11 +33,11 @@ parallel coordinates.
 `CorrelationFidelity` | `ParetoMaxMinStrategy` |
 `KMedoidsClustersizeRepresentation`
 
+[View details ->](ex2.md)
+
 ---
 
-## Example 3: Getting Started
-
-**Script:** `examples/ex3_getting_started.py`
+## [Example 3: Getting Started](ex3.md)
 
 The simplest possible end-to-end workflow. Selects 4 representative months
 using a single objective and uniform weights. A minimal "hello world" for
@@ -49,15 +47,11 @@ onboarding.
 `WeightedSumPolicy` | `UniformRepresentationModel` |
 `ExhaustiveCombiGen(k=4)`
 
-**Visualizations:**
-
-- [Responsibility Weights](ex3/responsibility_weights.html)
+[View details ->](ex3.md)
 
 ---
 
-## Example 4: Comparing Representation Models
-
-**Script:** `examples/ex4_representation_models.py`
+## [Example 4: Comparing Representation Models](ex4.md)
 
 Runs a single search and then applies three different representation models
 to the same winning selection, comparing how each distributes responsibility
@@ -68,18 +62,11 @@ across the selected months.
 `UniformRepresentationModel` + `KMedoidsClustersizeRepresentation` +
 `BlendedRepresentationModel`
 
-**Visualizations:**
-
-- [Uniform Weights](ex4/responsibility_uniform.html)
-- [KMedoids Weights](ex4/responsibility_kmedoids.html)
-- [Blended Weights (aggregated)](ex4/responsibility_blended_aggregated.html)
-- [Blended Weight Matrix Heatmap](ex4/blended_heatmap.html)
+[View details ->](ex4.md)
 
 ---
 
-## Example 5: Multi-Objective Exploration
-
-**Script:** `examples/ex5_multi_objective.py`
+## [Example 5: Multi-Objective Exploration](ex5.md)
 
 Demonstrates how different score components and selection policies affect the
 outcome. Uses 4 objectives and compares `ParetoMaxMinStrategy` vs
@@ -90,19 +77,7 @@ outcome. Uses 4 objectives and compares `ParetoMaxMinStrategy` vs
 `ParetoMaxMinStrategy` vs `WeightedSumPolicy` | `UniformRepresentationModel`
 | `ExhaustiveCombiGen(k=3)`
 
-**Visualizations:**
-
-- [Pareto Front (2D)](ex5/pareto_scatter_2d.html)
-- [Pareto Scatter Matrix](ex5/pareto_scatter_matrix.html)
-- [Score Contributions (Pareto)](ex5/score_contributions_pareto.html)
-- [Score Contributions (Weighted Sum)](ex5/score_contributions_weighted_sum.html)
-- [Responsibility (Pareto)](ex5/responsibility_pareto.html)
-- [Responsibility (Weighted Sum)](ex5/responsibility_weighted_sum.html)
-- [Distribution: Load](ex5/histogram_load.html)
-- [Distribution: Onshore Wind](ex5/histogram_onwind.html)
-- [Distribution: Offshore Wind](ex5/histogram_offwind.html)
-- [Distribution: Solar](ex5/histogram_solar.html)
-- [Feature Distributions](ex5/feature_distributions.html)
+[View details ->](ex5.md)
 
 ---
 

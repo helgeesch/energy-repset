@@ -43,7 +43,8 @@ class ResponsibilityBars:
 
         Args:
             weights: Dictionary mapping slice identifiers to their weights.
-                Should sum to 1.0 for normalized weights.
+                Weights should sum to 1.0 for meaningful comparison with
+                the uniform reference line.
             show_uniform_reference: If True, adds horizontal dashed line
                 showing uniform weight (1/k) for comparison.
 
