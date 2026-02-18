@@ -87,6 +87,6 @@ class ExhaustiveCombiGen(CombinationGenerator):
         """
         if len(combination) != self.k:
             return False
-        if any(s not in unique_slices for s in unique_slices):
+        if any(s not in unique_slices for s in combination):
             return False
         return True

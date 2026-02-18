@@ -93,6 +93,8 @@ class StandardStatsFeatureEngineer(FeatureEngineer):
         feats = self._raw_feats_
         if self.scale == "zscore":
             feats = (feats - self._means_) / self._stds_
+        elif self.scale == "none":
+            pass
         else:
             raise NotImplementedError(f"Scaling {self.scale} not recognized.")
         feats = feats.replace([np.inf, -np.inf], 0.0).fillna(0.0)

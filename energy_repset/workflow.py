@@ -64,11 +64,10 @@ class Workflow:
         Args:
             filepath: Path where workflow configuration will be saved.
 
-        Note:
-            Not yet implemented. Future implementation will serialize to JSON/YAML.
+        Raises:
+            NotImplementedError: Workflow serialization is not yet implemented.
         """
-        # TODO: Logic to serialize the workflow config to JSON/YAML
-        pass
+        raise NotImplementedError("Workflow serialization not yet implemented.")
 
     @classmethod
     def load(cls, filepath: str | Path):
@@ -80,8 +79,7 @@ class Workflow:
         Returns:
             Reconstructed Workflow instance.
 
-        Note:
-            Not yet implemented. Future implementation will deserialize from JSON/YAML.
+        Raises:
+            NotImplementedError: Workflow deserialization is not yet implemented.
         """
-        # TODO: Logic to deserialize and reconstruct the workflow
-        pass
+        raise NotImplementedError("Workflow deserialization not yet implemented.")

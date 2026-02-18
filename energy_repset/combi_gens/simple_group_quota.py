@@ -155,7 +155,7 @@ class GroupQuotaCombiGen(CombinationGenerator):
         """
         if len(combination) != self.k:
             return False
-        if any(s not in unique_slices for s in unique_slices):
+        if any(s not in unique_slices for s in combination):
             return False
 
         group_count = {group_name: 0 for group_name in self.group_quota.keys()}
