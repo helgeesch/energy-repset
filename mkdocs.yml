@@ -15,8 +15,7 @@ extra_javascript:
 nav:
   - Home: index.md
   - Getting Started: getting_started.md
-  - Framework: framework.md
+  - Unified Framework: unified_framework.md
+  - Workflow Types: workflow.md
+  - Modules & Components: modules.md
   - Gallery: gallery/index.md
-  - Reference:
-    - Workflow Types: workflow.md
-    - White Paper: white_paper.md

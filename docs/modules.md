@@ -1,4 +1,4 @@
-# Framework Overview
+# Modules & Components
 
 energy-repset decomposes any representative period selection method into five
 interchangeable pillars. Each pillar has a protocol (interface) and one or more
@@ -229,4 +229,4 @@ result = experiment.run()
 ```
 
 For a complete walkthrough, see the [Getting Started](getting_started.md) guide.
-For the theoretical foundations, see the [White Paper](white_paper.md).
+For the theoretical foundations, see the [Unified Framework](unified_framework.md).

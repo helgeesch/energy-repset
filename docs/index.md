@@ -70,4 +70,6 @@ print(result.weights)    # e.g., {Period('2019-01', 'M'): 3.0, ...}
 print(result.scores)     # e.g., {'wasserstein': 0.023, 'correlation': 0.015}
 ```
 
+The theoretical foundations behind this decomposition are described in the [Unified Framework](unified_framework.md) document.
+
 See the [Getting Started](getting_started.md) guide for a full walkthrough, or browse the [Gallery](gallery/index.md) for interactive examples.

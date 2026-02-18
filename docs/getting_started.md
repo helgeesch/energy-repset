@@ -183,7 +183,7 @@ The complete code is available at
 
 - **Swap components**: Try `ParetoMaxMinStrategy` instead of `WeightedSumPolicy`,
   or `KMedoidsClustersizeRepresentation` instead of uniform weights.
-  See the [Framework](framework.md) page for all available implementations.
+  See the [Modules & Components](modules.md) page for all available implementations.
 - **Add objectives**: Add `CorrelationFidelity`, `DurationCurveFidelity`, or
   `DiversityReward` to the `ObjectiveSet`.
 - **Browse examples**: The [Gallery](gallery/index.md) shows more advanced

@@ -127,7 +127,7 @@ Note that diversity and coverage metrics evaluate properties of the selection *i
 1. land close to the center of the data distribution (aggregate fidelity), *and*
 2. span a broad range of system states (coverage/diversity).
 
-These two goals are in natural tension: optimizing for aggregate fidelity tends to select "average" periods, while optimizing for coverage tends to select "extreme" or "boundary" periods. This tension is resolved through **multi-objective optimization**, where the trade-off frontier (Pareto front) between the objectives is computed explicitly, and the modeler chooses a preferred balance. Multi-objective formulations thus provide a principled alternative to ad-hoc multi-stage approaches (see Section 2.6, $\mathcal{A}_\text{hybrid}$).
+These two goals are in natural tension: optimizing for aggregate fidelity tends to select "average" periods, while optimizing for coverage tends to select "extreme" or "boundary" periods. This tension is resolved through **multi-objective optimization**, where the trade-off frontier (Pareto front) between the objectives is computed explicitly, and the modeler chooses a preferred balance. Multi-objective formulations thus provide a systematic alternative to multi-stage approaches (see Section 2.6, $\mathcal{A}_\text{hybrid}$).
 
 ---
 
@@ -194,6 +194,12 @@ The blended representation provides a much richer approximation: rather than col
 
 However, $\mathcal{R}_\text{soft}$ requires the downstream model to handle *blended inputs* — the time-series parameters (load, VRES profiles) for each modeled period are themselves weighted sums of the representative profiles. This requires a different ESM formulation than the standard weighted-period approach.
 
+#### Duration scaling
+
+When periods have unequal durations — for instance, calendar months ranging from 28 to 31 days — the raw responsibility weights produced by any $\mathcal{R}$ variant should be adjusted to reflect the actual time span each representative covers. Without this adjustment, a representative month of 28 days and one of 31 days would receive the same weight despite covering different fractions of the year.
+
+Duration scaling is not a separate representation model but a practical post-processing refinement applicable to $\mathcal{R}_\text{equal}$, $\mathcal{R}_\text{hard}$, and $\mathcal{R}_\text{soft}$ alike. The adjustment is straightforward: each weight $w_j$ is multiplied by the duration $l_j$ of period $j$, and the result is renormalized so that the weights sum to the total time horizon. For $\mathcal{R}_\text{equal}$ with monthly periods, this means a 31-day month receives slightly more weight than a 28-day month, ensuring that the weighted reconstruction accounts for the correct number of hours per period.
+
 ---
 
 ### 2.6 Component 5: Search Algorithm ($\mathcal{A}$) — How We Find the Solution
@@ -250,7 +256,7 @@ Hybrid approaches combine multiple algorithms or objectives in stages. A common 
 1. Select $k_1$ "typical" periods using a clustering or combinatorial method.
 2. Select $k_2 = k - k_1$ "extreme" or "critical stress" periods using optimization-based identification (e.g., identifying periods with the highest system stress via slack variables in a preliminary model run).
 
-This is pragmatic and widely used. However, the same goal — balancing aggregate fidelity with extreme-event coverage — can often be achieved through **multi-objective optimization** within a single $\mathcal{A}_\text{comb}$ framework, where both fidelity and coverage are explicit objectives. The advantage of the multi-objective approach is that trade-offs are made transparent and the modeler retains full control over the balance, rather than committing to a fixed $k_1$/$k_2$ split a priori.
+This is pragmatic and widely used. Alternatively, the same goal — balancing aggregate fidelity with extreme-event coverage — can be pursued through **multi-objective optimization** within a single $\mathcal{A}_\text{comb}$ framework, where both fidelity and coverage are explicit objectives. One advantage of the multi-objective approach is that trade-offs are made transparent and the modeler retains full control over the balance, rather than committing to a fixed $k_1$/$k_2$ split a priori.
 
 ---
 
@@ -285,11 +291,11 @@ Several insights emerge from the decomposition:
 
 1. **Most methods differ in only one or two components.** Moving from k-medoids to autoencoder-based selection changes only $\mathcal{F}$ (from statistical to latent/model-informed). Moving from k-medoids to hull clustering changes $\mathcal{R}$ (from hard to soft) and $\mathcal{A}$ (from centroid-based to greedy). The other components remain the same. This makes trade-offs explicit and isolable.
 
-2. **$\mathcal{R}_\text{soft}$ remains rare.** Almost all established methods use hard assignment or equal weighting. Blended representation (hull clustering) is a recent innovation that requires changes to the downstream model formulation.
+2. **$\mathcal{R}_\text{soft}$ is uncommon in the current literature.** Almost all established methods use hard assignment or equal weighting. Blended representation (hull clustering) is a recent innovation that requires changes to the downstream model formulation.
 
 3. **$\mathcal{O}_\text{model}$ is the frontier.** Most methods operate entirely on statistical objectives. Direct optimization for model outcome fidelity requires model-in-the-loop methods (extreme event identification via slack variables, autoencoder with model outputs), which are computationally expensive but represent the state of the art.
 
-4. **Multi-objective optimization is underutilized.** The hybrid approach (typical + extreme) is a pragmatic but ad-hoc solution to the tension between aggregate fidelity and extreme-event coverage. Multi-objective formulations provide a more principled alternative: they compute the full trade-off frontier and let the modeler choose, rather than committing to a fixed split.
+4. **Multi-objective optimization offers an alternative to hybrid approaches.** The hybrid approach (typical + extreme) is pragmatic and widely used for balancing aggregate fidelity with extreme-event coverage. Multi-objective formulations provide an alternative: they compute the full trade-off frontier and let the modeler choose, rather than committing to a fixed split.
 
 5. **The choice of $\mathcal{A}$ often dominates the method's identity.** Methods are typically named after their search algorithm (k-means, MILP, genetic algorithm), but the other components — particularly $\mathcal{F}$ and $\mathcal{O}$ — often have a greater impact on the quality of the result. The framework redirects attention from *how* the search is conducted to *what* is being optimized and *how* quality is measured.
 
