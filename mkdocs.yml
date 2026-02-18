@@ -4,8 +4,10 @@ site_description: A unified framework for representative subset selection in mul
 
 theme:
   name: material
+  favicon: assets/logo-red.svg
+  logo: assets/logo-white.svg
   palette:
-    primary: 'teal'
+    primary: 'red'
     accent: 'amber'
   features:
     - navigation.tabs
@@ -21,6 +23,9 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.snippets
+
+extra_css:
+  - stylesheets/extra.css
 
 extra_javascript:
   - javascripts/mathjax.js
