@@ -1,4 +1,4 @@
-# energy-repset
+# <img src="https://raw.githubusercontent.com/helgeesch/energy-repset/refs/heads/main/docs/assets/logo-red.svg" width="30" height="30" alt="logo"> energy-repset
 
 A unified, modular framework for **representative subset selection in multi-variate time-series spaces**.
 
