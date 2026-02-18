@@ -3,26 +3,77 @@ site_description: A unified framework for representative subset selection in mul
 
 theme:
   name: material
+  palette:
+    primary: 'teal'
+    accent: 'amber'
+  features:
+    - navigation.tabs
+    - content.tabs.link
+    - navigation.sections
 
 markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 5
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.snippets
 
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
+plugins:
+  - search
+  - section-index
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            heading_level: 2
+            show_source: false
+            show_root_heading: true
+            show_root_full_path: false
+            show_object_full_path: false
+            show_root_members_full_path: false
+            show_symbol_type_heading: true
+            show_category_heading: false
+            show_root_toc_entry: false
+            signature_crossrefs: true
+            show_signature_annotations: true
+            show_signature_type_parameters: true
+            members_order: source
+            modernize_annotations: true
+            separate_signature: true
+            merge_init_into_class: false
+
 nav:
-  - Home: index.md
-  - Getting Started: getting_started.md
-  - Unified Framework: unified_framework.md
-  - Workflow Types: workflow.md
-  - Modules & Components: modules.md
-  - Configuration Advisor: advisor.md
-  - Gallery:
-    - Overview: gallery/index.md
+  - Home:
+    - index.md
+    - Getting Started: getting_started.md
+    - Unified Framework: unified_framework.md
+    - Workflow Types: workflow.md
+    - Modules & Components: modules.md
+    - Configuration Advisor: advisor.md
+  - Examples:
+    - gallery/index.md
     - "Ex1: Feature Space": gallery/ex1.md
     - "Ex2: Hierarchical Selection": gallery/ex2.md
     - "Ex3: Getting Started": gallery/ex3.md
     - "Ex4: Representation Models": gallery/ex4.md
     - "Ex5: Multi-Objective": gallery/ex5.md
+  - API Reference:
+    - api/index.md
+    - Context & Slicing: api/context.md
+    - Workflow & Experiment: api/workflow.md
+    - Feature Engineering: api/feature_engineering.md
+    - Objectives: api/objectives.md
+    - Score Components: api/score_components.md
+    - Combination Generators: api/combi_gens.md
+    - Selection Policies: api/selection_policies.md
+    - Search Algorithms: api/search_algorithms.md
+    - Representation: api/representation.md
+    - Diagnostics: api/diagnostics.md

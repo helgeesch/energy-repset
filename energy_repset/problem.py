@@ -93,7 +93,7 @@ class RepSetExperiment:
         self._feature_context = self.workflow.feature_engineer.run(self.raw_context)
         return self._feature_context
 
-    def run(self):
+    def run(self) -> RepSetResult:
         """Execute the entire workflow from feature engineering to final result.
 
         This method orchestrates the complete selection process:
@@ -105,7 +105,7 @@ class RepSetExperiment:
         6. Stores and returns the final result
 
         Returns:
-            RepSetResult containing the selected periods, weights, scores, and diagnostics.
+            RepSetResult: The selected periods, weights, scores, and diagnostics.
         """
         if (self._feature_context is None) and (self.raw_context._df_features is None):
             self.run_feature_engineer()

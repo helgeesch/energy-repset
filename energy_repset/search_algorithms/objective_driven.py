@@ -102,7 +102,6 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
 
         Args:
             context: Problem context with df_features populated.
-            k: Number of periods to select (passed to combination_generator).
 
         Returns:
             RepSetResult with the winning selection, scores, representatives,

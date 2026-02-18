@@ -57,7 +57,6 @@ class SearchAlgorithm(ABC):
         Args:
             context: The problem context with df_features populated (feature
                 engineering must be run before calling this method).
-            k: The number of representative periods to select.
 
         Returns:
             A RepSetResult containing the selected slice identifiers, their

@@ -70,14 +70,14 @@ class Workflow:
         raise NotImplementedError("Workflow serialization not yet implemented.")
 
     @classmethod
-    def load(cls, filepath: str | Path):
+    def load(cls, filepath: str | Path) -> "Workflow":
         """Load workflow configuration from file.
 
         Args:
             filepath: Path to workflow configuration file.
 
         Returns:
-            Reconstructed Workflow instance.
+            Workflow: Reconstructed Workflow instance.
 
         Raises:
             NotImplementedError: Workflow deserialization is not yet implemented.

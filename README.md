@@ -2,11 +2,17 @@
 
 A unified, modular framework for **representative subset selection in multi-variate time-series spaces**.
 
-Select a small number of representative periods (e.g., weeks or months) from a full year of data to approximate the full dataset in downstream modeling tasks like energy systems optimization.
+## Why this package?
 
-## The Five-Component Framework
+Energy system models, capacity expansion studies, and other time-series-heavy applications often need to reduce a full year (or longer) of hourly data to a small set of representative periods -- days, weeks, or months -- without losing what matters. The literature offers many methods (k-means, k-medoids, MILP-based selection, genetic algorithms, etc.), but the landscape is dense and tangled: each method bundles multiple decisions -- how to represent data, what to optimize, how to search -- into a single procedure, making it hard to see which choices matter, compare approaches on equal footing, or adapt a method to your specific problem.
 
-The framework decomposes any time-series aggregation method into five interchangeable components:
+`energy-repset` clears a path through the jungle in two ways:
+
+1. **A unified framework** that decomposes *any* time-series aggregation method into five interchangeable components. Every established methodology is a specific instantiation of this structure. The framework provides a common language for describing, comparing, and assembling methods. The full theoretical treatment is available in the [Unified Framework](https://helgeesch.github.io/energy-repset/unified_framework/) document.
+
+2. **A modular Python package** that implements this framework as a library of composable, protocol-based modules. You pick one implementation per component, wire them together, and run. Adding a new algorithm or score metric means implementing a single protocol -- everything else stays the same.
+
+## The Five Components
 
 | Component | Symbol | Role |
 |-----------|--------|------|
@@ -16,7 +22,32 @@ The framework decomposes any time-series aggregation method into five interchang
 | Representation Model | **R** | How selected periods represent the full dataset |
 | Search Algorithm | **A** | The engine that finds optimal selections |
 
-Any concrete method -- k-means, k-medoids, MILP-based selection, genetic algorithms -- is a specific instantiation of this five-component structure. For the full theoretical treatment, see the [Unified Framework](https://helgeesch.github.io/energy-repset/unified_framework/) document.
+## Navigating the project
+
+**Documentation site** ([helgeesch.github.io/energy-repset](https://helgeesch.github.io/energy-repset/)):
+
+| Section | What you'll find |
+|---------|-----------------|
+| [Unified Framework](https://helgeesch.github.io/energy-repset/unified_framework/) | The theoretical paper: problem decomposition, component taxonomy, method comparison |
+| [Workflow Types](https://helgeesch.github.io/energy-repset/workflow/) | The three workflow patterns: generate-and-test, constructive, direct optimization |
+| [Modules & Components](https://helgeesch.github.io/energy-repset/modules/) | Inventory of all implemented modules and how they map to the five components |
+| [Configuration Advisor](https://helgeesch.github.io/energy-repset/advisor/) | Decision guide for choosing components based on your problem |
+| [Getting Started](https://helgeesch.github.io/energy-repset/getting_started/) | End-to-end walkthrough from data to result |
+| [Examples](https://helgeesch.github.io/energy-repset/gallery/) | Worked examples showcasing different configurations |
+| [API Reference](https://helgeesch.github.io/energy-repset/api/) | Auto-generated class and method documentation |
+
+**Package structure** (`energy_repset/`):
+
+| Module | Framework component |
+|--------|-------------------|
+| `context`, `time_slicer` | Problem definition and data container |
+| `feature_engineering/` | **F** -- Feature engineers (statistical summaries, PCA, pipelines) |
+| `objectives`, `score_components/` | **O** -- Objective sets and scoring metrics |
+| `combi_gens/` | **S** -- Combination generators (exhaustive, group-quota, hierarchical) |
+| `representation/` | **R** -- Representation models (uniform, cluster-based, blended) |
+| `search_algorithms/`, `selection_policies/` | **A** -- Search algorithms and selection policies |
+| `workflow`, `problem`, `results` | Orchestration: wire components, run, collect results |
+| `diagnostics/` | Visualization and analysis of features, scores, and results |
 
 ## Installation
 
@@ -73,14 +104,6 @@ print(result.selection)  # e.g., (Period('2019-01', 'M'), Period('2019-04', 'M')
 print(result.weights)    # e.g., {Period('2019-01', 'M'): 3.0, ...}
 print(result.scores)     # e.g., {'wasserstein': 0.023, 'correlation': 0.015}
 ```
-
-## Documentation
-
-- [Getting Started](https://helgeesch.github.io/energy-repset/getting_started/) -- end-to-end walkthrough
-- [Unified Framework](https://helgeesch.github.io/energy-repset/unified_framework/) -- theoretical foundations
-- [Workflow Types](https://helgeesch.github.io/energy-repset/workflow/) -- generate-and-test, constructive, and direct optimization
-- [Modules & Components](https://helgeesch.github.io/energy-repset/modules/) -- all implementations and their APIs
-- [Gallery](https://helgeesch.github.io/energy-repset/gallery/) -- interactive examples
 
 ## License
 
