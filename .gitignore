@@ -87,6 +87,9 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+# Generated example gallery outputs
+docs/gallery/**/*.html
+
 # PyBuilder
 .pybuilder/
 target/

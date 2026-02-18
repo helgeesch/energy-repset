@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from energy_repset.context import ProblemContext
 from energy_repset.representation import KMedoidsClustersizeRepresentation
@@ -28,6 +29,9 @@ from energy_repset.diagnostics.score_components import (
     DiurnalProfileOverlay,
 )
 from energy_repset.diagnostics.results import ResponsibilityBars
+
+OUTPUT_DIR = 'docs/gallery/ex1'
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # --- 1. Initial Data Loading ---
 # Load the raw time-series data.
@@ -71,7 +75,7 @@ print("\n--- Feature Space Diagnostics ---")
 pca_variance_plot = PCAVarianceExplained(feature_pipeline.engineers['pca'])
 fig_pca_variance = pca_variance_plot.plot(show_cumulative=True)
 fig_pca_variance.update_layout(title='PCA Variance Explained')
-fig_pca_variance.write_html('.local/dump/output_pca_variance.html')
+fig_pca_variance.write_html(f'{OUTPUT_DIR}/output_pca_variance.html')
 print("Generated: output_pca_variance.html")
 
 # 2D scatter plot of PCA space
@@ -82,7 +86,7 @@ fig_scatter_2d = scatter_2d.plot(
     y='pc_1',
 )
 fig_scatter_2d.update_layout(title='Feature Space: PC0 vs PC1')
-fig_scatter_2d.write_html('.local/dump/output_feature_scatter_2d.html')
+fig_scatter_2d.write_html(f'{OUTPUT_DIR}/output_feature_scatter_2d.html')
 print("Generated: output_feature_scatter_2d.html")
 
 # 3D scatter plot of PCA space
@@ -94,7 +98,7 @@ fig_scatter_3d = scatter_3d.plot(
     z='pc_2',
 )
 fig_scatter_3d.update_layout(title='Feature Space: 3D PCA Projection')
-fig_scatter_3d.write_html('.local/dump/output_feature_scatter_3d.html')
+fig_scatter_3d.write_html(f'{OUTPUT_DIR}/output_feature_scatter_3d.html')
 print("Generated: output_feature_scatter_3d.html")
 
 # Feature correlation heatmap
@@ -104,7 +108,7 @@ fig_corr = corr_heatmap.plot(
     method='pearson',
 )
 fig_corr.update_layout(title='Feature Correlation Matrix')
-fig_corr.write_html('.local/dump/output_feature_correlation.html')
+fig_corr.write_html(f'{OUTPUT_DIR}/output_feature_correlation.html')
 print("Generated: output_feature_correlation.html")
 
 # Scatter matrix for first 4 PCA components
@@ -114,7 +118,7 @@ fig_splom = scatter_matrix.plot(
     dimensions=['pc_0', 'pc_1', 'pc_2', 'pc_3'],
 )
 fig_splom.update_layout(title='PCA Feature Space Scatter Matrix')
-fig_splom.write_html('.local/dump/output_feature_scatter_matrix.html')
+fig_splom.write_html(f'{OUTPUT_DIR}/output_feature_scatter_matrix.html')
 print("Generated: output_feature_scatter_matrix.html")
 
 # --- 4. Pillars 2 & 3: ObjectiveSet and Selection Policy ---
@@ -164,7 +168,7 @@ fig_responsibility = responsibility_bars.plot(
     show_uniform_reference=True,
 )
 fig_responsibility.update_layout(title='Responsibility Weights per Selected Month')
-fig_responsibility.write_html('.local/dump/output_responsibility_weights.html')
+fig_responsibility.write_html(f'{OUTPUT_DIR}/output_responsibility_weights.html')
 print("Generated: output_responsibility_weights.html")
 
 print("\n--- Score Component Diagnostics ---")
@@ -181,7 +185,7 @@ fig_ecdf = ecdf_plot.plot(
     df_selection=df_selection['load'],
 )
 fig_ecdf.update_layout(title='Distribution Fidelity: Demand (ECDF)')
-fig_ecdf.write_html('.local/dump/output_distribution_ecdf_load.html')
+fig_ecdf.write_html(f'{OUTPUT_DIR}/output_distribution_ecdf_load.html')
 print("Generated: output_distribution_ecdf_load.html")
 
 # Correlation difference heatmap
@@ -193,7 +197,7 @@ fig_corr_diff = corr_diff.plot(
     show_lower_only=True,
 )
 fig_corr_diff.update_layout(title='Correlation Difference: Selection - Full')
-fig_corr_diff.write_html('.local/dump/output_correlation_difference.html')
+fig_corr_diff.write_html(f'{OUTPUT_DIR}/output_correlation_difference.html')
 print("Generated: output_correlation_difference.html")
 
 # Diurnal profile comparison
@@ -204,7 +208,7 @@ fig_diurnal = diurnal_plot.plot(
     variables=['load', 'onwind', 'offwind', 'solar'],
 )
 fig_diurnal.update_layout(title='Diurnal Profiles: Full vs Selection')
-fig_diurnal.write_html('.local/dump/output_diurnal_profiles.html')
+fig_diurnal.write_html(f'{OUTPUT_DIR}/output_diurnal_profiles.html')
 print("Generated: output_diurnal_profiles.html")
 
 # Visualize selection in feature space
@@ -216,7 +220,7 @@ fig_scatter_selection = scatter_2d_with_selection.plot(
     selection=result.selection,
 )
 fig_scatter_selection.update_layout(title='Feature Space with Selected Months')
-fig_scatter_selection.write_html('.local/dump/output_feature_scatter_with_selection.html')
+fig_scatter_selection.write_html(f'{OUTPUT_DIR}/output_feature_scatter_with_selection.html')
 print("Generated: output_feature_scatter_with_selection.html")
 
 print("\n--- All Diagnostics Complete ---")
