@@ -6,17 +6,17 @@ energy-repset provides three constructive algorithms, each grounded in a publish
 
 | Algorithm | Idea | Selection Space | Weights | Reference |
 |-----------|------|-----------------|---------|-----------|
-| `HullClusteringSearch` | Greedy projection-error minimization | Subset | External (via `RepresentationModel`) | Bahl et al. (2025) |
-| `CTPCSearch` | Contiguity-constrained hierarchical clustering | Chronological segments | Pre-computed (segment fractions) | Kotzur et al. (2018) |
-| `SnippetSearch` | Greedy p-median selection of multi-day subsequences | Subset (sliding windows) | Pre-computed (assignment fractions) | Teichgraeber & Brandt (2024) |
+| `HullClusteringSearch` | Greedy projection-error minimization | Subset | External (via `RepresentationModel`) | Neustroev et al. (2025) |
+| `CTPCSearch` | Contiguity-constrained hierarchical clustering | Chronological segments | Pre-computed (segment fractions) | Pineda & Morales (2018) |
+| `SnippetSearch` | Greedy p-median selection of multi-day subsequences | Subset (sliding windows) | Pre-computed (assignment fractions) | Anderson et al. (2024) |
 
 ---
 
 ## Hull Clustering
 
-**Reference:** B. Bahl, M. Feldmeier, H. Barber, A. Bardow.
-"A Projection-Based Method for Selecting Representative Periods in Energy System Models."
-*arXiv:2508.21641*, 2025.
+**Reference:** G. Neustroev, D. A. Tejada-Arango, G. Morales-Espana, M. M. de Weerdt.
+"Hull Clustering with Blended Representative Periods for Energy System Optimization Models."
+arXiv: [2508.21641](https://arxiv.org/abs/2508.21641), 2025.
 
 ### Idea
 
@@ -70,10 +70,10 @@ workflow = rep.Workflow(
 
 ## CTPC (Chronological Time-Period Clustering)
 
-**Reference:** L. Kotzur, P. Markewitz, M. Robinius, D. Stolten.
-"Impact of different time series aggregation methods on optimal energy system design."
-*Renewable Energy*, 117, 474-487, 2018.
-DOI: [10.1016/j.renene.2017.10.017](https://doi.org/10.1016/j.renene.2017.10.017)
+**Reference:** S. Pineda, J. M. Morales.
+"Chronological Time-Period Clustering for Optimal Capacity Expansion Planning With Storage."
+*IEEE Transactions on Power Systems*, 33(7), 7723--7734, 2018.
+DOI: [10.1109/TPWRS.2018.2842093](https://doi.org/10.1109/TPWRS.2018.2842093)
 
 ### Idea
 
@@ -126,10 +126,9 @@ The `linkage` parameter controls how inter-cluster distance is measured during m
 
 ## Snippet Algorithm
 
-**Reference:** H. Teichgraeber, A. Brandt.
-"Time-series aggregation for the optimization of energy systems: Goals, challenges, approaches, and opportunities."
-*Renewable and Sustainable Energy Reviews*, 2024.
-arXiv: [2401.02888](https://arxiv.org/abs/2401.02888)
+**Reference:** O. Anderson, N. Yu, K. Oikonomou, D. Wu.
+"On the Selection of Intermediate Length Representative Periods for Capacity Expansion."
+arXiv: [2401.02888](https://arxiv.org/abs/2401.02888), 2024.
 
 ### Idea
 
