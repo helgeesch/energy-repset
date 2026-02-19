@@ -15,15 +15,20 @@ if TYPE_CHECKING:
 class SnippetSearch(SearchAlgorithm):
     """Greedy p-median selection of multi-day representative subsequences.
 
-    Implements the Snippet algorithm from Teichgraeber & Brandt (2024).
-    Selects k sliding-window subsequences of ``period_length_days`` days each,
-    minimizing the total day-level distance across the full time horizon.
+    Implements a greedy approximation of the Snippet algorithm from
+    Anderson et al. (2024).  Selects k sliding-window subsequences of
+    ``period_length_days`` days each, minimizing the total day-level
+    distance across the full time horizon.
 
     Each candidate subsequence contains ``period_length_days`` daily profile
     snippets. The distance from any day to a candidate is the minimum
-    Euclidean distance to any of its constituent daily snippets. The greedy
-    selection picks the candidate with the greatest total cost reduction at
-    each iteration.
+    squared Euclidean distance to any of its constituent daily snippets.
+    The greedy selection picks the candidate with the greatest total cost
+    reduction at each iteration.
+
+    The original paper solves the selection as a MILP; this implementation
+    uses a greedy p-median heuristic which provides a (1 - 1/e)
+    approximation guarantee.
 
     Requires ``context.slicer.unit == 'day'``.
 
@@ -31,6 +36,11 @@ class SnippetSearch(SearchAlgorithm):
         k: Number of representative subsequences to select.
         period_length_days: Length of each candidate subsequence in days.
         step_days: Stride between consecutive sliding-window candidates.
+
+    References:
+        O. Anderson, N. Yu, K. Oikonomou, D. Wu. "On the Selection of
+        Intermediate Length Representative Periods for Capacity Expansion."
+        arXiv:2401.02888, 2024.
 
     Examples:
         Basic usage with daily slicing:

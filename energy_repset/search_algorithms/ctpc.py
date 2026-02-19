@@ -17,8 +17,8 @@ class CTPCSearch(SearchAlgorithm):
     """Chronological Time-Period Clustering with contiguity constraint.
 
     Implements hierarchical agglomerative clustering where only temporally
-    adjacent periods may merge, producing k contiguous time segments. Based
-    on Kotzur et al. (2018).
+    adjacent periods may merge, producing k contiguous time segments.
+    Based on Pineda & Morales (2018).
 
     The algorithm computes weights as the fraction of time covered by each
     segment, so the external representation model is skipped when the result
@@ -28,9 +28,11 @@ class CTPCSearch(SearchAlgorithm):
         k: Number of contiguous time segments to produce.
         linkage: Linkage criterion for agglomerative clustering. One of
             ``'ward'``, ``'complete'``, ``'average'``, or ``'single'``.
-        representative: How to pick the representative within each segment.
-            ``'medoid'`` selects the period closest to the segment centroid.
-            ``'centroid'`` uses the arithmetic mean (not a real period).
+
+    References:
+        S. Pineda, J. M. Morales. "Chronological Time-Period Clustering
+        for Optimal Capacity Expansion Planning With Storage."
+        IEEE Trans. Power Syst., 33(6), 7162--7170, 2018.
 
     Examples:
         Basic usage:
@@ -46,19 +48,15 @@ class CTPCSearch(SearchAlgorithm):
         self,
         k: int,
         linkage: Literal['ward', 'complete', 'average', 'single'] = 'ward',
-        representative: Literal['medoid', 'centroid'] = 'medoid',
     ):
         """Initialize CTPC search.
 
         Args:
             k: Number of contiguous clusters to produce.
             linkage: Agglomerative linkage criterion.
-            representative: Method for selecting the representative period
-                within each cluster segment.
         """
         self.k = k
         self.linkage = linkage
-        self.representative = representative
 
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Run contiguity-constrained hierarchical clustering.
@@ -151,14 +149,10 @@ class CTPCSearch(SearchAlgorithm):
             cluster_wcss = np.sum((cluster_Z - centroid) ** 2)
             wcss += cluster_wcss
 
-            if self.representative == 'medoid':
-                dists = np.sum((cluster_Z - centroid) ** 2, axis=1)
-                medoid_local = int(np.argmin(dists))
-                rep_idx = indices[medoid_local]
-                rep_label = labels[rep_idx]
-            else:
-                rep_idx = indices[0]
-                rep_label = labels[rep_idx]
+            dists = np.sum((cluster_Z - centroid) ** 2, axis=1)
+            medoid_local = int(np.argmin(dists))
+            rep_idx = indices[medoid_local]
+            rep_label = labels[rep_idx]
 
             fraction = len(indices) / N
             selected_labels.append(rep_label)
@@ -171,6 +165,8 @@ class CTPCSearch(SearchAlgorithm):
                 'size': len(indices),
                 'representative': rep_label,
             })
+
+        segment_info.sort(key=lambda seg: seg['start'])
 
         selection = tuple(selected_labels)
         diagnostics = {

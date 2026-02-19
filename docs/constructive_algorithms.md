@@ -6,7 +6,7 @@ energy-repset provides three constructive algorithms, each grounded in a publish
 
 | Algorithm | Idea | Selection Space | Weights | Reference |
 |-----------|------|-----------------|---------|-----------|
-| `HullClusteringSearch` | Greedy projection-error minimization | Subset | External (via `RepresentationModel`) | Neustroev et al. (2025) |
+| `HullClusteringSearch` | Farthest-point greedy hull vertex selection | Subset | External (via `RepresentationModel`) | Neustroev et al. (2025) |
 | `CTPCSearch` | Contiguity-constrained hierarchical clustering | Chronological segments | Pre-computed (segment fractions) | Pineda & Morales (2018) |
 | `SnippetSearch` | Greedy p-median selection of multi-day subsequences | Subset (sliding windows) | Pre-computed (assignment fractions) | Anderson et al. (2024) |
 
@@ -26,10 +26,10 @@ The key insight is geometric: the selected representatives should span the featu
 
 ### Algorithm
 
-Greedy forward selection. At each of $k$ iterations:
+Farthest-point greedy forward selection (Algorithm 2 in the paper):
 
-1. For every remaining candidate $c$, tentatively add it to the current selection $\mathcal{S}$.
-2. For each period $i$, solve a small projection problem:
+1. **Initialization:** select the period **furthest from the dataset mean** in feature space.
+2. For iterations 2 through $k$, compute each remaining period's projection error (hull distance) by solving:
 
 $$
 \min_{\mathbf{w}} \| \mathbf{z}_i - \mathbf{Z}_{\mathcal{S}} \mathbf{w} \|^2
@@ -40,7 +40,9 @@ with constraints depending on the hull type:
 - **Convex** ($\mathbf{w} \geq 0$, $\sum w_j = 1$): each period is a convex combination of the representatives.
 - **Conic** ($\mathbf{w} \geq 0$): each period is a non-negative combination (more relaxed).
 
-3. Select the candidate that most reduces the total projection error.
+3. Select the remaining period with the **maximum** projection error (furthest from the current hull).
+
+This farthest-point strategy naturally selects extreme/boundary periods first --- high-demand winter months, peak-solar summer months, etc. --- producing a hull that spans the data well.
 
 ### Framework Decomposition
 
@@ -50,7 +52,7 @@ with constraints depending on the hull type:
 | O | Internal: total projection error. External `ObjectiveSet` for post-hoc evaluation only. |
 | S | Subset ($\mathcal{S} \subset$ original periods) |
 | R | External --- typically `BlendedRepresentationModel(blend_type='convex')` to compute soft-assignment weights |
-| A | Greedy constructive (forward selection) |
+| A | Greedy constructive (farthest-point forward selection) |
 
 ### Usage
 
@@ -72,7 +74,7 @@ workflow = rep.Workflow(
 
 **Reference:** S. Pineda, J. M. Morales.
 "Chronological Time-Period Clustering for Optimal Capacity Expansion Planning With Storage."
-*IEEE Transactions on Power Systems*, 33(7), 7723--7734, 2018.
+*IEEE Transactions on Power Systems*, 33(6), 7162--7170, 2018.
 DOI: [10.1109/TPWRS.2018.2842093](https://doi.org/10.1109/TPWRS.2018.2842093)
 
 ### Idea
@@ -184,6 +186,12 @@ Key parameters:
 | `period_length_days` | Length of each representative subsequence (e.g., 7 for weekly blocks) |
 | `step_days` | Stride between consecutive candidates. `step_days=1` gives maximum overlap (most candidates); `step_days=7` gives non-overlapping windows (fewest candidates, fastest). |
 
+**Implementation notes:**
+
+- The original paper formulates the selection as a MILP (mixed-integer linear program). The energy-repset implementation uses a **greedy p-median** heuristic instead, which provides a $(1 - 1/e)$ approximation guarantee and avoids requiring a MILP solver.
+- Distances use **squared Euclidean** distance ($\|\mathbf{d}_i - \mathbf{d}_l\|^2$) rather than the paper's Euclidean norm. This preserves the selection and assignment outcomes (monotone transform) but the reported `total_distance` score is on a squared scale.
+- Weights are normalized to **sum to 1** ($w_j = n_j / N$) for consistency with the rest of the energy-repset package, rather than the paper's multiplicity convention ($w_j = n_j / L$).
+
 ---
 
 ## Comparing the Algorithms
@@ -196,7 +204,7 @@ Each constructive algorithm makes different trade-offs:
 | **Weights** | External (soft assignment) | Built-in (segment fractions) | Built-in (assignment fractions) |
 | **Temporal structure** | None (any subset) | Enforced (contiguous segments) | Partial (sliding windows) |
 | **Typical slicing** | Monthly or weekly | Any (monthly, weekly, daily) | Daily (required) |
-| **Computational cost** | $O(k \cdot N^2)$ QP solves | $O(N^2)$ agglomerative clustering | $O(k \cdot N \cdot C)$ distance evaluations |
+| **Computational cost** | $O(k \cdot N)$ QP solves | $O(N^2)$ agglomerative clustering | $O(k \cdot N \cdot C)$ distance evaluations |
 | **Key strength** | Geometric coverage of feature space | Preserves temporal coupling | Day-level matching within multi-day blocks |
 
 For a hands-on comparison, see [Example 6: Constructive Algorithms](gallery/ex6.md).
