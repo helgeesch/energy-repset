@@ -27,6 +27,7 @@ Transforms raw time-series slices into comparable feature vectors.
 |----------------|-------------|
 | `StandardStatsFeatureEngineer` | Statistical summaries per slice (mean, std, IQR, quantiles, ramp rates). Z-score normalized. |
 | `PCAFeatureEngineer` | PCA dimensionality reduction on existing features. Supports variance-threshold or fixed component count. |
+| `DirectProfileFeatureEngineer` | Flattened raw hourly profiles per slice. Preserves full temporal shape. Used by Snippet and DTW-based methods. |
 | `FeaturePipeline` | Chains multiple engineers sequentially and concatenates their outputs. |
 
 ```python
@@ -40,6 +41,9 @@ feature_pipeline = rep.FeaturePipeline(engineers={
     'stats': rep.StandardStatsFeatureEngineer(),
     'pca': rep.PCAFeatureEngineer(),
 })
+
+# Direct profile vectors (for Snippet, DTW-based methods)
+direct = rep.DirectProfileFeatureEngineer()
 ```
 
 ---
@@ -134,6 +138,11 @@ The engine that finds the optimal selection.
 | Implementation | Workflow Type | Description |
 |----------------|---------------|-------------|
 | `ObjectiveDrivenCombinatorialSearchAlgorithm` | Generate-and-Test | Evaluates all candidate combinations and selects the winner via a `SelectionPolicy`. |
+| `HullClusteringSearch` | Constructive | Greedy forward selection minimizing total projection error. Leaves `weights=None` for external representation model. |
+| `CTPCSearch` | Constructive | Contiguity-constrained hierarchical clustering. Pre-computes weights as segment size fractions. |
+| `SnippetSearch` | Constructive | Greedy p-median selection of multi-day subsequences. Requires daily slicing. Pre-computes weights. |
+
+For details on the constructive algorithms, see [Constructive Algorithms](constructive_algorithms.md).
 
 ### Selection Policies
 
@@ -153,6 +162,11 @@ search = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, 
 # Pareto max-min
 policy = rep.ParetoMaxMinStrategy()
 search = rep.ObjectiveDrivenCombinatorialSearchAlgorithm(objective_set, policy, combi_gen)
+
+# Constructive algorithms (no ObjectiveSet or policy needed)
+hull = rep.HullClusteringSearch(k=4, hull_type='convex')
+ctpc = rep.CTPCSearch(k=4, linkage='ward')
+snippet = rep.SnippetSearch(k=4, period_length_days=7, step_days=7)
 ```
 
 ---

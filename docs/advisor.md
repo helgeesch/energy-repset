@@ -17,9 +17,11 @@ For theory, see [Unified Framework](unified_framework.md). For API details, see 
 |-------|--------|-------------|
 | `StandardStatsFeatureEngineer` | `energy_repset.feature_engineering` | Statistical summaries per slice (mean, std, IQR, quantiles, ramp rates). Z-score normalized. |
 | `PCAFeatureEngineer` | `energy_repset.feature_engineering` | PCA dimensionality reduction. Supports variance-threshold or fixed component count. |
+| `DirectProfileFeatureEngineer` | `energy_repset.feature_engineering` | Flattened raw hourly profiles per slice. Used by Snippet and DTW-based methods. |
 | `FeaturePipeline` | `energy_repset.feature_engineering` | Chains multiple engineers sequentially. |
 
 **Typical pipeline:** `StandardStatsFeatureEngineer` -> `PCAFeatureEngineer` (via `FeaturePipeline`).
+**Direct profiles:** `DirectProfileFeatureEngineer` for algorithms that compare raw time-series shapes.
 
 ### O: Score Components
 
@@ -62,8 +64,13 @@ Components are bundled into an `ObjectiveSet` (`energy_repset.objectives`) with 
 | Class | Workflow | Import |
 |-------|----------|--------|
 | `ObjectiveDrivenCombinatorialSearchAlgorithm` | Generate-and-Test | `energy_repset.search_algorithms` |
+| `HullClusteringSearch` | Constructive | `energy_repset.search_algorithms` |
+| `CTPCSearch` | Constructive | `energy_repset.search_algorithms` |
+| `SnippetSearch` | Constructive | `energy_repset.search_algorithms` |
 
-**Not yet implemented:** Constructive algorithms (Hull Clustering, K-Medoids PAM, Snippet Algorithm), Direct Optimization (MILP).
+**Not yet implemented:** Direct Optimization (MILP).
+
+See [Constructive Algorithms](constructive_algorithms.md) for algorithm details and paper references.
 
 ### Pi: Selection Policies
 
@@ -216,6 +223,50 @@ workflow = rep.Workflow(
 )
 result = rep.RepSetExperiment(context, workflow).run()
 # result.weights is a DataFrame (not a dict) for blended models
+```
+
+### Constructive: Hull Clustering with blended weights
+
+```python
+import energy_repset as rep
+
+context = rep.ProblemContext(df_raw=df_raw, slicer=rep.TimeSlicer(unit="month"))
+workflow = rep.Workflow(
+    feature_engineer=rep.StandardStatsFeatureEngineer(),
+    search_algorithm=rep.HullClusteringSearch(k=3, hull_type='convex'),
+    representation_model=rep.BlendedRepresentationModel(blend_type='convex'),
+)
+result = rep.RepSetExperiment(context, workflow).run()
+```
+
+### Constructive: CTPC with contiguous segments
+
+```python
+import energy_repset as rep
+
+context = rep.ProblemContext(df_raw=df_raw, slicer=rep.TimeSlicer(unit="month"))
+workflow = rep.Workflow(
+    feature_engineer=rep.StandardStatsFeatureEngineer(),
+    search_algorithm=rep.CTPCSearch(k=4, linkage='ward'),
+    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+)
+result = rep.RepSetExperiment(context, workflow).run()
+# result.weights are pre-computed segment fractions
+```
+
+### Constructive: Snippet with multi-day periods
+
+```python
+import energy_repset as rep
+
+context = rep.ProblemContext(df_raw=df_raw, slicer=rep.TimeSlicer(unit="day"))
+workflow = rep.Workflow(
+    feature_engineer=rep.DirectProfileFeatureEngineer(),
+    search_algorithm=rep.SnippetSearch(k=4, period_length_days=7, step_days=7),
+    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+)
+result = rep.RepSetExperiment(context, workflow).run()
+# result.weights are pre-computed assignment fractions
 ```
 
 ---

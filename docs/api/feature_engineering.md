@@ -7,3 +7,5 @@
 ::: energy_repset.feature_engineering.StandardStatsFeatureEngineer
 
 ::: energy_repset.feature_engineering.PCAFeatureEngineer
+
+::: energy_repset.feature_engineering.DirectProfileFeatureEngineer
