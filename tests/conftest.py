@@ -7,7 +7,7 @@ import pytest
 
 from energy_repset.time_slicer import TimeSlicer
 from energy_repset.context import ProblemContext
-from energy_repset.feature_engineering import StandardStatsFeatureEngineer
+from energy_repset.feature_engineering import StandardStatsFeatureEngineer, DirectProfileFeatureEngineer
 
 
 @pytest.fixture(scope="session")
@@ -101,3 +101,8 @@ def context_daily_with_stats_features(context_daily) -> ProblemContext:
     return engineer.run(context_daily)
 
 
+@pytest.fixture(scope="session")
+def context_daily_with_direct_features(context_daily) -> ProblemContext:
+    """Daily ProblemContext with df_features via DirectProfileFeatureEngineer."""
+    engineer = DirectProfileFeatureEngineer()
+    return engineer.run(context_daily)
