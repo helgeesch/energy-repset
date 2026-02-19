@@ -55,6 +55,7 @@ from .search_algorithms import (
     ObjectiveDrivenSearchAlgorithm,
     ObjectiveDrivenCombinatorialSearchAlgorithm,
     HullClusteringSearch,
+    CTPCSearch,
 )
 
 from .representation import (
@@ -107,6 +108,7 @@ __all__ = [
     "ObjectiveDrivenSearchAlgorithm",
     "ObjectiveDrivenCombinatorialSearchAlgorithm",
     "HullClusteringSearch",
+    "CTPCSearch",
     # Representation models
     "RepresentationModel",
     "UniformRepresentationModel",
