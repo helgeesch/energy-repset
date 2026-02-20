@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/logo-red.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -208,7 +208,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../gallery/" class="md-tabs__link">
+      <a href="../examples/" class="md-tabs__link">
         
   
   
@@ -580,6 +580,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../constructive_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Constructive Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advisor/" class="md-nav__link">
         
   
@@ -632,7 +660,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../gallery/" class="md-nav__link ">
+            <a href="../examples/" class="md-nav__link ">
               
   
   
@@ -674,14 +702,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../gallery/ex1/" class="md-nav__link">
+      <a href="../examples/ex1_getting_started/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ex1: Getting Started
+    Example 1: Getting Started
   
 
     
@@ -702,14 +730,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../gallery/ex2/" class="md-nav__link">
+      <a href="../examples/ex2_feature_space/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ex2: Feature Space
+    Example 2: Feature Space Exploration
   
 
     
@@ -730,14 +758,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../gallery/ex3/" class="md-nav__link">
+      <a href="../examples/ex3_hierarchical_selection/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ex3: Hierarchical Selection
+    Example 3: Hierarchical Seasonal Selection
   
 
     
@@ -758,14 +786,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../gallery/ex4/" class="md-nav__link">
+      <a href="../examples/ex4_representation_models/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ex4: Representation Models
+    Example 4: Comparing Representation Models
   
 
     
@@ -786,14 +814,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../gallery/ex5/" class="md-nav__link">
+      <a href="../examples/ex5_multi_objective/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ex5: Multi-Objective
+    Example 5: Multi-Objective Exploration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/ex6_constructive_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example 6: Constructive Algorithms
   
 
     
@@ -1310,13 +1366,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Examples:</strong> <a href="../gallery/ex1/">Ex1: Getting Started</a>, <a href="../gallery/ex2/">Ex2: Feature Space</a>, <a href="../gallery/ex3/">Ex3: Hierarchical Selection</a>, <a href="../gallery/ex4/">Ex4: Representation Models</a>, <a href="../gallery/ex5/">Ex5: Multi-Objective</a></p>
+<p><strong>Examples:</strong> <a href="../examples/ex1_getting_started/">Ex1: Getting Started</a>, <a href="../examples/ex2_feature_space/">Ex2: Feature Space</a>, <a href="../examples/ex3_hierarchical_selection/">Ex3: Hierarchical Selection</a>, <a href="../examples/ex4_representation_models/">Ex4: Representation Models</a>, <a href="../examples/ex5_multi_objective/">Ex5: Multi-Objective</a></p>
 <hr />
 <h4 id="workflow-2-constructive"><strong>Workflow 2: Constructive</strong><a class="headerlink" href="#workflow-2-constructive" title="Permanent link">&para;</a></h4>
 <p>This approach builds a solution directly and iteratively, rather than testing pre-made combinations. It's generally much faster than the Generate-and-Test workflow.</p>
 <ul>
-<li><strong>Status:</strong> Not yet implemented in the current software.</li>
-<li><strong>Examples:</strong> K-Medoids, K-Means, Hierarchical Clustering, Hull Clustering.</li>
+<li><strong>Status:</strong> Implemented. Three constructive algorithms are available.</li>
+<li><strong>Examples:</strong> Hull Clustering, CTPC (Chronological Time-Period Clustering), Snippet Algorithm.</li>
 <li><strong>How the Modules are Used:</strong></li>
 <li><strong>SearchAlgorithm (A):</strong> This is the star of the show. It contains the entire complex logic of the method (e.g., the k-medoids algorithm). It has its own <em>internal objective</em> (e.g., minimize intra-cluster distance) that guides its construction process.</li>
 <li><strong>ObjectiveSet (O):</strong> Not used <em>during</em> the search. Its role shifts to <strong>post-hoc evaluation</strong>. After the SearchAlgorithm has constructed a final solution, the ObjectiveSet is used to give it a standardized score. This is crucial for comparing its result against the results from other workflow types.</li>
@@ -1329,14 +1385,24 @@
 <tr>
 <th>Role</th>
 <th>Implementation</th>
-<th>Status</th>
+<th>Import</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Search</td>
-<td>Constructive <code>SearchAlgorithm</code> implementations</td>
-<td>Planned</td>
+<td><code>HullClusteringSearch</code></td>
+<td><code>energy_repset.search_algorithms</code></td>
+</tr>
+<tr>
+<td>Search</td>
+<td><code>CTPCSearch</code></td>
+<td><code>energy_repset.search_algorithms</code></td>
+</tr>
+<tr>
+<td>Search</td>
+<td><code>SnippetSearch</code></td>
+<td><code>energy_repset.search_algorithms</code></td>
 </tr>
 <tr>
 <td>Protocol</td>
@@ -1350,7 +1416,8 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Planned algorithms:</strong> Hull Clustering (greedy projection-error minimization), K-Medoids (PAM), Snippet Algorithm (MPdist-based multi-day selection).</p>
+<p><strong>Examples:</strong> <a href="../examples/ex6_constructive_algorithms/">Ex6: Constructive Algorithms</a></p>
+<p>For algorithm details, see <a href="../constructive_algorithms/">Constructive Algorithms</a>.</p>
 <hr />
 <h4 id="workflow-3-direct-optimization"><strong>Workflow 3: Direct Optimization</strong><a class="headerlink" href="#workflow-3-direct-optimization" title="Permanent link">&para;</a></h4>
 <p>This is the most sophisticated workflow. It formulates the entire selection problem as a single, large-scale mathematical optimization problem and uses a dedicated solver to find the globally optimal solution.</p>
