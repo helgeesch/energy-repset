@@ -14,6 +14,7 @@ from .feature_space import (
     FeatureSpaceScatter2D,
     FeatureSpaceScatter3D,
     FeatureSpaceScatterMatrix,
+    SelectionComparisonScatterMatrix,
     PCAVarianceExplained,
     FeatureCorrelationHeatmap,
     FeatureDistributions,
@@ -22,6 +23,7 @@ from .feature_space import (
 from .score_components import (
     DistributionOverlayECDF,
     DistributionOverlayHistogram,
+    DistributionOverlayECDFGrid,
     CorrelationDifferenceHeatmap,
     DiurnalProfileOverlay,
 )
@@ -39,12 +41,14 @@ __all__ = [
     "FeatureSpaceScatter2D",
     "FeatureSpaceScatter3D",
     "FeatureSpaceScatterMatrix",
+    "SelectionComparisonScatterMatrix",
     "PCAVarianceExplained",
     "FeatureCorrelationHeatmap",
     "FeatureDistributions",
     # Score components
     "DistributionOverlayECDF",
     "DistributionOverlayHistogram",
+    "DistributionOverlayECDFGrid",
     "CorrelationDifferenceHeatmap",
     "DiurnalProfileOverlay",
     # Results
