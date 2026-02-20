@@ -174,7 +174,7 @@ snippet = rep.SnippetSearch(k=4, period_length_days=7, step_days=7)
 ## Diagnostics
 
 Interactive Plotly visualizations for inspecting results, feature spaces, and
-score component behavior. See the [Gallery](gallery/index.md) for rendered
+score component behavior. See the [Examples](examples/index.md) for rendered
 examples.
 
 ### Feature Space

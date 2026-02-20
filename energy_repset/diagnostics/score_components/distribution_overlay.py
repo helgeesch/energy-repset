@@ -200,3 +200,81 @@ class DistributionOverlayHistogram:
         )
 
         return fig
+
+
+class DistributionOverlayECDFGrid:
+    """Faceted ECDF grid comparing full dataset and selection across all variables.
+
+    Creates a grid of ECDF subplots — one per variable — so that distribution
+    fidelity can be assessed at a glance for the entire dataset. This is a
+    multi-variable extension of ``DistributionOverlayECDF``.
+
+    Examples:
+
+        >>> ecdf_grid = DistributionOverlayECDFGrid()
+        >>> selected_idx = context.slicer.get_indices_for_slice_combi(
+        ...     context.df_raw.index, result.selection
+        ... )
+        >>> fig = ecdf_grid.plot(context.df_raw, context.df_raw.loc[selected_idx])
+        >>> fig.show()
+    """
+
+    def __init__(self):
+        """Initialize the ECDF grid diagnostic."""
+        pass
+
+    def plot(
+        self,
+        df_full: pd.DataFrame,
+        df_selection: pd.DataFrame,
+        variables: list[str] | None = None,
+        cols: int = 2,
+        full_label: str = 'Full',
+        selection_label: str = 'Selection',
+    ) -> go.Figure:
+        """Create a faceted ECDF grid.
+
+        Args:
+            df_full: Full dataset with variables as columns.
+            df_selection: Selected subset with the same columns.
+            variables: Columns to include. If None, uses all columns from
+                df_full.
+            cols: Number of columns in the facet grid.
+            full_label: Legend label for the full dataset.
+            selection_label: Legend label for the selection.
+
+        Returns:
+            Plotly figure object ready for display or further customization.
+
+        Raises:
+            KeyError: If any variable is not found in both DataFrames.
+        """
+        if variables is None:
+            variables = list(df_full.columns)
+
+        for var in variables:
+            if var not in df_full.columns:
+                raise KeyError(f"Column '{var}' not found in df_full")
+            if var not in df_selection.columns:
+                raise KeyError(f"Column '{var}' not found in df_selection")
+
+        full_melted = df_full[variables].melt(var_name='variable', value_name='value')
+        full_melted['source'] = full_label
+
+        sel_melted = df_selection[variables].melt(var_name='variable', value_name='value')
+        sel_melted['source'] = selection_label
+
+        combined = pd.concat([full_melted, sel_melted], ignore_index=True)
+
+        fig = px.ecdf(
+            combined,
+            x='value',
+            color='source',
+            facet_col='variable',
+            facet_col_wrap=cols,
+        )
+
+        fig.update_yaxes(tickformat='.0%')
+        fig.update_layout(hovermode='x unified')
+
+        return fig

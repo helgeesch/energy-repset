@@ -25,7 +25,7 @@ This is the classic combinatorial search approach. Its philosophy is to create m
 | Evaluation | `ObjectiveSet` with `ScoreComponent` instances | `energy_repset.objectives` |
 | Decision | `WeightedSumPolicy`, `ParetoMaxMinStrategy`, `ParetoUtopiaPolicy` | `energy_repset.selection_policies` |
 
-**Examples:** [Ex1: Getting Started](gallery/ex1.md), [Ex2: Feature Space](gallery/ex2.md), [Ex3: Hierarchical Selection](gallery/ex3.md), [Ex4: Representation Models](gallery/ex4.md), [Ex5: Multi-Objective](gallery/ex5.md)
+**Examples:** [Ex1: Getting Started](examples/ex1_getting_started.ipynb), [Ex2: Feature Space](examples/ex2_feature_space.ipynb), [Ex3: Hierarchical Selection](examples/ex3_hierarchical_selection.ipynb), [Ex4: Representation Models](examples/ex4_representation_models.ipynb), [Ex5: Multi-Objective](examples/ex5_multi_objective.ipynb)
 
 ---
 
@@ -51,7 +51,7 @@ This approach builds a solution directly and iteratively, rather than testing pr
 | Protocol | `SearchAlgorithm` (structural typing) | `energy_repset.search_algorithms` |
 | Evaluation | `ObjectiveSet` (post-hoc only) | `energy_repset.objectives` |
 
-**Examples:** [Ex6: Constructive Algorithms](gallery/ex6.md)
+**Examples:** [Ex6: Constructive Algorithms](examples/ex6_constructive_algorithms.ipynb)
 
 For algorithm details, see [Constructive Algorithms](constructive_algorithms.md).
 

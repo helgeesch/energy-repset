@@ -207,4 +207,4 @@ Each constructive algorithm makes different trade-offs:
 | **Computational cost** | $O(k \cdot N)$ QP solves | $O(N^2)$ agglomerative clustering | $O(k \cdot N \cdot C)$ distance evaluations |
 | **Key strength** | Geometric coverage of feature space | Preserves temporal coupling | Day-level matching within multi-day blocks |
 
-For a hands-on comparison, see [Example 6: Constructive Algorithms](gallery/ex6.md).
+For a hands-on comparison, see [Example 6: Constructive Algorithms](examples/ex6_constructive_algorithms.ipynb).
