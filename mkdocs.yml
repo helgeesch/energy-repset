@@ -34,6 +34,10 @@ extra_javascript:
 plugins:
   - search
   - section-index
+  - mkdocs-jupyter:
+      execute: false
+      include_source: true
+      ignore: ["examples/*.py"]
   - mkdocstrings:
       handlers:
         python:
@@ -66,13 +70,13 @@ nav:
     - Constructive Algorithms: constructive_algorithms.md
     - Configuration Advisor: advisor.md
   - Examples:
-    - gallery/index.md
-    - "Ex1: Getting Started": gallery/ex1.md
-    - "Ex2: Feature Space": gallery/ex2.md
-    - "Ex3: Hierarchical Selection": gallery/ex3.md
-    - "Ex4: Representation Models": gallery/ex4.md
-    - "Ex5: Multi-Objective": gallery/ex5.md
-    - "Ex6: Constructive Algorithms": gallery/ex6.md
+    - examples/index.md
+    - "Ex1: Getting Started": examples/ex1_getting_started.ipynb
+    - "Ex2: Feature Space": examples/ex2_feature_space.ipynb
+    - "Ex3: Hierarchical Selection": examples/ex3_hierarchical_selection.ipynb
+    - "Ex4: Representation Models": examples/ex4_representation_models.ipynb
+    - "Ex5: Multi-Objective": examples/ex5_multi_objective.ipynb
+    - "Ex6: Constructive Algorithms": examples/ex6_constructive_algorithms.ipynb
   - API Reference:
     - api/index.md
     - Context & Slicing: api/context.md

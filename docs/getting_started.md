@@ -191,5 +191,5 @@ The complete code is available at
   See the [Modules & Components](modules.md) page for all available implementations.
 - **Add objectives**: Add `rep.CorrelationFidelity`, `rep.DurationCurveFidelity`, or
   `rep.DiversityReward` to the `ObjectiveSet`.
-- **Browse examples**: The [Gallery](gallery/index.md) shows more advanced
+- **Browse examples**: The [Examples](examples/index.md) show more advanced
   configurations with interactive visualizations.
