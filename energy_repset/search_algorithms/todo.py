@@ -21,6 +21,3 @@ class OptimizationSearch(SearchAlgorithm):
         raise NotImplementedError
 
 
-class HullClusteringSearch(SearchAlgorithm):
-    """A constructive searcher that finds extreme points."""
-    def __init__(self, hull_type: Literal['convex', 'conic']):...

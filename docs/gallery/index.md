@@ -81,6 +81,21 @@ outcome. Uses 4 objectives and compares `ParetoMaxMinStrategy` vs
 
 ---
 
+## [Example 6: Constructive Algorithms](ex6.md)
+
+Demonstrates the three constructive search algorithms -- Hull Clustering, CTPC,
+and Snippet -- which build solutions directly using their own internal
+objectives, bypassing the Generate-and-Test workflow. Shows how each algorithm
+selects representatives differently and how their weight computation works.
+
+**Components:** `HullClusteringSearch` + `BlendedRepresentationModel` |
+`CTPCSearch` (pre-computed weights) | `SnippetSearch` +
+`DirectProfileFeatureEngineer` (pre-computed weights)
+
+[View details ->](ex6.md)
+
+---
+
 ## Running the Examples
 
 ```bash
@@ -93,6 +108,7 @@ python examples/ex2_feature_space.py
 python examples/ex3_hierarchical_selection.py
 python examples/ex4_representation_models.py
 python examples/ex5_multi_objective.py
+python examples/ex6_constructive_algorithms.py
 ```
 
 Output HTML files are written to `docs/gallery/<example>/` and can be opened

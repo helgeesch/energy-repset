@@ -33,8 +33,8 @@ This is the classic combinatorial search approach. Its philosophy is to create m
 
 This approach builds a solution directly and iteratively, rather than testing pre-made combinations. It's generally much faster than the Generate-and-Test workflow.
 
-* **Status:** Not yet implemented in the current software.
-* **Examples:** K-Medoids, K-Means, Hierarchical Clustering, Hull Clustering.
+* **Status:** Implemented. Three constructive algorithms are available.
+* **Examples:** Hull Clustering, CTPC (Chronological Time-Period Clustering), Snippet Algorithm.
 * **How the Modules are Used:**
   * **SearchAlgorithm (A):** This is the star of the show. It contains the entire complex logic of the method (e.g., the k-medoids algorithm). It has its own *internal objective* (e.g., minimize intra-cluster distance) that guides its construction process.
   * **ObjectiveSet (O):** Not used *during* the search. Its role shifts to **post-hoc evaluation**. After the SearchAlgorithm has constructed a final solution, the ObjectiveSet is used to give it a standardized score. This is crucial for comparing its result against the results from other workflow types.
@@ -43,13 +43,17 @@ This approach builds a solution directly and iteratively, rather than testing pr
 
 **Key Modules:**
 
-| Role | Implementation | Status |
+| Role | Implementation | Import |
 |------|---------------|--------|
-| Search | Constructive `SearchAlgorithm` implementations | Planned |
+| Search | `HullClusteringSearch` | `energy_repset.search_algorithms` |
+| Search | `CTPCSearch` | `energy_repset.search_algorithms` |
+| Search | `SnippetSearch` | `energy_repset.search_algorithms` |
 | Protocol | `SearchAlgorithm` (structural typing) | `energy_repset.search_algorithms` |
 | Evaluation | `ObjectiveSet` (post-hoc only) | `energy_repset.objectives` |
 
-**Planned algorithms:** Hull Clustering (greedy projection-error minimization), K-Medoids (PAM), Snippet Algorithm (MPdist-based multi-day selection).
+**Examples:** [Ex6: Constructive Algorithms](gallery/ex6.md)
+
+For algorithm details, see [Constructive Algorithms](constructive_algorithms.md).
 
 ---
 

@@ -358,8 +358,8 @@ The framework does not claim that one component combination is universally super
 3. Nahmmacher et al. (2016). "Selecting Representative Days for Capturing the Implications of Integrating Intermittent Renewables in Generation Expansion Planning."
 4. Scott et al. (2022). "Representative period selection for power system planning using autoencoder-based dimensionality reduction." *arXiv:2204.13608*.
 5. Sun et al. (2025). "An Interregional Optimization Approach for Time Series Aggregation in Continent-Scale Electricity System Models." NREL/TP-6A20-90183.
-6. Teichgraeber & Brandt (2024). "On the Selection of Intermediate Length Representative Periods for Capacity Expansion." *arXiv:2401.02888*.
-7. Hull Clustering with Blended Representative Periods (2025). *arXiv:2508.21641*.
+6. Anderson et al. (2024). "On the Selection of Intermediate Length Representative Periods for Capacity Expansion." *arXiv:2401.02888*.
+7. Neustroev et al. (2025). "Hull Clustering with Blended Representative Periods for Energy System Optimization Models." *arXiv:2508.21641*.
 8. Kotzur et al. (2018). "Impact of different time series aggregation methods on optimal energy system design."
 9. Bahl et al. (2018). "Typical periods for two-stage synthesis by time-series aggregation with bounded error in objective function."
 10. Poncelet et al. (2017). "Selecting Representative Days for Investment Planning Models."

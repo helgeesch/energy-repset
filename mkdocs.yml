@@ -63,6 +63,7 @@ nav:
     - Unified Framework: unified_framework.md
     - Workflow Types: workflow.md
     - Modules & Components: modules.md
+    - Constructive Algorithms: constructive_algorithms.md
     - Configuration Advisor: advisor.md
   - Examples:
     - gallery/index.md
@@ -71,6 +72,7 @@ nav:
     - "Ex3: Hierarchical Selection": gallery/ex3.md
     - "Ex4: Representation Models": gallery/ex4.md
     - "Ex5: Multi-Objective": gallery/ex5.md
+    - "Ex6: Constructive Algorithms": gallery/ex6.md
   - API Reference:
     - api/index.md
     - Context & Slicing: api/context.md

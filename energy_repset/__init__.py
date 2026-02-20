@@ -18,6 +18,7 @@ from .feature_engineering import (
     FeaturePipeline,
     StandardStatsFeatureEngineer,
     PCAFeatureEngineer,
+    DirectProfileFeatureEngineer,
 )
 
 from .score_components import (
@@ -54,6 +55,9 @@ from .search_algorithms import (
     SearchAlgorithm,
     ObjectiveDrivenSearchAlgorithm,
     ObjectiveDrivenCombinatorialSearchAlgorithm,
+    HullClusteringSearch,
+    CTPCSearch,
+    SnippetSearch,
 )
 
 from .representation import (
@@ -77,6 +81,7 @@ __all__ = [
     "FeaturePipeline",
     "StandardStatsFeatureEngineer",
     "PCAFeatureEngineer",
+    "DirectProfileFeatureEngineer",
     # Score components
     "WassersteinFidelity",
     "CorrelationFidelity",
@@ -105,6 +110,9 @@ __all__ = [
     "SearchAlgorithm",
     "ObjectiveDrivenSearchAlgorithm",
     "ObjectiveDrivenCombinatorialSearchAlgorithm",
+    "HullClusteringSearch",
+    "CTPCSearch",
+    "SnippetSearch",
     # Representation models
     "RepresentationModel",
     "UniformRepresentationModel",

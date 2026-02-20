@@ -19,4 +19,4 @@ for onboarding.
 
 ### Responsibility Weights
 Uniform 1/k weights for each selected month.
-<iframe src="ex1/responsibility_weights.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="responsibility_weights.html" width="100%" height="500" frameborder="0"></iframe>

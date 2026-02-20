@@ -21,36 +21,36 @@ KMedoids cluster-size, and Blended (soft assignment). Illustrates the R
 
 #### Uniform Weights
 Equal 1/k weights for each selected month.
-<iframe src="ex4/responsibility_uniform.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="responsibility_uniform.html" width="100%" height="500" frameborder="0"></iframe>
 
 #### KMedoids Cluster-Size Weights
 Weights proportional to the number of months assigned to each cluster.
-<iframe src="ex4/responsibility_kmedoids.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="responsibility_kmedoids.html" width="100%" height="500" frameborder="0"></iframe>
 
 #### Blended Weights (Aggregated)
 Soft assignment weights aggregated and normalized to sum to 1.0.
-<iframe src="ex4/responsibility_blended_aggregated.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="responsibility_blended_aggregated.html" width="100%" height="500" frameborder="0"></iframe>
 
 ### Blended Weight Matrix
 Heatmap of the full weight matrix: rows are all months, columns are representatives.
-<iframe src="ex4/blended_heatmap.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="blended_heatmap.html" width="100%" height="500" frameborder="0"></iframe>
 
 ### Feature Space
 
 #### Feature Scatter with Selection
 Selected months highlighted in PCA space (PC0 vs PC1).
-<iframe src="ex4/feature_scatter_selection.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="feature_scatter_selection.html" width="100%" height="500" frameborder="0"></iframe>
 
 ### Distribution Fidelity (ECDF)
 
 #### Load
-<iframe src="ex4/ecdf_load.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="ecdf_load.html" width="100%" height="500" frameborder="0"></iframe>
 
 #### Onshore Wind
-<iframe src="ex4/ecdf_onwind.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="ecdf_onwind.html" width="100%" height="500" frameborder="0"></iframe>
 
 #### Offshore Wind
-<iframe src="ex4/ecdf_offwind.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="ecdf_offwind.html" width="100%" height="500" frameborder="0"></iframe>
 
 #### Solar
-<iframe src="ex4/ecdf_solar.html" width="100%" height="500" frameborder="0"></iframe>
+<iframe src="ecdf_solar.html" width="100%" height="500" frameborder="0"></iframe>
