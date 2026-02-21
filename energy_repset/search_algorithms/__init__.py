@@ -3,6 +3,7 @@ from .objective_driven import ObjectiveDrivenSearchAlgorithm, ObjectiveDrivenCom
 from .hull_clustering import HullClusteringSearch
 from .ctpc import CTPCSearch
 from .snippet import SnippetSearch
+from .clustering import ClusteringSearch
 
 __all__ = [
     "SearchAlgorithm",
@@ -11,4 +12,5 @@ __all__ = [
     "HullClusteringSearch",
     "CTPCSearch",
     "SnippetSearch",
+    "ClusteringSearch",
 ]

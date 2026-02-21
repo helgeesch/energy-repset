@@ -40,6 +40,12 @@ Three constructive algorithms -- Hull Clustering, CTPC, and Snippet -- that buil
 
 ---
 
+## [Example 7: K-Medoids Clustering](ex7_clustering.ipynb)
+
+Standalone k-medoids clustering demo. Selects representative months as cluster medoids with cluster-size-proportional weights, explores the effect of varying k.
+
+---
+
 ## Running the Notebooks
 
 ```bash

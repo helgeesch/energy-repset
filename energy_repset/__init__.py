@@ -58,6 +58,7 @@ from .search_algorithms import (
     HullClusteringSearch,
     CTPCSearch,
     SnippetSearch,
+    ClusteringSearch,
 )
 
 from .representation import (
@@ -113,6 +114,7 @@ __all__ = [
     "HullClusteringSearch",
     "CTPCSearch",
     "SnippetSearch",
+    "ClusteringSearch",
     # Representation models
     "RepresentationModel",
     "UniformRepresentationModel",

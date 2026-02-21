@@ -2,13 +2,71 @@
 
 Constructive algorithms build representative selections iteratively using their own internal objectives, rather than scoring pre-generated candidate combinations. They implement **Workflow 2** of the [three generalized workflows](workflow.md): the search algorithm does all the heavy lifting, while the `ObjectiveSet` is only used for post-hoc evaluation.
 
-energy-repset provides three constructive algorithms, each grounded in a published methodology:
+energy-repset provides four constructive algorithms, each grounded in a published methodology:
 
 | Algorithm | Idea | Selection Space | Weights | Reference |
 |-----------|------|-----------------|---------|-----------|
+| `ClusteringSearch` | K-medoids partitioning with medoid selection | Subset | Pre-computed (cluster fractions) | Kaufman & Rousseeuw (1990) |
 | `HullClusteringSearch` | Farthest-point greedy hull vertex selection | Subset | External (via `RepresentationModel`) | Neustroev et al. (2025) |
 | `CTPCSearch` | Contiguity-constrained hierarchical clustering | Chronological segments | Pre-computed (segment fractions) | Pineda & Morales (2018) |
 | `SnippetSearch` | Greedy p-median selection of multi-day subsequences | Subset (sliding windows) | Pre-computed (assignment fractions) | Anderson et al. (2024) |
+
+---
+
+## K-Medoids Clustering
+
+**Reference:** L. Kaufman, P. J. Rousseeuw.
+*Finding Groups in Data: An Introduction to Cluster Analysis.*
+Wiley, 1990.
+
+### Idea
+
+K-medoids (PAM --- Partitioning Around Medoids) is the most straightforward clustering-based approach to representative period selection. It partitions $N$ periods into $k$ clusters and selects the **medoid** of each cluster --- the actual data point closest to the cluster center --- as the representative.
+
+Unlike k-means, which produces synthetic centroids that may not correspond to any real period, k-medoids always selects actual historical periods. This makes it a natural fit for the subset selection space ($\mathcal{S}_{\text{subset}}$).
+
+### Algorithm
+
+1. Initialize $k$ medoids (using k-medoids++ or random initialization).
+2. Assign each period to the nearest medoid.
+3. For each cluster, swap the medoid with the member that minimizes within-cluster distance.
+4. Repeat steps 2--3 until convergence or `max_iter`.
+5. Compute weights as cluster-size fractions: $w_j = n_j / N$.
+
+### Framework Decomposition
+
+| Pillar | Setting |
+|--------|---------|
+| F | Any feature space (`StandardStatsFeatureEngineer`, `PCAFeatureEngineer`, `DirectProfileFeatureEngineer`) |
+| O | Internal: within-cluster sum of squares (WCSS). External `ObjectiveSet` for post-hoc only. |
+| S | Subset ($\mathcal{S} \subset$ original periods) |
+| R | Pre-computed (cluster-size fractions). The external `RepresentationModel` is skipped. |
+| A | Iterative partitioning (k-medoids) |
+
+### Usage
+
+K-medoids pre-computes weights, so the `RepresentationModel` in the workflow is skipped. Use `UniformRepresentationModel()` as a placeholder:
+
+```python
+import energy_repset as rep
+
+workflow = rep.Workflow(
+    feature_engineer=rep.StandardStatsFeatureEngineer(),
+    search_algorithm=rep.ClusteringSearch(k=4, random_state=42),
+    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+)
+```
+
+Key parameters:
+
+| Parameter | Effect |
+|-----------|--------|
+| `k` | Number of clusters / representative periods |
+| `metric` | Distance metric (default `'euclidean'`) |
+| `method` | `'alternate'` (fast, default) or `'pam'` (exact, slower) |
+| `init` | Initialization strategy (default `'k-medoids++'`) |
+
+For a hands-on demo, see [Example 7: K-Medoids Clustering](examples/ex7_clustering.ipynb).
 
 ---
 
@@ -198,13 +256,13 @@ Key parameters:
 
 Each constructive algorithm makes different trade-offs:
 
-| Aspect | Hull Clustering | CTPC | Snippet |
-|--------|----------------|------|---------|
-| **Best for** | Selecting extreme/boundary periods | Contiguous time blocks | Multi-day representative periods |
-| **Weights** | External (soft assignment) | Built-in (segment fractions) | Built-in (assignment fractions) |
-| **Temporal structure** | None (any subset) | Enforced (contiguous segments) | Partial (sliding windows) |
-| **Typical slicing** | Monthly or weekly | Any (monthly, weekly, daily) | Daily (required) |
-| **Computational cost** | $O(k \cdot N)$ QP solves | $O(N^2)$ agglomerative clustering | $O(k \cdot N \cdot C)$ distance evaluations |
-| **Key strength** | Geometric coverage of feature space | Preserves temporal coupling | Day-level matching within multi-day blocks |
+| Aspect | K-Medoids | Hull Clustering | CTPC | Snippet |
+|--------|-----------|----------------|------|---------|
+| **Best for** | Standard clustering-based selection | Selecting extreme/boundary periods | Contiguous time blocks | Multi-day representative periods |
+| **Weights** | Built-in (cluster fractions) | External (soft assignment) | Built-in (segment fractions) | Built-in (assignment fractions) |
+| **Temporal structure** | None (any subset) | None (any subset) | Enforced (contiguous segments) | Partial (sliding windows) |
+| **Typical slicing** | Monthly or weekly | Monthly or weekly | Any (monthly, weekly, daily) | Daily (required) |
+| **Computational cost** | $O(k \cdot N \cdot I)$ iterations | $O(k \cdot N)$ QP solves | $O(N^2)$ agglomerative clustering | $O(k \cdot N \cdot C)$ distance evaluations |
+| **Key strength** | Simple, fast, well-understood | Geometric coverage of feature space | Preserves temporal coupling | Day-level matching within multi-day blocks |
 
-For a hands-on comparison, see [Example 6: Constructive Algorithms](examples/ex6_constructive_algorithms.ipynb).
+For hands-on comparisons, see [Example 6: Constructive Algorithms](examples/ex6_constructive_algorithms.ipynb) and [Example 7: K-Medoids Clustering](examples/ex7_clustering.ipynb).
