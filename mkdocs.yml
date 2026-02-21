@@ -1,6 +1,8 @@
 site_name: energy-repset
 site_url: https://energy-repset-docs.mesqual.io
 site_description: A unified framework for representative subset selection in multi-variate time-series spaces
+repo_url: https://github.com/helgeesch/energy-repset
+repo_name: helgeesch/energy-repset
 
 theme:
   name: material
@@ -30,6 +32,7 @@ extra_css:
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/github_source_links.js
 
 plugins:
   - search
@@ -44,7 +47,7 @@ plugins:
           options:
             docstring_style: google
             heading_level: 2
-            show_source: false
+            show_source: true
             show_root_heading: true
             show_root_full_path: false
             show_object_full_path: false
