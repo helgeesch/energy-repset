@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/logo-red.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -166,6 +166,18 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/helgeesch/energy-repset" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    helgeesch/energy-repset
+  </div>
+</a>
+      </div>
+    
   </nav>
   
 </header>
@@ -269,6 +281,18 @@
     </a>
     energy-repset
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/helgeesch/energy-repset" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    helgeesch/energy-repset
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -663,6 +687,17 @@
     <span class="md-ellipsis">
       
         Step 1: Understand your data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1b-normalization-and-weighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1b: Normalization and weighting
       
     </span>
   </a>
@@ -1552,6 +1587,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#step-1b-normalization-and-weighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1b: Normalization and weighting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#step-2-downstream-model-constraints" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1720,6 +1766,9 @@
                 
                   
 
+
+  
+  
 
 
 <h1 id="configuration-advisor">Configuration Advisor<a class="headerlink" href="#configuration-advisor" title="Permanent link">&para;</a></h1>
@@ -1967,12 +2016,19 @@
 <ul>
 <li><strong>Resolution:</strong> Hourly? 15-minute? Daily?</li>
 <li><strong>Variables:</strong> How many time-series (load, wind, solar, prices, ...)?</li>
+<li><strong>Regions:</strong> How many regions or zones? Each region-variable pair adds dimensions.</li>
 <li><strong>Horizon:</strong> One year? Multiple years?</li>
 <li><strong>Candidate count:</strong> How many slices does your <code>TimeSlicer</code> produce?</li>
 <li>12 months -&gt; C(12,3) = 220 candidates for k=3</li>
 <li>52 weeks -&gt; C(52,8) = 752 million candidates for k=8</li>
+<li><strong>Feature dimensionality:</strong> How many features will your feature space produce? With V variables across R regions, <code>StandardStatsFeatureEngineer</code> produces multiple statistics per variable (mean, std, quantiles, ramp rates, etc.), so the total feature count grows as V x R x (number of statistics). If this count is high relative to the number of slices, consider PCA dimensionality reduction via <code>FeaturePipeline</code>.</li>
 </ul>
 <p>This determines whether exhaustive search is feasible or you need constrained/hierarchical generation.</p>
+<h3 id="step-1b-normalization-and-weighting">Step 1b: Normalization and weighting<a class="headerlink" href="#step-1b-normalization-and-weighting" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Normalization:</strong> <code>StandardStatsFeatureEngineer</code> z-score normalizes features by default. If using <code>DirectProfileFeatureEngineer</code>, your variables may have very different scales (e.g., MW demand vs. capacity factors between 0 and 1), and distance-based methods will be dominated by the high-magnitude variables. Consider whether explicit scaling is needed.</li>
+<li><strong>Feature/variable weighting:</strong> If certain variables matter more for the downstream model (e.g., load is more critical than temperature), consider using <code>variable_weights</code> in score components such as <code>WassersteinFidelity(variable_weights=...)</code> or passing importance weights through the feature engineer. This lets the selection process prioritize fidelity on the variables that matter most.</li>
+</ul>
 <h3 id="step-2-downstream-model-constraints">Step 2: Downstream model constraints<a class="headerlink" href="#step-2-downstream-model-constraints" title="Permanent link">&para;</a></h3>
 <p>Your energy system model may impose constraints on the representation:</p>
 <table>
@@ -2213,6 +2269,12 @@
 <li>
 <p><strong>Single vs multi-objective:</strong> With a single score component, <code>WeightedSumPolicy</code> and <code>ParetoMaxMinStrategy</code> produce identical results. Pareto-based policies only add value with 2+ objectives.</p>
 </li>
+<li>
+<p><strong>High-dimensional feature spaces:</strong> With many variables and regions, <code>StandardStatsFeatureEngineer</code> can produce hundreds of features while you may have only 12--52 candidate slices. In high dimensions, distances concentrate and clustering/selection degrades. Check the feature-to-sample ratio and use PCA (via <code>FeaturePipeline</code>) to reduce dimensionality when it is large.</p>
+</li>
+<li>
+<p><strong>Unweighted variables:</strong> By default, all variables contribute equally to the objective. If your downstream model is more sensitive to some variables (e.g., load matters more than temperature), the selection may over-optimize for less important variables. Use <code>variable_weights</code> in score components to reflect what actually matters.</p>
+</li>
 </ol>
 
 
@@ -2273,6 +2335,8 @@
         <script src="../javascripts/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../javascripts/github_source_links.js"></script>
       
     
   </body>

@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/logo-red.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -166,6 +166,18 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/helgeesch/energy-repset" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    helgeesch/energy-repset
+  </div>
+</a>
+      </div>
+    
   </nav>
   
 </header>
@@ -269,6 +281,18 @@
     </a>
     energy-repset
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/helgeesch/energy-repset" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    helgeesch/energy-repset
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -1679,6 +1703,9 @@
                   
 
 
+  
+  
+
 
 <h1 id="feature-engineering">Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permanent link">&para;</a></h1>
 
@@ -1734,6 +1761,121 @@ feature engineering logic.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/feature_engineering/base_feature_engineer.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FeatureEngineer</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for feature engineering transformations (Pillar F).</span>
+
+<span class="sd">    Transforms raw sliced time-series data into a feature matrix that can be used</span>
+<span class="sd">    for comparing and selecting representative periods. Implementations define how</span>
+<span class="sd">    raw data is converted into a comparable feature space.</span>
+
+<span class="sd">    The run() method creates a new ProblemContext with df_features populated,</span>
+<span class="sd">    while subclasses implement _calc_and_get_features_df() to define the specific</span>
+<span class="sd">    feature engineering logic.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; class SimpleStatsFeatureEngineer(FeatureEngineer):</span>
+<span class="sd">        ...     def _calc_and_get_features_df(self, context: ProblemContext) -&gt; pd.DataFrame:</span>
+<span class="sd">        ...         features = []</span>
+<span class="sd">        ...         for slice_id in context.slicer.slices:</span>
+<span class="sd">        ...             slice_data = context.df_raw.loc[slice_id]</span>
+<span class="sd">        ...             features.append({</span>
+<span class="sd">        ...                 &#39;mean&#39;: slice_data.mean().mean(),</span>
+<span class="sd">        ...                 &#39;std&#39;: slice_data.std().mean(),</span>
+<span class="sd">        ...                 &#39;max&#39;: slice_data.max().max()</span>
+<span class="sd">        ...             })</span>
+<span class="sd">        ...         return pd.DataFrame(features, index=context.slicer.slices)</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; engineer = SimpleStatsFeatureEngineer()</span>
+<span class="sd">        &gt;&gt;&gt; context_with_features = engineer.run(context)</span>
+<span class="sd">        &gt;&gt;&gt; print(context_with_features.df_features.head())</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProblemContext</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate features and return a new context with df_features populated.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: The problem context containing raw time-series data and slicing</span>
+<span class="sd">                information.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new ProblemContext instance with df_features set to the computed</span>
+<span class="sd">            feature matrix. The original context is not modified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context_with_features</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">context_with_features</span><span class="o">.</span><span class="n">df_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_and_get_features_df</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">context_with_features</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate and return the feature matrix.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: The problem context containing raw data and slicing information.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A DataFrame where each row represents one slice (candidate period) and</span>
+<span class="sd">            each column represents a feature. The index should match the slice</span>
+<span class="sd">            identifiers from context.slicer.slices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -1829,6 +1971,37 @@ information.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/base_feature_engineer.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProblemContext</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate features and return a new context with df_features populated.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: The problem context containing raw time-series data and slicing</span>
+<span class="sd">            information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A new ProblemContext instance with df_features set to the computed</span>
+<span class="sd">        feature matrix. The original context is not modified.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context_with_features</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">context_with_features</span><span class="o">.</span><span class="n">df_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_and_get_features_df</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">context_with_features</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -1927,6 +2100,35 @@ information.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/base_feature_engineer.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate and return the feature matrix.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: The problem context containing raw data and slicing information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A DataFrame where each row represents one slice (candidate period) and</span>
+<span class="sd">        each column represents a feature. The index should match the slice</span>
+<span class="sd">        identifiers from context.slicer.slices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -1977,6 +2179,123 @@ feature types (e.g., statistical summaries + PCA components).</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/feature_engineering/base_feature_engineer.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FeaturePipeline</span><span class="p">(</span><span class="n">FeatureEngineer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Chains multiple feature engineers to create a combined feature space.</span>
+
+<span class="sd">    Runs multiple feature engineering transformations sequentially and concatenates</span>
+<span class="sd">    their outputs into a single feature matrix. Useful for combining different</span>
+<span class="sd">    feature types (e.g., statistical summaries + PCA components).</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from energy_repset.feature_engineering import StandardStatsFeatureEngineer, PCAFeatureEngineer</span>
+<span class="sd">        &gt;&gt;&gt; stats_engineer = StandardStatsFeatureEngineer()</span>
+<span class="sd">        &gt;&gt;&gt; pca_engineer = PCAFeatureEngineer(n_components=3)</span>
+<span class="sd">        &gt;&gt;&gt; pipeline = FeaturePipeline({&#39;stats&#39;: stats_engineer, &#39;pca&#39;: pca_engineer})</span>
+<span class="sd">        &gt;&gt;&gt; context_with_features = pipeline.run(context)</span>
+<span class="sd">        &gt;&gt;&gt; print(context_with_features.df_features.columns)</span>
+<span class="sd">            # Shows columns from both engineers: [&#39;mean&#39;, &#39;std&#39;, &#39;max&#39;, &#39;min&#39;, &#39;pc1&#39;, &#39;pc2&#39;, &#39;pc3&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engineers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FeatureEngineer</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the feature pipeline.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            engineers: Dict of FeatureEngineer instances to run sequentially.</span>
+<span class="sd">                Features from all engineers will be concatenated column-wise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engineers</span> <span class="o">=</span> <span class="n">engineers</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate features from all engineers sequentially, accumulating results.</span>
+
+<span class="sd">        Each engineer in the pipeline sees the accumulated features from all</span>
+<span class="sd">        previous engineers via context.df_features. New features from each stage</span>
+<span class="sd">        are concatenated to the existing feature set. This allows:</span>
+<span class="sd">        - Early engineers to create base features (e.g., StandardStatsFeatureEngineer)</span>
+<span class="sd">        - Later engineers to transform or add to those features (e.g., PCAFeatureEngineer)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: The problem context containing raw data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A DataFrame with columns from all engineers concatenated horizontally.</span>
+<span class="sd">            Each engineer&#39;s features are added to the cumulative feature set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create a mutable working copy of the context</span>
+        <span class="n">working_context</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Accumulate features from each engineer</span>
+        <span class="n">all_features</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">engineer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">engineers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="n">engineer</span><span class="o">.</span><span class="n">calc_and_get_features_df</span><span class="p">(</span><span class="n">working_context</span><span class="p">)</span>
+            <span class="n">all_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+            <span class="c1"># Update context so next engineer can see accumulated features</span>
+            <span class="k">if</span> <span class="n">all_features</span><span class="p">:</span>
+                <span class="n">working_context</span><span class="o">.</span><span class="n">_df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Return the concatenated feature set</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -2039,6 +2358,25 @@ Features from all engineers will be concatenated column-wise.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/base_feature_engineer.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engineers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FeatureEngineer</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the feature pipeline.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        engineers: Dict of FeatureEngineer instances to run sequentially.</span>
+<span class="sd">            Features from all engineers will be concatenated column-wise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">engineers</span> <span class="o">=</span> <span class="n">engineers</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2128,6 +2466,71 @@ are concatenated to the existing feature set. This allows:
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/base_feature_engineer.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate features from all engineers sequentially, accumulating results.</span>
+
+<span class="sd">    Each engineer in the pipeline sees the accumulated features from all</span>
+<span class="sd">    previous engineers via context.df_features. New features from each stage</span>
+<span class="sd">    are concatenated to the existing feature set. This allows:</span>
+<span class="sd">    - Early engineers to create base features (e.g., StandardStatsFeatureEngineer)</span>
+<span class="sd">    - Later engineers to transform or add to those features (e.g., PCAFeatureEngineer)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: The problem context containing raw data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A DataFrame with columns from all engineers concatenated horizontally.</span>
+<span class="sd">        Each engineer&#39;s features are added to the cumulative feature set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create a mutable working copy of the context</span>
+    <span class="n">working_context</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Accumulate features from each engineer</span>
+    <span class="n">all_features</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">engineer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">engineers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">engineer</span><span class="o">.</span><span class="n">calc_and_get_features_df</span><span class="p">(</span><span class="n">working_context</span><span class="p">)</span>
+        <span class="n">all_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+        <span class="c1"># Update context so next engineer can see accumulated features</span>
+        <span class="k">if</span> <span class="n">all_features</span><span class="p">:</span>
+            <span class="n">working_context</span><span class="o">.</span><span class="n">_df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Return the concatenated feature set</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2190,6 +2593,307 @@ across slices to ensure comparability.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/feature_engineering/standard_stats.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">StandardStatsFeatureEngineer</span><span class="p">(</span><span class="n">FeatureEngineer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extracts statistical features from time-series slices with robust scaling.</span>
+
+<span class="sd">    For each original variable and slice, computes:</span>
+<span class="sd">    - Central tendency: mean, median (q50)</span>
+<span class="sd">    - Dispersion: std, IQR (q90 - q10), q10, q90</span>
+<span class="sd">    - Distribution shape: neg_share (proportion of negative values)</span>
+<span class="sd">    - Temporal dynamics: ramp_std (std of first differences)</span>
+
+<span class="sd">    Optionally includes cross-variable correlations within each slice (upper</span>
+<span class="sd">    triangle only, Fisher-z transformed). Features are z-score normalized</span>
+<span class="sd">    across slices to ensure comparability.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; engineer = StandardStatsFeatureEngineer()</span>
+<span class="sd">        &gt;&gt;&gt; context_with_features = engineer.run(context)</span>
+<span class="sd">        &gt;&gt;&gt; print(context_with_features.df_features.columns)</span>
+<span class="sd">        # [&#39;mean__demand&#39;, &#39;mean__solar&#39;, &#39;std__demand&#39;, &#39;std__solar&#39;, ...]</span>
+
+<span class="sd">        &gt;&gt;&gt; engineer_no_corr = StandardStatsFeatureEngineer(</span>
+<span class="sd">        ...     include_correlations=False,</span>
+<span class="sd">        ...     scale=&#39;zscore&#39;</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; context_with_features = engineer_no_corr.run(context)</span>
+<span class="sd">        &gt;&gt;&gt; print(context_with_features.df_features.shape)</span>
+<span class="sd">        # (12, 16) for 12 months, 2 variables, 8 stats each</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">include_correlations</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">scale</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;zscore&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;zscore&quot;</span><span class="p">,</span>
+            <span class="n">min_rows_for_corr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the statistical feature engineer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            include_correlations: If True, include cross-variable correlations</span>
+<span class="sd">                per slice (Fisher-z transformed).</span>
+<span class="sd">            scale: Scaling method. Currently only &quot;zscore&quot; is fully supported.</span>
+<span class="sd">            min_rows_for_corr: Minimum number of rows per slice required to</span>
+<span class="sd">                compute correlations. Slices with fewer rows get correlation</span>
+<span class="sd">                features set to 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_correlations</span> <span class="o">=</span> <span class="n">include_correlations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_rows_for_corr</span> <span class="o">=</span> <span class="n">min_rows_for_corr</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_feats_</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_means_</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stds_</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s2">&quot;ProblemContext&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate statistical features and return scaled feature matrix.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: Problem context with raw time-series data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame where each row is a slice and columns are scaled statistical</span>
+<span class="sd">            features. Column names follow pattern &#39;{stat}__{variable}&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s2">&quot;ProblemContext&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute raw features and fit scaling parameters.&quot;&quot;&quot;</span>
+        <span class="n">df_raw</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_raw</span>
+        <span class="n">slicer</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_feats_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_raw_features</span><span class="p">(</span><span class="n">df_raw</span><span class="p">,</span> <span class="n">slicer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">==</span> <span class="s2">&quot;zscore&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_means_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_feats_</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stds_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_feats_</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_feats_</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s2">&quot;ProblemContext&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply scaling to raw features.&quot;&quot;&quot;</span>
+        <span class="n">feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_feats_</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">==</span> <span class="s2">&quot;zscore&quot;</span><span class="p">:</span>
+            <span class="n">feats</span> <span class="o">=</span> <span class="p">(</span><span class="n">feats</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_means_</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stds_</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scaling </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="si">}</span><span class="s2"> not recognized.&quot;</span><span class="p">)</span>
+        <span class="n">feats</span> <span class="o">=</span> <span class="n">feats</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">feats</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get list of feature column names.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of feature names in the format &#39;{stat}__{variable}&#39; or</span>
+<span class="sd">            &#39;corr__{var1}__{var2}&#39; for correlations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature_names_</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_raw_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">slicer</span><span class="p">:</span> <span class="n">TimeSlicer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute raw (unscaled) statistical features for each slice.&quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">slicer</span><span class="o">.</span><span class="n">labels_for_index</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;slice&quot;</span><span class="p">)</span>
+        <span class="n">grp</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">neg_share</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">((</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">ramp_std</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">std</span><span class="p">())</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+        <span class="n">stats</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;q10&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.10</span><span class="p">)</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;q50&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.50</span><span class="p">)</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;q90&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.90</span><span class="p">)</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;iqr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;q90&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;q10&quot;</span><span class="p">]</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;neg_share&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">neg_share</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;ramp_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">ramp_std</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">dfk</span> <span class="ow">in</span> <span class="n">stats</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">dfk</span> <span class="o">=</span> <span class="n">dfk</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">__&quot;</span><span class="p">)</span>
+            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dfk</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_correlations</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+            <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">))</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">))]</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;corr__</span><span class="si">{</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">]</span>
+            <span class="n">corr_rows</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">idx_rows</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">grp</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_rows_for_corr</span><span class="p">:</span>
+                    <span class="n">C</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+                    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+                <span class="n">zvals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">v</span><span class="p">))</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.999</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.8</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">]</span>
+                <span class="n">corr_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zvals</span><span class="p">)</span>
+                <span class="n">idx_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">corr_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">corr_rows</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">idx_rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corr_df</span><span class="p">)</span>
+
+        <span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">df_features</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -2286,6 +2990,57 @@ features set to 0.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/standard_stats.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">include_correlations</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">scale</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;zscore&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;zscore&quot;</span><span class="p">,</span>
+        <span class="n">min_rows_for_corr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the statistical feature engineer.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        include_correlations: If True, include cross-variable correlations</span>
+<span class="sd">            per slice (Fisher-z transformed).</span>
+<span class="sd">        scale: Scaling method. Currently only &quot;zscore&quot; is fully supported.</span>
+<span class="sd">        min_rows_for_corr: Minimum number of rows per slice required to</span>
+<span class="sd">            compute correlations. Slices with fewer rows get correlation</span>
+<span class="sd">            features set to 0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">include_correlations</span> <span class="o">=</span> <span class="n">include_correlations</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">min_rows_for_corr</span> <span class="o">=</span> <span class="n">min_rows_for_corr</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_raw_feats_</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_means_</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_stds_</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names_</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2370,6 +3125,33 @@ features set to 0.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/standard_stats.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s2">&quot;ProblemContext&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate statistical features and return scaled feature matrix.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: Problem context with raw time-series data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DataFrame where each row is a slice and columns are scaled statistical</span>
+<span class="sd">        features. Column names follow pattern &#39;{stat}__{variable}&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2423,6 +3205,29 @@ features set to 0.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/standard_stats.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get list of feature column names.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of feature names in the format &#39;{stat}__{variable}&#39; or</span>
+<span class="sd">        &#39;corr__{var1}__{var2}&#39; for correlations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature_names_</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2546,6 +3351,307 @@ results when PCA features are used with distance-based algorithms.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/feature_engineering/pca.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">PCAFeatureEngineer</span><span class="p">(</span><span class="n">FeatureEngineer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Performs PCA dimensionality reduction on existing features.</span>
+
+<span class="sd">    Reduces the feature space using Principal Component Analysis, typically</span>
+<span class="sd">    applied after statistical feature engineering. This is useful for:</span>
+<span class="sd">    - Reducing dimensionality when you have many correlated features</span>
+<span class="sd">    - Creating orthogonal feature representations</span>
+<span class="sd">    - Focusing on the main axes of variation</span>
+
+<span class="sd">    Commonly used in a FeaturePipeline after StandardStatsFeatureEngineer</span>
+<span class="sd">    to compress statistical features into a smaller number of principal</span>
+<span class="sd">    components.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_components: Number of principal components to retain. Can be:</span>
+<span class="sd">            - int: Exact number of components</span>
+<span class="sd">            - float (0.0-1.0): Retain enough components to explain this</span>
+<span class="sd">              fraction of variance</span>
+<span class="sd">            - None: Retain all components (no reduction)</span>
+<span class="sd">        whiten: If True, scale components to unit variance. This can improve</span>
+<span class="sd">            results when PCA features are used with distance-based algorithms.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from energy_repset.feature_engineering import PCAFeatureEngineer</span>
+<span class="sd">        &gt;&gt;&gt; # Use PCA alone (requires context to already have df_features)</span>
+<span class="sd">        &gt;&gt;&gt; pca_engineer = PCAFeatureEngineer(n_components=5)</span>
+<span class="sd">        &gt;&gt;&gt; context_with_pca = pca_engineer.run(context_with_features)</span>
+<span class="sd">        &gt;&gt;&gt; print(context_with_pca.df_features.columns)</span>
+<span class="sd">            [&#39;pc_0&#39;, &#39;pc_1&#39;, &#39;pc_2&#39;, &#39;pc_3&#39;, &#39;pc_4&#39;]</span>
+
+<span class="sd">        &gt;&gt;&gt; # More common: chain with StandardStats in a pipeline</span>
+<span class="sd">        &gt;&gt;&gt; from energy_repset.feature_engineering import (</span>
+<span class="sd">        ...     StandardStatsFeatureEngineer,</span>
+<span class="sd">        ...     FeaturePipeline</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; pipeline = FeaturePipeline([</span>
+<span class="sd">        ...     StandardStatsFeatureEngineer(),</span>
+<span class="sd">        ...     PCAFeatureEngineer(n_components=0.95)  # Keep 95% variance</span>
+<span class="sd">        ... ])</span>
+<span class="sd">        &gt;&gt;&gt; context_with_both = pipeline.run(context)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Check explained variance</span>
+<span class="sd">        &gt;&gt;&gt; pca_engineer = PCAFeatureEngineer(n_components=10)</span>
+<span class="sd">        &gt;&gt;&gt; context_out = pca_engineer.run(context_with_features)</span>
+<span class="sd">        &gt;&gt;&gt; print(pca_engineer.explained_variance_ratio_)</span>
+<span class="sd">            [0.45, 0.22, 0.11, ...]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_components</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">whiten</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize PCA feature engineer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n_components: Number of components to keep, or fraction of</span>
+<span class="sd">                variance to preserve (if float). None keeps all components.</span>
+<span class="sd">            whiten: Whether to whiten (scale) the principal components.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">whiten</span> <span class="o">=</span> <span class="n">whiten</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span><span class="p">:</span> <span class="n">PCA</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply PCA to existing features in context.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: Problem context with df_features already populated</span>
+<span class="sd">                (typically by StandardStatsFeatureEngineer or similar).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame with principal component features. Columns are named</span>
+<span class="sd">            &#39;pc_0&#39;, &#39;pc_1&#39;, etc.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If context.df_features is None or empty.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">_df_features</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">context</span><span class="o">.</span><span class="n">_df_features</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;PCAFeatureEngineer requires context.df_features to be populated. &quot;</span>
+                <span class="s2">&quot;Run StandardStatsFeatureEngineer or similar first, or use &quot;</span>
+                <span class="s2">&quot;FeaturePipeline([StandardStatsFeatureEngineer(), PCAFeatureEngineer()]).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">index</span>
+
+        <span class="c1"># Handle NaN/inf values</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="c1"># Fit PCA</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="n">whiten</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">whiten</span><span class="p">)</span>
+        <span class="n">X_transformed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># Create feature names</span>
+        <span class="n">n_components_actual</span> <span class="o">=</span> <span class="n">X_transformed</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;pc_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_components_actual</span><span class="p">)]</span>
+
+        <span class="c1"># Create DataFrame</span>
+        <span class="n">df_pca</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">X_transformed</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df_pca</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get list of principal component feature names.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of feature names: [&#39;pc_0&#39;, &#39;pc_1&#39;, ...].</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">explained_variance_ratio_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the proportion of variance explained by each component.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Array of explained variance ratios, or None if PCA not fitted yet.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; pca_eng = PCAFeatureEngineer(n_components=5)</span>
+<span class="sd">            &gt;&gt;&gt; context_out = pca_eng.run(context_with_features)</span>
+<span class="sd">            &gt;&gt;&gt; print(pca_eng.explained_variance_ratio_)</span>
+<span class="sd">            # [0.45, 0.22, 0.15, 0.09, 0.05]</span>
+<span class="sd">            &gt;&gt;&gt; print(f&quot;Total variance explained: {pca_eng.explained_variance_ratio_.sum():.2%}&quot;)</span>
+<span class="sd">            # Total variance explained: 96%</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">components_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the principal component loadings.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Array of shape (n_components, n_features) containing the</span>
+<span class="sd">            principal axes in feature space, or None if PCA not fitted yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span><span class="o">.</span><span class="n">components_</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -2736,6 +3842,41 @@ variance to preserve (if float). None keeps all components.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/pca.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">n_components</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">whiten</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize PCA feature engineer.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_components: Number of components to keep, or fraction of</span>
+<span class="sd">            variance to preserve (if float). None keeps all components.</span>
+<span class="sd">        whiten: Whether to whiten (scale) the principal components.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">whiten</span> <span class="o">=</span> <span class="n">whiten</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span><span class="p">:</span> <span class="n">PCA</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2844,6 +3985,95 @@ variance to preserve (if float). None keeps all components.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/pca.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply PCA to existing features in context.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: Problem context with df_features already populated</span>
+<span class="sd">            (typically by StandardStatsFeatureEngineer or similar).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DataFrame with principal component features. Columns are named</span>
+<span class="sd">        &#39;pc_0&#39;, &#39;pc_1&#39;, etc.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If context.df_features is None or empty.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">_df_features</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">context</span><span class="o">.</span><span class="n">_df_features</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;PCAFeatureEngineer requires context.df_features to be populated. &quot;</span>
+            <span class="s2">&quot;Run StandardStatsFeatureEngineer or similar first, or use &quot;</span>
+            <span class="s2">&quot;FeaturePipeline([StandardStatsFeatureEngineer(), PCAFeatureEngineer()]).&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="c1"># Handle NaN/inf values</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="c1"># Fit PCA</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">,</span> <span class="n">whiten</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">whiten</span><span class="p">)</span>
+    <span class="n">X_transformed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1"># Create feature names</span>
+    <span class="n">n_components_actual</span> <span class="o">=</span> <span class="n">X_transformed</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;pc_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_components_actual</span><span class="p">)]</span>
+
+    <span class="c1"># Create DataFrame</span>
+    <span class="n">df_pca</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="n">X_transformed</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_pca</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2887,6 +4117,23 @@ variance to preserve (if float). None keeps all components.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/pca.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">feature_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get list of principal component feature names.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of feature names: [&#39;pc_0&#39;, &#39;pc_1&#39;, ...].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature_names</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2972,6 +4219,143 @@ Columns not in the dict are included with weight 1.0.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/feature_engineering/direct_profile.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DirectProfileFeatureEngineer</span><span class="p">(</span><span class="n">FeatureEngineer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Feature engineer that uses raw profile vectors directly (F_direct).</span>
+
+<span class="sd">    For each slice, concatenates the raw hourly values across all variables</span>
+<span class="sd">    into a single flat feature vector. This preserves the full temporal shape</span>
+<span class="sd">    of each period, making it suitable for algorithms that compare time-series</span>
+<span class="sd">    profiles directly (e.g., Snippet Algorithm, DTW-based methods).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        variable_weights: Optional dict mapping column names to scalar weights.</span>
+<span class="sd">            Weighted columns are multiplied by their weight before flattening.</span>
+<span class="sd">            Columns not in the dict are included with weight 1.0.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        Basic usage with daily slicing:</span>
+
+<span class="sd">        &gt;&gt;&gt; from energy_repset.feature_engineering import DirectProfileFeatureEngineer</span>
+<span class="sd">        &gt;&gt;&gt; engineer = DirectProfileFeatureEngineer()</span>
+<span class="sd">        &gt;&gt;&gt; context_with_features = engineer.run(context)</span>
+<span class="sd">        &gt;&gt;&gt; context_with_features.df_features.shape</span>
+<span class="sd">        (365, 72)  # 365 days x (24 hours * 3 variables)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable_weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize direct profile feature engineer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            variable_weights: Optional mapping of variable names to weights.</span>
+<span class="sd">                Variables not in the dict receive weight 1.0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variable_weights</span> <span class="o">=</span> <span class="n">variable_weights</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten each slice&#39;s raw values into a single feature row.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: Problem context with raw time-series data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame where each row is one slice and columns are the</span>
+<span class="sd">            flattened hourly values (hours x variables).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_weights</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span>
+
+        <span class="n">slice_labels</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">labels_for_index</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">unique_slices</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">unique_slices</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">unique_slices</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">slice_labels</span> <span class="o">==</span> <span class="n">s</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">flat</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flat</span><span class="p">)</span>
+
+        <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">)</span>
+        <span class="n">padded</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">max_len</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)),</span> <span class="n">constant_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+            <span class="n">padded</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;t</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_len</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">padded</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">unique_slices</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">col_names</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -3034,6 +4418,25 @@ Variables not in the dict receive weight 1.0.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/direct_profile.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable_weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize direct profile feature engineer.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        variable_weights: Optional mapping of variable names to weights.</span>
+<span class="sd">            Variables not in the dict receive weight 1.0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">variable_weights</span> <span class="o">=</span> <span class="n">variable_weights</span> <span class="ow">or</span> <span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -3118,6 +4521,79 @@ Variables not in the dict receive weight 1.0.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/feature_engineering/direct_profile.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc_and_get_features_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flatten each slice&#39;s raw values into a single feature row.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: Problem context with raw time-series data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DataFrame where each row is one slice and columns are the</span>
+<span class="sd">        flattened hourly values (hours x variables).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_weights</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span>
+
+    <span class="n">slice_labels</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">labels_for_index</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">unique_slices</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">unique_slices</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">unique_slices</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">slice_labels</span> <span class="o">==</span> <span class="n">s</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="n">flat</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flat</span><span class="p">)</span>
+
+    <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">)</span>
+    <span class="n">padded</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">max_len</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)),</span> <span class="n">constant_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">padded</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;t</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_len</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">padded</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">unique_slices</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">col_names</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -3188,6 +4664,8 @@ Variables not in the dict receive weight 1.0.</p>
         <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/github_source_links.js"></script>
       
     
   </body>

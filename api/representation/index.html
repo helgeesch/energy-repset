@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/logo-red.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -166,6 +166,18 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/helgeesch/energy-repset" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    helgeesch/energy-repset
+  </div>
+</a>
+      </div>
+    
   </nav>
   
 </header>
@@ -269,6 +281,18 @@
     </a>
     energy-repset
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/helgeesch/energy-repset" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    helgeesch/energy-repset
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -1547,6 +1571,9 @@
                   
 
 
+  
+  
+
 
 <h1 id="representation-models">Representation Models<a class="headerlink" href="#representation-models" title="Permanent link">&para;</a></h1>
 
@@ -1620,6 +1647,171 @@ selections.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/representation/representation.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RepresentationModel</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for representation models (Pillar R).</span>
+
+<span class="sd">    Defines how selected representative periods represent the full dataset by</span>
+<span class="sd">    calculating responsibility weights. The model is first fitted to learn about</span>
+<span class="sd">    the entire dataset, then the weigh() method calculates weights for specific</span>
+<span class="sd">    selections.</span>
+
+<span class="sd">    Different models implement different weighting strategies:</span>
+<span class="sd">    - Uniform: Equal weights (e.g., 365/k for yearly data)</span>
+<span class="sd">    - Cluster-based: Weights proportional to cluster sizes</span>
+<span class="sd">    - Blended: Soft assignment where each period is a weighted mix of representatives</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; class UniformWeights(RepresentationModel):</span>
+<span class="sd">        ...     def fit(self, context: ProblemContext):</span>
+<span class="sd">        ...         self.n_total = len(context.slicer.slices)</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...     def weigh(self, combination: SliceCombination) -&gt; Dict[Hashable, float]:</span>
+<span class="sd">        ...         weight = self.n_total / len(combination)</span>
+<span class="sd">        ...         return {slice_id: weight for slice_id in combination}</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; model = UniformWeights()</span>
+<span class="sd">        &gt;&gt;&gt; model.fit(context)</span>
+<span class="sd">        &gt;&gt;&gt; weights = model.weigh((0, 3, 6, 9))</span>
+<span class="sd">        &gt;&gt;&gt; print(weights)  # {0: 91.25, 3: 91.25, 6: 91.25, 9: 91.25} for 365 days, k=4</span>
+
+<span class="sd">        &gt;&gt;&gt; class ClusterSizeWeights(RepresentationModel):</span>
+<span class="sd">        ...     def fit(self, context: ProblemContext):</span>
+<span class="sd">        ...         from sklearn.cluster import KMeans</span>
+<span class="sd">        ...         self.kmeans = KMeans(n_clusters=4)</span>
+<span class="sd">        ...         self.kmeans.fit(context.df_features)</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...     def weigh(self, combination: SliceCombination) -&gt; Dict[Hashable, float]:</span>
+<span class="sd">        ...         labels = self.kmeans.labels_</span>
+<span class="sd">        ...         weights = {}</span>
+<span class="sd">        ...         for i, slice_id in enumerate(combination):</span>
+<span class="sd">        ...             cluster_size = (labels == i).sum()</span>
+<span class="sd">        ...             weights[slice_id] = cluster_size</span>
+<span class="sd">        ...         return weights</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; model = ClusterSizeWeights()</span>
+<span class="sd">        &gt;&gt;&gt; model.fit(context)</span>
+<span class="sd">        &gt;&gt;&gt; weights = model.weigh((0, 3, 6, 9))</span>
+<span class="sd">        &gt;&gt;&gt; print(weights)  # Weights proportional to cluster membership</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s1">&#39;ProblemContext&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit the representation model to the full dataset.</span>
+
+<span class="sd">        This method performs any necessary pre-computation based on the full set</span>
+<span class="sd">        of candidate slices (e.g., storing the feature matrix, fitting clustering</span>
+<span class="sd">        models, computing distance matrices).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: The problem context with df_features populated. Feature</span>
+<span class="sd">                engineering must be run before calling this method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">weigh</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">combination</span><span class="p">:</span> <span class="n">SliceCombination</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate representation weights for a given selection.</span>
+
+<span class="sd">        This method should only be called after the model has been fitted.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            combination: Tuple of selected slice identifiers for which to</span>
+<span class="sd">                calculate representation weights.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The calculated weights, either as a dictionary mapping each selected</span>
+<span class="sd">            slice to its weight, or as a DataFrame for more complex weight</span>
+<span class="sd">            structures (e.g., blended models where each original period has</span>
+<span class="sd">            weights across multiple representatives).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -1689,6 +1881,35 @@ engineering must be run before calling this method.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/representation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s1">&#39;ProblemContext&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fit the representation model to the full dataset.</span>
+
+<span class="sd">    This method performs any necessary pre-computation based on the full set</span>
+<span class="sd">    of candidate slices (e.g., storing the feature matrix, fitting clustering</span>
+<span class="sd">    models, computing distance matrices).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: The problem context with df_features populated. Feature</span>
+<span class="sd">            engineering must be run before calling this method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -1799,6 +2020,49 @@ calculate representation weights.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/representation.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">weigh</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">combination</span><span class="p">:</span> <span class="n">SliceCombination</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate representation weights for a given selection.</span>
+
+<span class="sd">    This method should only be called after the model has been fitted.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        combination: Tuple of selected slice identifiers for which to</span>
+<span class="sd">            calculate representation weights.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The calculated weights, either as a dictionary mapping each selected</span>
+<span class="sd">        slice to its weight, or as a DataFrame for more complex weight</span>
+<span class="sd">        structures (e.g., blended models where each original period has</span>
+<span class="sd">        weights across multiple representatives).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -1851,6 +2115,91 @@ it represents.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/representation/uniform.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">UniformRepresentationModel</span><span class="p">(</span><span class="n">RepresentationModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assigns equal weights to all selected representatives.</span>
+
+<span class="sd">    The simplest representation model where each selected period gets weight</span>
+<span class="sd">    1/k. This is appropriate when you want each representative to contribute</span>
+<span class="sd">    equally to downstream modeling, regardless of how many original periods</span>
+<span class="sd">    it represents.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; model = UniformRepresentationModel()</span>
+<span class="sd">        &gt;&gt;&gt; model.fit(context)</span>
+<span class="sd">        &gt;&gt;&gt; weights = model.weigh((0, 3, 6, 9))</span>
+<span class="sd">        &gt;&gt;&gt; print(weights)</span>
+<span class="sd">            {0: 0.25, 3: 0.25, 6: 0.25, 9: 0.25}</span>
+
+<span class="sd">        &gt;&gt;&gt; # For yearly data with k=4 months, each month represents ~91 days</span>
+<span class="sd">        &gt;&gt;&gt; # Weights sum to 1.0 for normalized analysis</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;No fitting required for uniform weighting.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: Problem context (unused but required by protocol).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">weigh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">combination</span><span class="p">:</span> <span class="n">SliceCombination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate uniform weights (1/k for each selected period).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            combination: Tuple of selected slice identifiers.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary mapping each slice ID to its weight (1/k).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">combination</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">combination</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">weight</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">combination</span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -1912,6 +2261,23 @@ it represents.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/uniform.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No fitting required for uniform weighting.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: Problem context (unused but required by protocol).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -1986,6 +2352,35 @@ it represents.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/uniform.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">weigh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">combination</span><span class="p">:</span> <span class="n">SliceCombination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate uniform weights (1/k for each selected period).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        combination: Tuple of selected slice identifiers.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary mapping each slice ID to its weight (1/k).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">combination</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">combination</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">label</span><span class="p">:</span> <span class="n">weight</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">combination</span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2073,6 +2468,175 @@ weighted by their "sphere of influence" in feature space.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/representation/k_medoids_clustersize.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">KMedoidsClustersizeRepresentation</span><span class="p">(</span><span class="n">RepresentationModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assigns weights based on k-medoids cluster sizes (hard assignment).</span>
+
+<span class="sd">    This representation model performs virtual k-medoids clustering where the</span>
+<span class="sd">    selected periods are enforced as medoids (cluster centers). Each candidate</span>
+<span class="sd">    period is assigned to its nearest medoid, and weights are calculated as</span>
+<span class="sd">    the proportion of periods assigned to each medoid.</span>
+
+<span class="sd">    The weights reflect how many original periods each representative is</span>
+<span class="sd">    responsible for, making this appropriate when representatives should be</span>
+<span class="sd">    weighted by their &quot;sphere of influence&quot; in feature space.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        all_features_: Feature matrix for all candidate periods (set during fit).</span>
+<span class="sd">        all_slice_labels_: Labels for all candidate periods (set during fit).</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; model = KMedoidsClustersizeRepresentation()</span>
+<span class="sd">        &gt;&gt;&gt; model.fit(context)  # context has 12 monthly candidates</span>
+<span class="sd">        &gt;&gt;&gt; weights = model.weigh((Period(&#39;2024-01&#39;, &#39;M&#39;), Period(&#39;2024-06&#39;, &#39;M&#39;)))</span>
+<span class="sd">        &gt;&gt;&gt; print(weights)</span>
+<span class="sd">            {Period(&#39;2024-01&#39;, &#39;M&#39;): 0.583, Period(&#39;2024-06&#39;, &#39;M&#39;): 0.417}</span>
+<span class="sd">        &gt;&gt;&gt; # Jan represents 7 months, Jun represents 5 months</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Store the full feature matrix for later clustering.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: Problem context containing df_features and candidates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">unique_slices</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">weigh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">combination</span><span class="p">:</span> <span class="n">SliceCombination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate weights based on cluster sizes from hard assignment.</span>
+
+<span class="sd">        Performs virtual k-medoids clustering where:</span>
+<span class="sd">        1. Selected periods are enforced as medoids</span>
+<span class="sd">        2. Each candidate is assigned to its nearest medoid (Euclidean distance)</span>
+<span class="sd">        3. Weight = (cluster size) / (total candidates)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            combination: Tuple of selected slice identifiers.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary mapping each slice ID to its weight (proportion of</span>
+<span class="sd">            candidates assigned to it).</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If combination contains slices not in the feature matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">combination</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="c1"># Extract feature vectors for selected medoids</span>
+        <span class="n">medoid_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">slice_label</span> <span class="ow">in</span> <span class="n">combination</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">slice_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Slice </span><span class="si">{</span><span class="n">slice_label</span><span class="si">}</span><span class="s2"> not found in candidates&quot;</span><span class="p">)</span>
+            <span class="n">medoid_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">slice_label</span><span class="p">))</span>
+
+        <span class="n">medoid_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">medoid_indices</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">all_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="c1"># Compute pairwise distances: shape (n_candidates, k_medoids)</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">cdist</span><span class="p">(</span><span class="n">all_features</span><span class="p">,</span> <span class="n">medoid_features</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Hard assignment: each candidate assigned to nearest medoid</span>
+        <span class="n">assignments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Count cluster sizes</span>
+        <span class="n">cluster_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">assignments</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">combination</span><span class="p">))</span>
+
+        <span class="c1"># Calculate weights as proportions</span>
+        <span class="n">total_candidates</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span><span class="p">)</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">slice_label</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">cluster_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_candidates</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slice_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">combination</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">weights</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -2134,6 +2698,25 @@ weighted by their "sphere of influence" in feature space.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/k_medoids_clustersize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Store the full feature matrix for later clustering.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: Problem context containing df_features and candidates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">unique_slices</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2245,6 +2828,105 @@ weighted by their "sphere of influence" in feature space.</p>
     </table>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/k_medoids_clustersize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">weigh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">combination</span><span class="p">:</span> <span class="n">SliceCombination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate weights based on cluster sizes from hard assignment.</span>
+
+<span class="sd">    Performs virtual k-medoids clustering where:</span>
+<span class="sd">    1. Selected periods are enforced as medoids</span>
+<span class="sd">    2. Each candidate is assigned to its nearest medoid (Euclidean distance)</span>
+<span class="sd">    3. Weight = (cluster size) / (total candidates)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        combination: Tuple of selected slice identifiers.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary mapping each slice ID to its weight (proportion of</span>
+<span class="sd">        candidates assigned to it).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If combination contains slices not in the feature matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">combination</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="c1"># Extract feature vectors for selected medoids</span>
+    <span class="n">medoid_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">slice_label</span> <span class="ow">in</span> <span class="n">combination</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">slice_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Slice </span><span class="si">{</span><span class="n">slice_label</span><span class="si">}</span><span class="s2"> not found in candidates&quot;</span><span class="p">)</span>
+        <span class="n">medoid_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">slice_label</span><span class="p">))</span>
+
+    <span class="n">medoid_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">medoid_indices</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">all_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Compute pairwise distances: shape (n_candidates, k_medoids)</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">cdist</span><span class="p">(</span><span class="n">all_features</span><span class="p">,</span> <span class="n">medoid_features</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Hard assignment: each candidate assigned to nearest medoid</span>
+    <span class="n">assignments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Count cluster sizes</span>
+    <span class="n">cluster_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">assignments</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">combination</span><span class="p">))</span>
+
+    <span class="c1"># Calculate weights as proportions</span>
+    <span class="n">total_candidates</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_slice_labels_</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">slice_label</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">cluster_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_candidates</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slice_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">combination</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">weights</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2288,6 +2970,153 @@ columns are the selected representative labels, and values are the weights.</p>
 
 
 
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/representation/blended.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BlendedRepresentationModel</span><span class="p">(</span><span class="n">RepresentationModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns weights using a blended representation (R_soft).</span>
+
+<span class="sd">    Each original slice in the full dataset is represented as a unique</span>
+<span class="sd">    weighted combination of all the selected representatives. This is found by</span>
+<span class="sd">    solving a small optimization problem for each original slice.</span>
+
+<span class="sd">    The output is a DataFrame where rows are the original slice labels,</span>
+<span class="sd">    columns are the selected representative labels, and values are the weights.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blend_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;convex&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        blend_type : str, optional</span>
+<span class="sd">            The type of blend to perform. &#39;convex&#39; is the most common,</span>
+<span class="sd">            ensuring weights are non-negative and sum to 1.</span>
+<span class="sd">            (default is &#39;convex&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">blend_type</span> <span class="o">!=</span> <span class="s1">&#39;convex&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only &#39;convex&#39; blend type is currently supported.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_type</span> <span class="o">=</span> <span class="n">blend_type</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s1">&#39;ProblemContext&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stores the full feature matrix for later use.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">weigh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">combination</span><span class="p">:</span> <span class="n">SliceCombination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">combination</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+        <span class="n">all_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span>
+        <span class="n">rep_features</span> <span class="o">=</span> <span class="n">all_features</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">combination</span><span class="p">)]</span>
+
+        <span class="n">weight_results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># 2. Loop through every original slice in the full dataset.</span>
+        <span class="k">for</span> <span class="n">original_label</span><span class="p">,</span> <span class="n">original_vec</span> <span class="ow">in</span> <span class="n">all_features</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="c1"># 3. For each one, solve an optimization problem to find the best blend.</span>
+            <span class="c1"># Objective: minimize || original_vec - sum(weights * rep_vecs) ||^2</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">objective_func</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+                <span class="n">blended_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">rep_features</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">original_vec</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="n">blended_vec</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="c1"># Initial guess: uniform weights</span>
+            <span class="n">initial_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">combination</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">combination</span><span class="p">)</span>
+
+            <span class="c1"># Constraints and bounds for a convex blend</span>
+            <span class="n">constraints</span> <span class="o">=</span> <span class="p">({</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;eq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">})</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">combination</span><span class="p">))]</span>
+
+            <span class="c1"># 4. Solve for the optimal weights for this specific original_slice.</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+                <span class="n">objective_func</span><span class="p">,</span>
+                <span class="n">initial_weights</span><span class="p">,</span>
+                <span class="n">method</span><span class="o">=</span><span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span>
+                <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+                <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span>
+            <span class="p">)</span>
+
+            <span class="n">weight_results</span><span class="p">[</span><span class="n">original_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span>
+
+        <span class="c1"># 5. Assemble the results into a final DataFrame and return.</span>
+        <span class="n">blended_weights_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
+            <span class="n">weight_results</span><span class="p">,</span>
+            <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="n">combination</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">blended_weights_df</span>
+</code></pre></div></td></tr></table></div>
+              </details>
 
 
 
@@ -2322,6 +3151,33 @@ columns are the selected representative labels, and values are the weights.</p>
     (default is 'convex')</p>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/blended.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blend_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;convex&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    blend_type : str, optional</span>
+<span class="sd">        The type of blend to perform. &#39;convex&#39; is the most common,</span>
+<span class="sd">        ensuring weights are non-negative and sum to 1.</span>
+<span class="sd">        (default is &#39;convex&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">blend_type</span> <span class="o">!=</span> <span class="s1">&#39;convex&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only &#39;convex&#39; blend type is currently supported.&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">blend_type</span> <span class="o">=</span> <span class="n">blend_type</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2342,6 +3198,15 @@ columns are the selected representative labels, and values are the weights.</p>
         <p>Stores the full feature matrix for later use.</p>
 
 
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/representation/blended.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="s1">&#39;ProblemContext&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stores the full feature matrix for later use.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">all_features_</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span>
+</code></pre></div></td></tr></table></div>
+            </details>
     </div>
 
 </div>
@@ -2412,6 +3277,8 @@ columns are the selected representative labels, and values are the weights.</p>
         <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/github_source_links.js"></script>
       
     
   </body>
