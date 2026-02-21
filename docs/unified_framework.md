@@ -24,7 +24,7 @@ The challenge is that "representativeness" is not a single, well-defined concept
 
 Different TSA methods make different implicit choices about what to preserve, how to search, and what form the output takes. These choices are rarely made explicit, which makes comparison difficult.
 
-Inspired by unifying efforts in other fields (notably Powell's unified framework for sequential decision problems under uncertainty), we propose a decomposition of the TSA problem into five modular, interchangeable components. Any concrete method is a specific *instantiation* of this structure. The framework does not prescribe a single best method; it provides a common language for describing, comparing, and assembling methods.
+Inspired by unifying efforts in other fields (notably Warren B. Powell's [A unified framework for stochastic optimization](https://doi.org/10.1016/j.ejor.2018.07.014)), we propose a decomposition of the TSA problem into five modular, interchangeable components. Any concrete method is a specific *instantiation* of this structure. The framework does not prescribe a single best method; it provides a common language for describing, comparing, and assembling methods.
 
 The remainder of this paper is organized as follows. Section 2 presents the five-component framework. Section 3 demonstrates how established methods decompose into the framework. Section 4 discusses practical implications and open questions.
 
@@ -135,7 +135,7 @@ Most practical methods use $\mathcal{O}_\text{stat}$ because evaluating $\mathca
 
 #### Statistical objectives in practice
 
-Statistical fidelity is not a single concept. It decomposes into three distinct dimensions, each capturing a different aspect of how well the selection preserves the original data.
+Statistical fidelity is not a single concept. In this context, it decomposes into three distinct dimensions, each capturing a different aspect of how well the selection preserves the original data.
 
 **1. Marginal distribution fidelity.** The weighted selection should reproduce the overall distribution of each variable independently: annual means, load duration curves, quantile structures. This is the most commonly targeted fidelity dimension. When the downstream model question concerns aggregate outcomes (annualized system cost, total generation mix), marginal distributions are the primary concern. Metrics include:
 
@@ -154,7 +154,7 @@ Statistical fidelity is not a single concept. It decomposes into three distinct 
 - *Static correlations*: does the selection preserve the overall correlation matrix across variables (Frobenius norm of the correlation matrix difference)?
 - *Joint temporal dynamics*: does the selection preserve co-movement patterns, such as solar generation ramping up while demand ramps down, or wind output dropping during peak price hours? This goes beyond static correlations to capture the temporal *co-evolution* of variables. One natural measure is the correlation matrix of first-differences (ramp correlations), which quantifies how the rates of change across variables relate to each other.
 
-These three dimensions can be addressed both in **$\mathcal{F}$** (by including ramp-rate statistics, cross-correlations, or derivative-based features in the feature space) and in **$\mathcal{O}$** (by including score components that explicitly measure each fidelity type). In practice, a well-designed selection pipeline addresses all three, either through the choice of features, the choice of objective components, or both.
+These three dimensions can be addressed both in **$\mathcal{F}$** (by including ramp-rate statistics, cross-correlations, or derivative-based features in the feature space) and in **$\mathcal{O}$** (by including score components that explicitly measure each fidelity type). In practice, a selection pipeline can address all three, either through the choice of features, the choice of objective components, or both.
 
 **State-space coverage.** Complementary to fidelity, the selection should span the diversity of conditions that occur in the full dataset, capturing distinct system states such as "high wind + low demand," "low VRES + peak demand," or "shoulder season with storage cycling." This matters most when the model question concerns system adequacy, resilience, or identifying binding constraints. Metrics include:
 
@@ -387,13 +387,14 @@ The five-component framework proposed in this paper (Feature Space, Objective, S
 - guides practitioners in assembling custom pipelines suited to their specific modeling questions, and
 - provides an architectural blueprint for modular software design.
 
-The framework does not claim that one component combination is universally superior. It provides the vocabulary and structure needed to make informed, transparent choices, moving the field from ad-hoc method selection toward systematic, principled design of representative period selection pipelines.
+The framework does not claim that one component combination is universally superior. It provides the vocabulary and structure needed to make informed, transparent choices, trying to move from ad-hoc method selection toward systematic, principled design of representative period selection pipelines.
 
 ---
 
 ## References
 
-1. Hoffmann et al. (2020). [A Review on Time Series Aggregation Methods for Energy System Models](https://doi.org/10.3390/en13030641). *Energies*, 13(3), 641.
+1. Warren B. Powell (2017). [A unified framework for stochastic optimization](https://doi.org/10.1016/j.ejor.2018.07.014). *European Journal of Operational Research*, 275(3)
+2. Hoffmann et al. (2020). [A Review on Time Series Aggregation Methods for Energy System Models](https://doi.org/10.3390/en13030641). *Energies*, 13(3), 641.
 2. Teichgraeber & Brandt (2022). [Time-series aggregation for the optimization of energy systems: Goals, challenges, approaches, and opportunities](https://doi.org/10.1016/j.rser.2021.111984). *Renewable and Sustainable Energy Reviews*, 157, 111984.
 3. Nahmmacher et al. (2016). [Carpe diem: A novel approach to select representative days for long-term power system modeling](https://doi.org/10.1016/j.energy.2016.06.081). *Energy*, 112, 430--442.
 4. Barbar & Mallapragada (2022). [Representative period selection for power system planning using autoencoder-based dimensionality reduction](https://arxiv.org/abs/2204.13608). *arXiv:2204.13608*.
