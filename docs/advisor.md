@@ -90,12 +90,19 @@ Ask yourself:
 
 - **Resolution:** Hourly? 15-minute? Daily?
 - **Variables:** How many time-series (load, wind, solar, prices, ...)?
+- **Regions:** How many regions or zones? Each region-variable pair adds dimensions.
 - **Horizon:** One year? Multiple years?
 - **Candidate count:** How many slices does your `TimeSlicer` produce?
   - 12 months -> C(12,3) = 220 candidates for k=3
   - 52 weeks -> C(52,8) = 752 million candidates for k=8
+- **Feature dimensionality:** How many features will your feature space produce? With V variables across R regions, `StandardStatsFeatureEngineer` produces multiple statistics per variable (mean, std, quantiles, ramp rates, etc.), so the total feature count grows as V x R x (number of statistics). If this count is high relative to the number of slices, consider PCA dimensionality reduction via `FeaturePipeline`.
 
 This determines whether exhaustive search is feasible or you need constrained/hierarchical generation.
+
+### Step 1b: Normalization and weighting
+
+- **Normalization:** `StandardStatsFeatureEngineer` z-score normalizes features by default. If using `DirectProfileFeatureEngineer`, your variables may have very different scales (e.g., MW demand vs. capacity factors between 0 and 1), and distance-based methods will be dominated by the high-magnitude variables. Consider whether explicit scaling is needed.
+- **Feature/variable weighting:** If certain variables matter more for the downstream model (e.g., load is more critical than temperature), consider using `variable_weights` in score components such as `WassersteinFidelity(variable_weights=...)` or passing importance weights through the feature engineer. This lets the selection process prioritize fidelity on the variables that matter most.
 
 ### Step 2: Downstream model constraints
 
@@ -284,3 +291,7 @@ result = rep.RepSetExperiment(context, workflow).run()
 5. **Direction confusion:** Most fidelity components use `direction="min"` (lower is better). `DiversityReward` uses `direction="max"`. The `ObjectiveSet` and selection policies handle direction automatically -- you do not need to negate scores.
 
 6. **Single vs multi-objective:** With a single score component, `WeightedSumPolicy` and `ParetoMaxMinStrategy` produce identical results. Pareto-based policies only add value with 2+ objectives.
+
+7. **High-dimensional feature spaces:** With many variables and regions, `StandardStatsFeatureEngineer` can produce hundreds of features while you may have only 12--52 candidate slices. In high dimensions, distances concentrate and clustering/selection degrades. Check the feature-to-sample ratio and use PCA (via `FeaturePipeline`) to reduce dimensionality when it is large.
+
+8. **Unweighted variables:** By default, all variables contribute equally to the objective. If your downstream model is more sensitive to some variables (e.g., load matters more than temperature), the selection may over-optimize for less important variables. Use `variable_weights` in score components to reflect what actually matters.
