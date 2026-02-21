@@ -8,7 +8,7 @@ Energy system models, capacity expansion studies, and other time-series-heavy ap
 
 `energy-repset` clears a path through the jungle in two ways:
 
-1. **A unified framework** that decomposes *any* time-series aggregation method into five interchangeable components. Every established methodology is a specific instantiation of this structure. The framework provides a common language for describing, comparing, and assembling methods. The full theoretical treatment is available in the [Unified Framework](https://energy-repset-docs.mesqual.io/unified_framework/) document.
+1. **A unified framework** that decomposes *any* representative period selection method into five interchangeable components. Every established methodology is a specific instantiation of this structure. The framework provides a common language for describing, comparing, and assembling methods. The full theoretical treatment is available in the [Unified Framework](https://energy-repset-docs.mesqual.io/unified_framework/) document.
 
 2. **A modular Python package** that implements this framework as a library of composable, protocol-based modules. You pick one implementation per component, wire them together, and run. Adding a new algorithm or score metric means implementing a single protocol -- everything else stays the same.
 

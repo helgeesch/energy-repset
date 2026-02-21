@@ -4,9 +4,9 @@
 
 ## Abstract
 
-Time series aggregation (TSA), the process of selecting or constructing a small set of representative periods from a larger dataset, is essential for making computationally expensive energy system models tractable. The field has produced a rich but fragmented array of methods: clustering, mathematical programming, autoencoders, greedy algorithms, and more. Each method is typically presented as a monolithic procedure, making it difficult to compare methods, understand their implicit assumptions, or assemble custom pipelines.
+Representative period selection (RPS), the process of selecting or constructing a small set of representative periods from a larger dataset, is essential for making computationally expensive energy system models tractable. The field has produced a rich but fragmented array of methods: clustering, mathematical programming, autoencoders, greedy algorithms, and more. Each method is typically presented as a monolithic procedure, making it difficult to compare methods, understand their implicit assumptions, or assemble custom pipelines.
 
-This paper proposes a unified framework that decomposes *any* TSA method into five fundamental components: the **Feature Space** (how periods are represented), the **Objective** (what quality means), the **Selection Space** (what form the output takes), the **Representation Model** (how the selection approximates the whole), and the **Search Algorithm** (how the solution is found). We show that every established methodology is a specific instantiation of this five-component structure, and that the framework enables systematic comparison, exposes trade-offs, and provides an architectural blueprint for modular software.
+This paper proposes a unified framework that decomposes *any* RPS method into five fundamental components: the **Feature Space** (how periods are represented), the **Objective** (what quality means), the **Selection Space** (what form the output takes), the **Representation Model** (how the selection approximates the whole), and the **Search Algorithm** (how the solution is found). We show that every established methodology is a specific instantiation of this five-component structure, and that the framework enables systematic comparison, exposes trade-offs, and provides an architectural blueprint for modular software.
 
 ---
 
@@ -14,17 +14,17 @@ This paper proposes a unified framework that decomposes *any* TSA method into fi
 
 Energy system models (ESMs) are central analytical tools for energy system planning and research. The integration of variable renewable energy sources (VRES), storage technologies, and cross-sectoral coupling demands high temporal resolution, typically hourly or sub-hourly, across a full year or longer. For many ESMs, particularly those used in capacity expansion planning, investment optimization, or market studies, this produces optimization problems that are computationally intractable.
 
-Time series aggregation addresses this by selecting a small number $k$ of representative periods (days, weeks, months, or even years) that preserve the essential characteristics of the full dataset. A well-chosen selection can reduce computation by orders of magnitude while maintaining the fidelity of model results.
+Reducing the temporal complexity of energy system inputs involves two orthogonal dimensions. The first is **between-period reduction**: selecting a small number $k$ of representative periods (days, weeks, months, or even years) from the $N$ candidates in the full dataset. The second is **within-period reduction**: adjusting the temporal resolution *inside* each period, from simple uniform downsampling (e.g., converting 15-minute to hourly data) to domain-informed selective segmentation, where, for example, overnight hours are aggregated into a single block while solar ramp hours remain at full resolution. The two dimensions are independent and compose naturally: within-period reduction can be applied before representative period selection (as preprocessing) or after (as postprocessing on the selected periods before they enter the downstream model). The Python package `tsam` (Kotzur et al., 2018) supports both dimensions.
 
-The challenge is that "representativeness" is not a single, well-defined concept. At a fundamental level, the modeler must decide *what* to represent: the statistical properties of the *input data* (e.g., weather patterns, demand profiles) or the *outcomes* of the downstream model (e.g., socio-economic welfare, system cost, capacity investments). Within these categories, the practical meaning of "representative" varies further depending on the modeling question:
+This framework focuses exclusively on between-period reduction — representative period selection. A well-chosen selection of $k \ll N$ periods can reduce computation by orders of magnitude while maintaining the fidelity of model results. The challenge is that "representativeness" is not a single, well-defined concept. At a fundamental level, the modeler must decide *what* to represent: the statistical properties of the *input data* (e.g., weather patterns, demand profiles) or the *outcomes* of the downstream model (e.g., socio-economic welfare, system cost, capacity investments). Within these categories, the practical meaning of "representative" varies further depending on the modeling question:
 
 - **Aggregate fidelity**: the selected periods, when weighted appropriately, reproduce the overall statistics (means, distributions, correlations) of the full dataset, so that annualized system cost is captured accurately.
 - **State-space coverage**: the selected periods span the diversity of conditions that occur (high wind with high demand, low wind with high solar, peak events, etc.) so that the model encounters all operationally distinct system states.
 - **A combination**: cover the breadth of system states *while also* matching aggregate statistics, often under the constraint that all periods carry equal weight.
 
-Different TSA methods make different implicit choices about what to preserve, how to search, and what form the output takes. These choices are rarely made explicit, which makes comparison difficult.
+Different RPS methods make different implicit choices about what to preserve, how to search, and what form the output takes. These choices are rarely made explicit, which makes comparison difficult.
 
-Inspired by unifying efforts in other fields (notably Warren B. Powell's [A unified framework for stochastic optimization](https://doi.org/10.1016/j.ejor.2018.07.014)), we propose a decomposition of the TSA problem into five modular, interchangeable components. Any concrete method is a specific *instantiation* of this structure. The framework does not prescribe a single best method; it provides a common language for describing, comparing, and assembling methods.
+Inspired by unifying efforts in other fields (notably Warren B. Powell's [A unified framework for stochastic optimization](https://doi.org/10.1016/j.ejor.2018.07.014)), we propose a decomposition of the RPS problem into five modular, interchangeable components. Any concrete method is a specific *instantiation* of this structure. The framework does not prescribe a single best method; it provides a common language for describing, comparing, and assembling methods.
 
 The remainder of this paper is organized as follows. Section 2 presents the five-component framework. Section 3 demonstrates how established methods decompose into the framework. Section 4 discusses practical implications and open questions.
 
@@ -52,7 +52,7 @@ where:
 | $\mathcal{R}$ | Representation Model | How the selection approximates the full dataset |
 | $\mathcal{A}$ | Search Algorithm | How the optimal selection is found |
 
-Any concrete TSA method is defined by a specific 5-tuple $(\mathcal{F},\, \mathcal{O},\, \mathcal{S},\, \mathcal{R},\, \mathcal{A})$.
+Any concrete RPS method is defined by a specific 5-tuple $(\mathcal{F},\, \mathcal{O},\, \mathcal{S},\, \mathcal{R},\, \mathcal{A})$.
 
 The five components are conceptually independent: each addresses a distinct design decision. In practice, certain combinations are more natural than others, and some methods couple components tightly. Making these couplings explicit is one of the framework's main contributions.
 
@@ -86,15 +86,6 @@ The choice of $\mathcal{F}$ is consequential: it defines what "similar" means. T
 $\mathcal{F}_\text{direct}$ is the default when no explicit feature engineering is performed (e.g., standard k-means on raw hourly data). $\mathcal{F}_\text{stat}$ and $\mathcal{F}_\text{latent}$ trade information for computational efficiency and noise reduction. $\mathcal{F}_\text{model}$ is the most advanced variant, requiring preliminary model runs but offering the strongest link between input representation and downstream model fidelity.
 
 These variants can be composed: for instance, $\mathcal{F}_\text{model}$ features may be passed through an autoencoder to produce a $\mathcal{F}_\text{latent}$ representation that encodes both input patterns and model responses.
-
-#### Two dimensions of temporal complexity reduction
-
-Reducing the temporal complexity of energy system inputs involves two orthogonal dimensions:
-
-1. **Between-period reduction** (representative subset selection): selecting $k$ from $N$ candidate periods. This is the primary focus of the entire framework.
-2. **Within-period reduction** (temporal segmentation): adjusting the temporal resolution *inside* each period. This ranges from simple uniform downsampling (e.g., converting 15-minute to hourly data) to domain-informed selective segmentation, where different hours receive different treatment. For example, overnight hours (1am--5am) might be aggregated into a single 4-hour block because little changes operationally, while solar ramp hours (8am--9am) remain at full hourly resolution because the rate of change matters for dispatch.
-
-These two dimensions compose naturally: one can first downsample the temporal resolution and then select representative periods, or apply segmentation after selection. The framework presented here focuses on between-period reduction. Within-period segmentation is an independent technique that can be layered on top. The Python package `tsam` (Kotzur et al., 2018) is one tool that supports both dimensions.
 
 #### Feature normalization and weighting
 
@@ -131,7 +122,7 @@ At the highest level, objectives fall into two categories:
 | $\mathcal{O}_\text{stat}$ | **Statistical fidelity.** Preserve statistical properties of the input data. This is a *proxy* for the true goal. |
 | $\mathcal{O}_\text{model}$ | **Model outcome fidelity.** Preserve the results of the downstream optimization model (total cost, capacity mix, emissions). This is the *true goal*, but typically requires running the model during the selection process. |
 
-Most practical methods use $\mathcal{O}_\text{stat}$ because evaluating $\mathcal{O}_\text{model}$ during the selection process is computationally expensive. The fundamental challenge of TSA is that the relationship between statistical fidelity and model outcome fidelity is complex and nonlinear: low statistical error does not guarantee accurate model results.
+Most practical methods use $\mathcal{O}_\text{stat}$ because evaluating $\mathcal{O}_\text{model}$ during the selection process is computationally expensive. The fundamental challenge of RPS is that the relationship between statistical fidelity and model outcome fidelity is complex and nonlinear: low statistical error does not guarantee accurate model results.
 
 #### Statistical objectives in practice
 
@@ -163,6 +154,8 @@ These three dimensions can be addressed both in **$\mathcal{F}$** (by including 
 - *Centroid balance* (distance from selection centroid to global center): does the selection avoid systematic bias toward one region of the feature space?
 
 Diversity and coverage metrics evaluate properties of the selection *itself* in feature space, rather than how well the representation matches the full dataset. They complement fidelity metrics by ensuring the selection is well-spread and balanced.
+
+**Relationship between state-space coverage and cross-variable dependency fidelity.** These two concepts address the same underlying concern — the multivariate joint structure of the data — but from different angles. Cross-variable dependency fidelity is a *fidelity metric*: it compares a statistical property (e.g., the correlation matrix) of the selected subset against the full dataset and asks "how well does the selection reproduce the original relationships between variables?" State-space coverage is a *diversity metric*: it evaluates properties of the selection itself (spread, balance) and asks "does the selection span the range of joint conditions that occur?" In practice, they tend to reinforce each other: a selection that covers the full state space well will often preserve cross-variable dependencies, and vice versa. But they can also diverge. A selection optimized purely for correlation fidelity might cluster in the center of the distribution, matching the correlation matrix while missing rare but operationally important joint states. Conversely, a selection optimized purely for diversity might capture extreme corners of the state space but distort the overall dependency structure. Treating them as separate objectives allows the modeler to target both aspects explicitly and inspect their trade-off.
 
 **Combined objectives.** In many applications, both statistical fidelity and state-space coverage matter simultaneously. A common scenario is the requirement that the selected periods carry **equal weight** (see $\mathcal{R}_\text{equal}$ in Section 2.5), meaning the selection must be intrinsically representative and cannot rely on non-uniform weights to correct for bias. The selection must then:
 
@@ -304,7 +297,7 @@ This is pragmatic and widely used. Alternatively, the same goal (balancing aggre
 
 ## 3. Methods as Framework Instances
 
-The framework's utility lies in its ability to decompose any TSA method into a specific $(\mathcal{F}, \mathcal{O}, \mathcal{S}, \mathcal{R}, \mathcal{A})$ tuple, making implicit choices explicit and enabling direct comparison.
+The framework's utility lies in its ability to decompose any RPS method into a specific $(\mathcal{F}, \mathcal{O}, \mathcal{S}, \mathcal{R}, \mathcal{A})$ tuple, making implicit choices explicit and enabling direct comparison.
 
 ### 3.1 Decomposition Table
 
@@ -380,7 +373,7 @@ Several aspects of the framework invite further investigation:
 
 The field of representative period selection for energy time series has produced a rich and growing body of methods, each designed with care for specific use cases. However, these methods are typically presented as monolithic procedures, which obscures their shared structure and makes systematic comparison difficult.
 
-The five-component framework proposed in this paper (Feature Space, Objective, Selection Space, Representation Model, and Search Algorithm) provides a common structure for understanding any TSA method. By decomposing methods into their fundamental choices, the framework:
+The five-component framework proposed in this paper (Feature Space, Objective, Selection Space, Representation Model, and Search Algorithm) provides a common structure for understanding any RPS method. By decomposing methods into their fundamental choices, the framework:
 
 - makes implicit assumptions explicit,
 - enables direct, component-level comparison between methods,
