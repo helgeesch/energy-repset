@@ -100,4 +100,6 @@ result = experiment.run()
 
 The `Workflow` is intentionally thin: it holds references to components, not logic. The orchestration logic lives in `RepSetExperiment.run()`, which calls the components in sequence. This keeps each component independently testable and swappable.
 
+**Practical note on features.** Feature normalization and variable weighting are handled within the `FeatureEngineer` component (F). The choice of F determines what distances and similarities mean for the downstream search: two periods that appear similar under one feature space may look very different under another. See the [Configuration Advisor](advisor.md) for guidance on normalization and weighting.
+
 For the full component catalog, see [Modules & Components](modules.md).
