@@ -22,3 +22,7 @@
     opacity: 1;
     text-decoration: underline;
 }
+
+.md-source__facts {
+    display: none;
+}
