@@ -55,8 +55,13 @@ class CTPCSearch(SearchAlgorithm):
             k: Number of contiguous clusters to produce.
             linkage: Agglomerative linkage criterion.
         """
-        self.k = k
+        self._k = k
         self.linkage = linkage
+
+    @property
+    def k(self) -> int:
+        """Number of contiguous time segments to produce."""
+        return self._k
 
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Run contiguity-constrained hierarchical clustering.

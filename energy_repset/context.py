@@ -96,6 +96,15 @@ class ProblemContext:
         raise NotImplementedError
 
     @property
+    def has_features(self) -> bool:
+        """Check whether features have been computed.
+
+        Returns:
+            True if ``df_features`` has been set, False otherwise.
+        """
+        return self._df_features is not None
+
+    @property
     def df_features(self) -> pd.DataFrame:
         """Get the computed feature matrix.
 

@@ -7,11 +7,25 @@ if TYPE_CHECKING:
 
 
 class CombinationGenerator(Protocol):
-    """Protocol for generating and counting combinations of candidate slices.
+    """Protocol for generating, counting, and validating slice combinations.
 
-    This protocol defines the interface for combination generators used in
-    Generate-and-Test workflows. Implementations determine which k-element
-    subsets of candidate slices should be evaluated.
+    This protocol serves two complementary roles depending on the search
+    algorithm that uses it:
+
+    **Generator role** — used by exhaustive search algorithms that enumerate
+    all valid candidates.  These algorithms call ``generate()`` and
+    ``count()`` to iterate over the full search space.
+
+    **Constraint-validator role** — used by stochastic algorithms (genetic
+    algorithm, random sampling) that construct candidates on their own.
+    These algorithms only call ``combination_is_valid()`` and read ``k``;
+    they never call ``generate()`` or ``count()``.
+
+    Both roles express the *same* constraint set: every combination yielded
+    by ``generate()`` must satisfy ``combination_is_valid()``, and every
+    combination that passes ``combination_is_valid()`` would be included in
+    the output of ``generate()``.  Implementations must maintain this
+    invariant.
 
     Attributes:
         k: Number of elements in each combination to generate.

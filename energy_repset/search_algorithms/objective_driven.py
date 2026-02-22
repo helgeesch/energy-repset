@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Dict, Optional
 from abc import ABC
 import pandas as pd
 
@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from ..context import ProblemContext
     from ..objectives import ObjectiveSet
     from ..selection_policies import SelectionPolicy
+    from ..types import SliceCombination
 
 
 class ObjectiveDrivenSearchAlgorithm(SearchAlgorithm, ABC):
@@ -47,6 +48,48 @@ class ObjectiveDrivenSearchAlgorithm(SearchAlgorithm, ABC):
         self.objective_set = objective_set
         self.selection_policy = selection_policy
 
+    def _build_result(
+        self,
+        context: ProblemContext,
+        winning_combination: SliceCombination,
+        evaluations_df: pd.DataFrame,
+        extra_diagnostics: Optional[Dict[str, Any]] = None,
+    ) -> RepSetResult:
+        """Construct a RepSetResult for an objective-driven search.
+
+        Shared by all generate-and-test algorithms to avoid repeating the
+        same result-assembly logic (representative extraction, score
+        evaluation, diagnostics packaging).
+
+        Args:
+            context: Problem context used during search.
+            winning_combination: The selected slice combination.
+            evaluations_df: DataFrame of all evaluated combinations and their
+                scores.
+            extra_diagnostics: Additional entries to include in the result's
+                diagnostics dict (e.g. ``generation_history`` for GA).
+
+        Returns:
+            Fully populated RepSetResult with ``weights=None`` (to be filled
+            by an external ``RepresentationModel``).
+        """
+        slice_labels = context.slicer.labels_for_index(context.df_raw.index)
+        diagnostics: Dict[str, Any] = {"evaluations_df": evaluations_df}
+        if extra_diagnostics:
+            diagnostics.update(extra_diagnostics)
+
+        return RepSetResult(
+            context=context,
+            selection_space="subset",
+            selection=winning_combination,
+            scores=self.objective_set.evaluate(winning_combination, context),
+            representatives={
+                s: context.df_raw.iloc[slice_labels == s]
+                for s in winning_combination
+            },
+            diagnostics=diagnostics,
+        )
+
 
 class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm):
     """Generate-and-test search using a combination generator (Workflow Type 1).
@@ -60,8 +103,9 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
     evaluations in diagnostics for analysis.
 
     Examples:
-        >>> from energy_repset.objectives import ObjectiveSet, ObjectiveSpec,
-        >>> from energy_repset.combi_gens import ExhaustiveCombiGen,
+
+        >>> from energy_repset.objectives import ObjectiveSet
+        >>> from energy_repset.combi_gens import ExhaustiveCombiGen
         >>> from energy_repset.selection_policies import WeightedSumPolicy
         >>> from energy_repset.score_components import WassersteinFidelity, CorrelationFidelity
         >>> objectives = ObjectiveSet({
@@ -75,9 +119,8 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
         ...     selection_policy=policy,
         ...     combination_generator=generator
         ... )
-        >>> result = algorithm.find_selection(context, k=4)
-        >>> print(result.selection)  # Best 4-month selection
-        >>> print(result.diagnostics['evaluations_df'])  # All scored combinations
+        >>> algorithm.k
+        4
     """
     def __init__(
             self,
@@ -96,6 +139,11 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
         super().__init__(objective_set, selection_policy)
         self.combination_generator = combination_generator
         self._all_scores_df: pd.DataFrame | None = None
+
+    @property
+    def k(self) -> int:
+        """Number of representative periods to select."""
+        return self.combination_generator.k
 
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Find optimal selection by exhaustively scoring generated combinations.
@@ -133,16 +181,7 @@ class ObjectiveDrivenCombinatorialSearchAlgorithm(ObjectiveDrivenSearchAlgorithm
         self._all_scores_df = evaluations_df.copy()
 
         winning_combination = self.selection_policy.select_best(evaluations_df, self.objective_set)
-        slice_labels = context.slicer.labels_for_index(context.df_raw.index)
-        result = RepSetResult(
-            context=context,
-            selection_space='subset',
-            selection=winning_combination,
-            scores=self.objective_set.evaluate(winning_combination, context),
-            representatives={s: context.df_raw.iloc[slice_labels == s] for s in winning_combination},
-            diagnostics={'evaluations_df': evaluations_df}
-        )
-        return result
+        return self._build_result(context, winning_combination, evaluations_df)
 
     def get_all_scores(self) -> pd.DataFrame:
         """Return DataFrame of all evaluated combinations with scores.
