@@ -1,5 +1,7 @@
 # A Unified Framework for Representative Subset Selection in Energy Time Series
 
+*Note: I developed this framework and prompted this document into existence with the help of my coworker Claude Code. The ideas come from me (the human); Claude helped me write them down better than I could ever have done alone.*
+
 ---
 
 ## Abstract
