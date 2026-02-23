@@ -76,8 +76,8 @@ class RepSetExperiment:
             ValueError: If run() or run_feature_engineer() has not been called yet.
         """
         if self._feature_context is None:
-            if self.raw_context._df_features is not None:
-                self._feature_context = self.raw_context.copy()
+            if self.raw_context.has_features:
+                self._feature_context = self.raw_context
             else:
                 raise ValueError('Please call run() or run_feature_engineer() first.')
         return self._feature_context
@@ -107,7 +107,7 @@ class RepSetExperiment:
         Returns:
             RepSetResult: The selected periods, weights, scores, and diagnostics.
         """
-        if (self._feature_context is None) and (self.raw_context._df_features is None):
+        if self._feature_context is None and not self.raw_context.has_features:
             self.run_feature_engineer()
 
         feature_context = self.feature_context
