@@ -80,6 +80,7 @@ nav:
     - "Ex4: Representation Models": examples/ex4_representation_models.ipynb
     - "Ex5: Multi-Objective": examples/ex5_multi_objective.ipynb
     - "Ex6: Constructive Algorithms": examples/ex6_constructive_algorithms.ipynb
+    - "Ex8: Genetic Algorithm": examples/ex8_genetic_algorithm.ipynb
   - API Reference:
     - api/index.md
     - Context & Slicing: api/context.md

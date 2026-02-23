@@ -40,6 +40,12 @@ Three constructive algorithms -- Hull Clustering, CTPC, and Snippet -- that buil
 
 ---
 
+## [Example 8: Genetic Algorithm Search](ex8_genetic_algorithm.ipynb)
+
+Scalable search with genetic algorithms and random sampling. Compares exhaustive, random, and GA-based selection using weighted-sum and NSGA-II fitness strategies.
+
+---
+
 ## Running the Notebooks
 
 ```bash
