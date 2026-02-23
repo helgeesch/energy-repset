@@ -3,7 +3,6 @@ import pytest
 
 from energy_repset.search_algorithms import CTPCSearch
 from energy_repset.feature_engineering import StandardStatsFeatureEngineer
-from energy_repset.representation import UniformRepresentationModel
 from energy_repset.workflow import Workflow
 from energy_repset.problem import RepSetExperiment
 from energy_repset.context import ProblemContext
@@ -93,7 +92,7 @@ class TestCTPCIntegration:
         workflow = Workflow(
             feature_engineer=StandardStatsFeatureEngineer(),
             search_algorithm=CTPCSearch(k=2),
-            representation_model=UniformRepresentationModel(),
+            representation_model=None,
         )
         experiment = RepSetExperiment(context, workflow)
         result = experiment.run()
@@ -109,7 +108,7 @@ class TestCTPCIntegration:
         workflow = Workflow(
             feature_engineer=StandardStatsFeatureEngineer(),
             search_algorithm=search,
-            representation_model=UniformRepresentationModel(),
+            representation_model=None,
         )
         experiment = RepSetExperiment(context, workflow)
         result = experiment.run()

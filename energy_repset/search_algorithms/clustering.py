@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from ..context import ProblemContext
 
 
-class ClusteringSearch(SearchAlgorithm):
+class KMedoidsSearch(SearchAlgorithm):
     """K-medoids clustering for representative subset selection.
 
     Wraps ``sklearn_extra.cluster.KMedoids`` to partition feature-space
@@ -37,8 +37,8 @@ class ClusteringSearch(SearchAlgorithm):
     Examples:
         Basic usage:
 
-        >>> from energy_repset.search_algorithms import ClusteringSearch
-        >>> search = ClusteringSearch(k=4, random_state=42)
+        >>> from energy_repset.search_algorithms import KMedoidsSearch
+        >>> search = KMedoidsSearch(k=4, random_state=42)
         >>> result = search.find_selection(feature_context)
         >>> result.selection  # Tuple of medoid labels
         >>> result.weights    # Dict mapping labels to cluster-size fractions
@@ -78,7 +78,8 @@ class ClusteringSearch(SearchAlgorithm):
 
         Returns:
             RepSetResult with medoid labels as the selection, pre-computed
-            cluster-size-proportional weights, and WCSS in ``scores``.
+            cluster-size-proportional weights, and WCSS (Within-Cluster Sum
+            of Squares) in ``scores``.
         """
         Z = context.df_features.values
         labels = list(context.df_features.index)

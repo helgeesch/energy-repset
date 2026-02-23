@@ -12,4 +12,4 @@
 
 ::: energy_repset.search_algorithms.SnippetSearch
 
-::: energy_repset.search_algorithms.ClusteringSearch
+::: energy_repset.search_algorithms.KMedoidsSearch

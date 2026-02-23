@@ -6,7 +6,7 @@ energy-repset provides four constructive algorithms, each grounded in a publishe
 
 | Algorithm | Idea | Selection Space | Weights | Reference |
 |-----------|------|-----------------|---------|-----------|
-| `ClusteringSearch` | K-medoids partitioning with medoid selection | Subset | Pre-computed (cluster fractions) | Kaufman & Rousseeuw (1990) |
+| `KMedoidsSearch` | K-medoids partitioning with medoid selection | Subset | Pre-computed (cluster fractions) | Kaufman & Rousseeuw (1990) |
 | `HullClusteringSearch` | Farthest-point greedy hull vertex selection | Subset | External (via `RepresentationModel`) | Neustroev et al. (2025) |
 | `CTPCSearch` | Contiguity-constrained hierarchical clustering | Chronological segments | Pre-computed (segment fractions) | Pineda & Morales (2018) |
 | `SnippetSearch` | Greedy p-median selection of multi-day subsequences | Subset (sliding windows) | Pre-computed (assignment fractions) | Anderson et al. (2024) |
@@ -14,10 +14,6 @@ energy-repset provides four constructive algorithms, each grounded in a publishe
 ---
 
 ## K-Medoids Clustering
-
-**Reference:** L. Kaufman, P. J. Rousseeuw.
-*Finding Groups in Data: An Introduction to Cluster Analysis.*
-Wiley, 1990.
 
 ### Idea
 
@@ -45,15 +41,15 @@ Unlike k-means, which produces synthetic centroids that may not correspond to an
 
 ### Usage
 
-K-medoids pre-computes weights, so the `RepresentationModel` in the workflow is skipped. Use `UniformRepresentationModel()` as a placeholder:
+K-medoids pre-computes weights, so no external `RepresentationModel` is needed:
 
 ```python
 import energy_repset as rep
 
 workflow = rep.Workflow(
     feature_engineer=rep.StandardStatsFeatureEngineer(),
-    search_algorithm=rep.ClusteringSearch(k=4, random_state=42),
-    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+    search_algorithm=rep.KMedoidsSearch(k=4, random_state=42),
+    representation_model=None,
 )
 ```
 
@@ -161,7 +157,7 @@ This is valuable when the downstream model needs to preserve temporal coupling a
 
 ### Usage
 
-CTPC pre-computes weights, so the `RepresentationModel` in the workflow is skipped. Use `UniformRepresentationModel()` as a placeholder:
+CTPC pre-computes weights, so no external `RepresentationModel` is needed:
 
 ```python
 import energy_repset as rep
@@ -169,7 +165,7 @@ import energy_repset as rep
 workflow = rep.Workflow(
     feature_engineer=rep.StandardStatsFeatureEngineer(),
     search_algorithm=rep.CTPCSearch(k=4, linkage='ward'),
-    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+    representation_model=None,
 )
 ```
 
@@ -233,7 +229,7 @@ context = rep.ProblemContext(df_raw=df_raw, slicer=slicer)
 workflow = rep.Workflow(
     feature_engineer=rep.DirectProfileFeatureEngineer(),
     search_algorithm=rep.SnippetSearch(k=4, period_length_days=7, step_days=1),
-    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+    representation_model=None
 )
 ```
 
