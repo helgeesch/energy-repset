@@ -58,8 +58,13 @@ class HullClusteringSearch(SearchAlgorithm):
             hull_type: Projection type. ``'convex'`` requires weights >= 0 and
                 sum(weights) == 1. ``'conic'`` requires only weights >= 0.
         """
-        self.k = k
+        self._k = k
         self.hull_type = hull_type
+
+    @property
+    def k(self) -> int:
+        """Number of hull vertices (representative periods) to select."""
+        return self._k
 
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Find k hull vertices via farthest-point greedy selection.

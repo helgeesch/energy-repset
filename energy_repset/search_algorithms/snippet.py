@@ -61,9 +61,14 @@ class SnippetSearch(SearchAlgorithm):
             period_length_days: Number of days in each candidate subsequence.
             step_days: Stride between consecutive candidate start positions.
         """
-        self.k = k
+        self._k = k
         self.period_length_days = period_length_days
         self.step_days = step_days
+
+    @property
+    def k(self) -> int:
+        """Number of representative subsequences to select."""
+        return self._k
 
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Find k representative subsequences via greedy p-median selection.

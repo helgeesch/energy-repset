@@ -7,7 +7,6 @@ import numpy as np
 import pandas as pd
 
 from .objective_driven import ObjectiveDrivenSearchAlgorithm
-from ..results import RepSetResult
 
 if TYPE_CHECKING:
     from ..combi_gens import CombinationGenerator
@@ -64,6 +63,11 @@ class RandomSamplingSearch(ObjectiveDrivenSearchAlgorithm):
         self.n_samples = n_samples
         self.seed = seed
 
+    @property
+    def k(self) -> int:
+        """Number of representative periods to select."""
+        return self.combination_generator.k
+
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Find a selection by evaluating random valid combinations.
 
@@ -98,17 +102,7 @@ class RandomSamplingSearch(ObjectiveDrivenSearchAlgorithm):
             evaluations_df, self.objective_set
         )
 
-        slice_labels = context.slicer.labels_for_index(context.df_raw.index)
-        return RepSetResult(
-            context=context,
-            selection_space="subset",
-            selection=winning_combination,
-            scores=self.objective_set.evaluate(winning_combination, context),
-            representatives={
-                s: context.df_raw.iloc[slice_labels == s] for s in winning_combination
-            },
-            diagnostics={"evaluations_df": evaluations_df},
-        )
+        return self._build_result(context, winning_combination, evaluations_df)
 
     def _generate_valid_samples(
         self,
