@@ -8,7 +8,6 @@ import pandas as pd
 
 from .objective_driven import ObjectiveDrivenSearchAlgorithm
 from .fitness import FitnessStrategy, WeightedSumFitness
-from ..results import RepSetResult
 
 if TYPE_CHECKING:
     from ..combi_gens import CombinationGenerator
@@ -87,6 +86,11 @@ class GeneticAlgorithmSearch(ObjectiveDrivenSearchAlgorithm):
         self.tournament_size = tournament_size
         self.seed = seed
 
+    @property
+    def k(self) -> int:
+        """Number of representative periods to select."""
+        return self.combination_generator.k
+
     def find_selection(self, context: ProblemContext) -> RepSetResult:
         """Evolve a population to find the best selection.
 
@@ -128,17 +132,11 @@ class GeneticAlgorithmSearch(ObjectiveDrivenSearchAlgorithm):
             final_evaluations_df, self.objective_set
         )
 
-        slice_labels = context.slicer.labels_for_index(context.df_raw.index)
-        return RepSetResult(
-            context=context,
-            selection_space="subset",
-            selection=winning_combination,
-            scores=self.objective_set.evaluate(winning_combination, context),
-            representatives={
-                s: context.df_raw.iloc[slice_labels == s] for s in winning_combination
-            },
-            diagnostics={
-                "evaluations_df": final_evaluations_df,
+        return self._build_result(
+            context,
+            winning_combination,
+            final_evaluations_df,
+            extra_diagnostics={
                 "generation_history": pd.DataFrame(generation_history),
             },
         )
