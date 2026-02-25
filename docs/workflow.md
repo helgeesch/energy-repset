@@ -51,7 +51,7 @@ This approach builds a solution directly and iteratively, rather than testing pr
 | Protocol | `SearchAlgorithm` (structural typing) | `energy_repset.search_algorithms` |
 | Evaluation | `ObjectiveSet` (post-hoc only) | `energy_repset.objectives` |
 
-**Examples:** [Ex6: Constructive Algorithms](examples/ex6_constructive_algorithms.ipynb)
+**Examples:** [Ex6: K-Medoids Clustering](examples/ex6_clustering.ipynb) and [Ex7: Constructive Algorithms](examples/ex7_constructive_algorithms.ipynb)
 
 For algorithm details, see [Constructive Algorithms](constructive_algorithms.md).
 

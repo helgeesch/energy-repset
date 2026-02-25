@@ -62,7 +62,7 @@ Key parameters:
 | `method` | `'alternate'` (fast, default) or `'pam'` (exact, slower) |
 | `init` | Initialization strategy (default `'k-medoids++'`) |
 
-For a hands-on demo, see [Example 7: K-Medoids Clustering](examples/ex7_clustering.ipynb).
+For a hands-on demo, see [Example 7: K-Medoids Clustering](examples/ex6_clustering.ipynb).
 
 ---
 
@@ -261,4 +261,4 @@ Each constructive algorithm makes different trade-offs:
 | **Computational cost** | $O(k \cdot N \cdot I)$ iterations | $O(k \cdot N)$ QP solves | $O(N^2)$ agglomerative clustering | $O(k \cdot N \cdot C)$ distance evaluations |
 | **Key strength** | Simple, fast, well-understood | Geometric coverage of feature space | Preserves temporal coupling | Day-level matching within multi-day blocks |
 
-For hands-on comparisons, see [Example 6: Constructive Algorithms](examples/ex6_constructive_algorithms.ipynb) and [Example 7: K-Medoids Clustering](examples/ex7_clustering.ipynb).
+For hands-on comparisons, see [Example 6: K-Medoids Clustering](examples/ex6_clustering.ipynb) and [Example 7: Constructive Algorithms](examples/ex7_constructive_algorithms.ipynb).
