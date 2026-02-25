@@ -776,14 +776,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/ex6_constructive_algorithms/" class="md-nav__link">
+      <a href="../../examples/ex6_clustering/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Example 6: Constructive Algorithms
+    Example 6: K-Medoids Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/ex7_constructive_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example 7: Constructive Algorithms
   
 
     
@@ -1521,8 +1549,8 @@
 
         <p>A serializable object that defines a complete selection problem.</p>
 <p>This dataclass encapsulates all components needed to execute a representative
-subset selection workflow: feature engineering, search algorithm, representation
-model, and the target number of periods to select.</p>
+subset selection workflow: feature engineering, search algorithm, and
+optionally a representation model.</p>
 
 
 <p><span class="doc-section-title">Attributes:</span></p>
@@ -1560,19 +1588,21 @@ model, and the target number of periods to select.</p>
           <tr class="doc-section-item">
             <td><code><span title="energy_repset.workflow.Workflow.representation_model">representation_model</span></code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="            RepresentationModel (energy_repset.representation.RepresentationModel)" href="../representation/#energy_repset.representation.RepresentationModel">RepresentationModel</a></code>
+                  <code><a class="autorefs autorefs-internal" title="            RepresentationModel (energy_repset.representation.RepresentationModel)" href="../representation/#energy_repset.representation.RepresentationModel">RepresentationModel</a> | None</code>
             </td>
             <td>
               <div class="doc-md-description">
                 <p>Model that calculates responsibility weights for
-selected periods.</p>
+selected periods. <code>None</code> when the search algorithm pre-computes
+its own weights (e.g. constructive algorithms like
+<code>KMedoidsSearch</code>).</p>
               </div>
             </td>
           </tr>
           <tr class="doc-section-item">
             <td><code><span title="energy_repset.workflow.Workflow.k">k</span></code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="            RepresentationModel (energy_repset.representation.RepresentationModel)" href="../representation/#energy_repset.representation.RepresentationModel">RepresentationModel</a></code>
+                  <code><a class="autorefs autorefs-internal" title="            RepresentationModel (energy_repset.representation.RepresentationModel)" href="../representation/#energy_repset.representation.RepresentationModel">RepresentationModel</a> | None</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1694,19 +1724,23 @@ selected periods.</p>
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Workflow</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A serializable object that defines a complete selection problem.</span>
 
 <span class="sd">    This dataclass encapsulates all components needed to execute a representative</span>
-<span class="sd">    subset selection workflow: feature engineering, search algorithm, representation</span>
-<span class="sd">    model, and the target number of periods to select.</span>
+<span class="sd">    subset selection workflow: feature engineering, search algorithm, and</span>
+<span class="sd">    optionally a representation model.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        feature_engineer: Component that transforms raw time-series into features.</span>
 <span class="sd">        search_algorithm: Algorithm that finds the optimal subset of k periods.</span>
 <span class="sd">        representation_model: Model that calculates responsibility weights for</span>
-<span class="sd">            selected periods.</span>
+<span class="sd">            selected periods. ``None`` when the search algorithm pre-computes</span>
+<span class="sd">            its own weights (e.g. constructive algorithms like</span>
+<span class="sd">            ``KMedoidsSearch``).</span>
 <span class="sd">        k: Number of representative periods to select.</span>
 
 <span class="sd">    Examples:</span>
@@ -1740,7 +1774,7 @@ selected periods.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">feature_engineer</span><span class="p">:</span> <span class="n">FeatureEngineer</span>
     <span class="n">search_algorithm</span><span class="p">:</span> <span class="n">SearchAlgorithm</span>
-    <span class="n">representation_model</span><span class="p">:</span> <span class="n">RepresentationModel</span>
+    <span class="n">representation_model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RepresentationModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save workflow configuration to file.</span>
@@ -1855,16 +1889,16 @@ selected periods.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>energy_repset/workflow.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Save workflow configuration to file.</span>
 
 <span class="sd">    Args:</span>
@@ -1979,9 +2013,7 @@ selected periods.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>energy_repset/workflow.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">74</span>
 <span class="normal">75</span>
 <span class="normal">76</span>
 <span class="normal">77</span>
@@ -1992,7 +2024,9 @@ selected periods.</p>
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Workflow&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load workflow configuration from file.</span>
 
@@ -2242,7 +2276,19 @@ weight calculation while maintaining references to intermediate states.</p>
 <span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
-<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RepSetExperiment</span><span class="p">:</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RepSetExperiment</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Orchestrate a complete and self-contained representative subset experiment.</span>
 
 <span class="sd">    This class manages the execution of a full workflow from raw data to final</span>
@@ -2350,8 +2396,20 @@ weight calculation while maintaining references to intermediate states.</p>
 
         <span class="n">result</span> <span class="o">=</span> <span class="n">search_algorithm</span><span class="o">.</span><span class="n">find_selection</span><span class="p">(</span><span class="n">feature_context</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">representation_model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Search algorithm returned weights=None but no &quot;</span>
+                    <span class="s2">&quot;RepresentationModel was provided in the Workflow.&quot;</span>
+                <span class="p">)</span>
             <span class="n">representation_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">feature_context</span><span class="p">)</span>
             <span class="n">result</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">representation_model</span><span class="o">.</span><span class="n">weigh</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">representation_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Search algorithms already set weights, but you still have a RepresentationModel defined. </span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;Make sure that either your SearchAlgorithm sets the weights OR you have a &quot;</span>
+                <span class="s2">&quot;RepresentationModel for post-hoc weighting. </span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;You cannot have both.&quot;</span>
+            <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
@@ -2699,7 +2757,19 @@ weight calculation while maintaining references to intermediate states.</p>
 <span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
-<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepSetResult</span><span class="p">:</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepSetResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the entire workflow from feature engineering to final result.</span>
 
 <span class="sd">    This method orchestrates the complete selection process:</span>
@@ -2722,8 +2792,20 @@ weight calculation while maintaining references to intermediate states.</p>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">search_algorithm</span><span class="o">.</span><span class="n">find_selection</span><span class="p">(</span><span class="n">feature_context</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">representation_model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Search algorithm returned weights=None but no &quot;</span>
+                <span class="s2">&quot;RepresentationModel was provided in the Workflow.&quot;</span>
+            <span class="p">)</span>
         <span class="n">representation_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">feature_context</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">representation_model</span><span class="o">.</span><span class="n">weigh</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">representation_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Search algorithms already set weights, but you still have a RepresentationModel defined. </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Make sure that either your SearchAlgorithm sets the weights OR you have a &quot;</span>
+            <span class="s2">&quot;RepresentationModel for post-hoc weighting. </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;You cannot have both.&quot;</span>
+        <span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>

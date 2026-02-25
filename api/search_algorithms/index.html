@@ -776,14 +776,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/ex6_constructive_algorithms/" class="md-nav__link">
+      <a href="../../examples/ex6_clustering/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Example 6: Constructive Algorithms
+    Example 6: K-Medoids Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/ex7_constructive_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example 7: Constructive Algorithms
   
 
     
@@ -1353,6 +1381,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#energy_repset.search_algorithms.KMedoidsSearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KMedoidsSearch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KMedoidsSearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.search_algorithms.KMedoidsSearch.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.search_algorithms.KMedoidsSearch.find_selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        find_selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1687,6 +1754,45 @@
         
           <li class="md-nav__item">
   <a href="#energy_repset.search_algorithms.SnippetSearch.find_selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        find_selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#energy_repset.search_algorithms.KMedoidsSearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KMedoidsSearch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KMedoidsSearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.search_algorithms.KMedoidsSearch.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy_repset.search_algorithms.KMedoidsSearch.find_selection" class="md-nav__link">
     <span class="md-ellipsis">
       
         find_selection
@@ -5553,6 +5659,896 @@ from <code>df_raw</code> directly.</p>
                 <span class="n">day_labels</span><span class="p">[</span><span class="n">candidates</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">selected_candidates</span>
             <span class="p">],</span>
         <span class="p">},</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="energy_repset.search_algorithms.KMedoidsSearch" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">KMedoidsSearch</span>
+
+
+<a href="#energy_repset.search_algorithms.KMedoidsSearch" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            SearchAlgorithm (energy_repset.search_algorithms.search_algorithm.SearchAlgorithm)" href="#energy_repset.search_algorithms.SearchAlgorithm">SearchAlgorithm</a></code></p>
+
+
+
+        <p>K-medoids clustering for representative subset selection.</p>
+<p>Wraps <code>sklearn_extra.cluster.KMedoids</code> to partition feature-space
+slices into k clusters and select the medoid of each cluster as a
+representative period. Weights are computed as the fraction of slices
+assigned to each cluster.</p>
+<p>This is a constructive (Workflow Type 2) algorithm: it has its own
+internal objective and does not require an external <code>ObjectiveSet</code>.
+The <code>RepresentationModel</code> is skipped by <code>RepSetExperiment.run()</code>
+because weights are pre-computed.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of clusters / representative periods.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>metric</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Distance metric for k-medoids (default <code>'euclidean'</code>).</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;euclidean&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>K-medoids algorithm variant. <code>'alternate'</code> (default) or
+<code>'pam'</code> (Partitioning Around Medoids, slower but optimal).</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;alternate&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>init</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Initialization method (default <code>'k-medoids++'</code>).</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;k-medoids++&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>random_state</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Seed for reproducibility.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>max_iter</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum number of iterations.</p>
+              </div>
+            </td>
+            <td>
+                  <code>300</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Basic usage:</p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">energy_repset.search_algorithms</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMedoidsSearch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">search</span> <span class="o">=</span> <span class="n">KMedoidsSearch</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">find_selection</span><span class="p">(</span><span class="n">feature_context</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">selection</span>  <span class="c1"># Tuple of medoid labels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">weights</span>    <span class="c1"># Dict mapping labels to cluster-size fractions</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>energy_repset/search_algorithms/clustering.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">KMedoidsSearch</span><span class="p">(</span><span class="n">SearchAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;K-medoids clustering for representative subset selection.</span>
+
+<span class="sd">    Wraps ``sklearn_extra.cluster.KMedoids`` to partition feature-space</span>
+<span class="sd">    slices into k clusters and select the medoid of each cluster as a</span>
+<span class="sd">    representative period. Weights are computed as the fraction of slices</span>
+<span class="sd">    assigned to each cluster.</span>
+
+<span class="sd">    This is a constructive (Workflow Type 2) algorithm: it has its own</span>
+<span class="sd">    internal objective and does not require an external ``ObjectiveSet``.</span>
+<span class="sd">    The ``RepresentationModel`` is skipped by ``RepSetExperiment.run()``</span>
+<span class="sd">    because weights are pre-computed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        k: Number of clusters / representative periods.</span>
+<span class="sd">        metric: Distance metric for k-medoids (default ``&#39;euclidean&#39;``).</span>
+<span class="sd">        method: K-medoids algorithm variant. ``&#39;alternate&#39;`` (default) or</span>
+<span class="sd">            ``&#39;pam&#39;`` (Partitioning Around Medoids, slower but optimal).</span>
+<span class="sd">        init: Initialization method (default ``&#39;k-medoids++&#39;``).</span>
+<span class="sd">        random_state: Seed for reproducibility.</span>
+<span class="sd">        max_iter: Maximum number of iterations.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        Basic usage:</span>
+
+<span class="sd">        &gt;&gt;&gt; from energy_repset.search_algorithms import KMedoidsSearch</span>
+<span class="sd">        &gt;&gt;&gt; search = KMedoidsSearch(k=4, random_state=42)</span>
+<span class="sd">        &gt;&gt;&gt; result = search.find_selection(feature_context)</span>
+<span class="sd">        &gt;&gt;&gt; result.selection  # Tuple of medoid labels</span>
+<span class="sd">        &gt;&gt;&gt; result.weights    # Dict mapping labels to cluster-size fractions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;euclidean&#39;</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;alternate&#39;</span><span class="p">,</span>
+        <span class="n">init</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;k-medoids++&#39;</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize k-medoids clustering search.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            k: Number of clusters to produce.</span>
+<span class="sd">            metric: Distance metric passed to ``KMedoids``.</span>
+<span class="sd">            method: Algorithm variant (``&#39;alternate&#39;`` or ``&#39;pam&#39;``).</span>
+<span class="sd">            init: Medoid initialization strategy.</span>
+<span class="sd">            random_state: Random seed for reproducibility.</span>
+<span class="sd">            max_iter: Maximum iterations for convergence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">init</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepSetResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run k-medoids clustering on the feature space.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: Problem context with ``df_features`` populated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            RepSetResult with medoid labels as the selection, pre-computed</span>
+<span class="sd">            cluster-size-proportional weights, and WCSS (Within-Cluster Sum</span>
+<span class="sd">            of Squares) in ``scores``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">KMedoids</span><span class="p">(</span>
+            <span class="n">n_clusters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
+            <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">init</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+        <span class="n">selection</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">wcss</span><span class="p">,</span> <span class="n">diagnostics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_results</span><span class="p">(</span>
+            <span class="n">Z</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">medoid_indices_</span>
+        <span class="p">)</span>
+        <span class="n">diagnostics</span><span class="p">[</span><span class="s1">&#39;inertia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+        <span class="n">diagnostics</span><span class="p">[</span><span class="s1">&#39;n_iter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">n_iter_</span><span class="p">)</span>
+
+        <span class="n">slice_labels</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">labels_for_index</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">representatives</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">s</span><span class="p">:</span> <span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">slice_labels</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">selection</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">RepSetResult</span><span class="p">(</span>
+            <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+            <span class="n">selection_space</span><span class="o">=</span><span class="s1">&#39;subset&#39;</span><span class="p">,</span>
+            <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span>
+            <span class="n">scores</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;wcss&#39;</span><span class="p">:</span> <span class="n">wcss</span><span class="p">},</span>
+            <span class="n">representatives</span><span class="o">=</span><span class="n">representatives</span><span class="p">,</span>
+            <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+            <span class="n">diagnostics</span><span class="o">=</span><span class="n">diagnostics</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_results</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">Z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">cluster_labels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">medoid_indices</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract selection, weights, WCSS, and diagnostics from clustering.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            Z: Feature matrix (N x p).</span>
+<span class="sd">            labels: Slice labels aligned with rows of Z.</span>
+<span class="sd">            cluster_labels: Cluster assignment for each slice (length N).</span>
+<span class="sd">            medoid_indices: Row indices of medoids in Z.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple of (selection, weights, wcss, diagnostics).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unique_clusters</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">))</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="n">wcss</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="n">selected_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">weight_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">cluster_info</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">unique_clusters</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">c</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">cluster_Z</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+            <span class="n">centroid</span> <span class="o">=</span> <span class="n">cluster_Z</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">cluster_wcss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">cluster_Z</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">wcss</span> <span class="o">+=</span> <span class="n">cluster_wcss</span>
+
+            <span class="n">medoid_idx</span> <span class="o">=</span> <span class="n">medoid_indices</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+            <span class="n">rep_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">medoid_idx</span><span class="p">]</span>
+
+            <span class="n">fraction</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+            <span class="n">selected_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rep_label</span><span class="p">)</span>
+            <span class="n">weight_dict</span><span class="p">[</span><span class="n">rep_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">fraction</span>
+
+            <span class="n">member_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+            <span class="n">cluster_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+                <span class="s1">&#39;medoid&#39;</span><span class="p">:</span> <span class="n">rep_label</span><span class="p">,</span>
+                <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">),</span>
+                <span class="s1">&#39;members&#39;</span><span class="p">:</span> <span class="n">member_labels</span><span class="p">,</span>
+            <span class="p">})</span>
+
+        <span class="n">selection</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">selected_labels</span><span class="p">)</span>
+        <span class="n">diagnostics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cluster_labels&#39;</span><span class="p">:</span> <span class="n">cluster_labels</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s1">&#39;cluster_info&#39;</span><span class="p">:</span> <span class="n">cluster_info</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">selection</span><span class="p">,</span> <span class="n">weight_dict</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">wcss</span><span class="p">),</span> <span class="n">diagnostics</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.search_algorithms.KMedoidsSearch.__init__" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+<a href="#energy_repset.search_algorithms.KMedoidsSearch.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__init__</span><span class="p">(</span><span class="n">k</span><span class="p">:</span> <span class="n"><span title="int">int</span></span><span class="p">,</span> <span class="n">metric</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;alternate&#39;</span><span class="p">,</span> <span class="n">init</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;k-medoids++&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">300</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize k-medoids clustering search.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>k</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of clusters to produce.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>metric</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Distance metric passed to <code>KMedoids</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;euclidean&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Algorithm variant (<code>'alternate'</code> or <code>'pam'</code>).</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;alternate&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>init</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Medoid initialization strategy.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;k-medoids++&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>random_state</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Random seed for reproducibility.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>max_iter</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum iterations for convergence.</p>
+              </div>
+            </td>
+            <td>
+                  <code>300</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/search_algorithms/clustering.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;euclidean&#39;</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;alternate&#39;</span><span class="p">,</span>
+    <span class="n">init</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;k-medoids++&#39;</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize k-medoids clustering search.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        k: Number of clusters to produce.</span>
+<span class="sd">        metric: Distance metric passed to ``KMedoids``.</span>
+<span class="sd">        method: Algorithm variant (``&#39;alternate&#39;`` or ``&#39;pam&#39;``).</span>
+<span class="sd">        init: Medoid initialization strategy.</span>
+<span class="sd">        random_state: Random seed for reproducibility.</span>
+<span class="sd">        max_iter: Maximum iterations for convergence.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">init</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="energy_repset.search_algorithms.KMedoidsSearch.find_selection" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">find_selection</span>
+
+
+<a href="#energy_repset.search_algorithms.KMedoidsSearch.find_selection" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">find_selection</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            ProblemContext (energy_repset.context.ProblemContext)" href="../context/#energy_repset.context.ProblemContext">ProblemContext</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            RepSetResult
+
+
+  
+      dataclass
+   (energy_repset.results.RepSetResult)" href="../workflow/#energy_repset.results.RepSetResult">RepSetResult</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Run k-medoids clustering on the feature space.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>context</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ProblemContext (energy_repset.context.ProblemContext)" href="../context/#energy_repset.context.ProblemContext">ProblemContext</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Problem context with <code>df_features</code> populated.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            RepSetResult
+
+
+  
+      dataclass
+   (energy_repset.results.RepSetResult)" href="../workflow/#energy_repset.results.RepSetResult">RepSetResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>RepSetResult with medoid labels as the selection, pre-computed</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            RepSetResult
+
+
+  
+      dataclass
+   (energy_repset.results.RepSetResult)" href="../workflow/#energy_repset.results.RepSetResult">RepSetResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>cluster-size-proportional weights, and WCSS (Within-Cluster Sum</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            RepSetResult
+
+
+  
+      dataclass
+   (energy_repset.results.RepSetResult)" href="../workflow/#energy_repset.results.RepSetResult">RepSetResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>of Squares) in <code>scores</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>energy_repset/search_algorithms/clustering.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">find_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ProblemContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepSetResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run k-medoids clustering on the feature space.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        context: Problem context with ``df_features`` populated.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        RepSetResult with medoid labels as the selection, pre-computed</span>
+<span class="sd">        cluster-size-proportional weights, and WCSS (Within-Cluster Sum</span>
+<span class="sd">        of Squares) in ``scores``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">df_features</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">KMedoids</span><span class="p">(</span>
+        <span class="n">n_clusters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
+        <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+        <span class="n">init</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+    <span class="n">selection</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">wcss</span><span class="p">,</span> <span class="n">diagnostics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_results</span><span class="p">(</span>
+        <span class="n">Z</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">medoid_indices_</span>
+    <span class="p">)</span>
+    <span class="n">diagnostics</span><span class="p">[</span><span class="s1">&#39;inertia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+    <span class="n">diagnostics</span><span class="p">[</span><span class="s1">&#39;n_iter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">n_iter_</span><span class="p">)</span>
+
+    <span class="n">slice_labels</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">slicer</span><span class="o">.</span><span class="n">labels_for_index</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">representatives</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">s</span><span class="p">:</span> <span class="n">context</span><span class="o">.</span><span class="n">df_raw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">slice_labels</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">selection</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">RepSetResult</span><span class="p">(</span>
+        <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+        <span class="n">selection_space</span><span class="o">=</span><span class="s1">&#39;subset&#39;</span><span class="p">,</span>
+        <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span>
+        <span class="n">scores</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;wcss&#39;</span><span class="p">:</span> <span class="n">wcss</span><span class="p">},</span>
+        <span class="n">representatives</span><span class="o">=</span><span class="n">representatives</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+        <span class="n">diagnostics</span><span class="o">=</span><span class="n">diagnostics</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>

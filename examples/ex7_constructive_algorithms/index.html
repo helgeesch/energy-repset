@@ -10,10 +10,10 @@
       
       
       
-        <link rel="canonical" href="https://energy-repset-docs.mesqual.io/examples/ex6_constructive_algorithms/">
+        <link rel="canonical" href="https://energy-repset-docs.mesqual.io/examples/ex7_constructive_algorithms/">
       
       
-        <link rel="prev" href="../ex5_multi_objective/">
+        <link rel="prev" href="../ex6_clustering/">
       
       
         <link rel="next" href="../../api/">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Example 6: Constructive Algorithms - energy-repset</title>
+        <title>Example 7: Constructive Algorithms - energy-repset</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#example-6-constructive-algorithms" class="md-skip">
+        <a href="#example-7-constructive-algorithms" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Example 6: Constructive Algorithms
+              Example 7: Constructive Algorithms
             
           </span>
         </div>
@@ -778,6 +778,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../ex6_clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example 6: K-Medoids Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -797,7 +825,7 @@
   <span class="md-ellipsis">
     
   
-    Example 6: Constructive Algorithms
+    Example 7: Constructive Algorithms
   
 
     
@@ -815,7 +843,7 @@
   <span class="md-ellipsis">
     
   
-    Example 6: Constructive Algorithms
+    Example 7: Constructive Algorithms
   
 
     
@@ -2090,7 +2118,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="example-6-constructive-algorithms">Example 6: Constructive Algorithms<a class="anchor-link" href="#example-6-constructive-algorithms">¶</a></h1><p>Examples 1--5 all use the <strong>Generate-and-Test</strong> workflow: enumerate candidates, score each one, pick the best. Constructive algorithms work differently — they <strong>build</strong> solutions iteratively using their own internal objectives.</p>
+<h1 id="example-7-constructive-algorithms">Example 7: Constructive Algorithms<a class="anchor-link" href="#example-7-constructive-algorithms">¶</a></h1><p>Examples 1--5 all use the <strong>Generate-and-Test</strong> workflow: enumerate candidates, score each one, pick the best. Constructive algorithms work differently — they <strong>build</strong> solutions iteratively using their own internal objectives.</p>
 <p>This notebook demonstrates three constructive algorithms:</p>
 <table>
 <thead>
@@ -2443,13 +2471,13 @@ fig.show()</div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
 <clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
@@ -2465,7 +2493,6 @@ fig.show()</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="n">workflow_ctpc</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
     <span class="n">feature_engineer</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">StandardStatsFeatureEngineer</span><span class="p">(),</span>
     <span class="n">search_algorithm</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">CTPCSearch</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linkage</span><span class="o">=</span><span class="s1">'ward'</span><span class="p">),</span>
-    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">UniformRepresentationModel</span><span class="p">(),</span>
 <span class="p">)</span>
 <span class="n">experiment_ctpc</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context_monthly</span><span class="p">,</span> <span class="n">workflow_ctpc</span><span class="p">)</span>
 <span class="n">result_ctpc</span> <span class="o">=</span> <span class="n">experiment_ctpc</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -2477,7 +2504,6 @@ fig.show()</div>
 <div class="clipboard-copy-txt" id="cell-7">workflow_ctpc = rep.Workflow(
     feature_engineer=rep.StandardStatsFeatureEngineer(),
     search_algorithm=rep.CTPCSearch(k=4, linkage='ward'),
-    representation_model=rep.UniformRepresentationModel(),
 )
 experiment_ctpc = rep.RepSetExperiment(context_monthly, workflow_ctpc)
 result_ctpc = experiment_ctpc.run()
@@ -2485,21 +2511,6 @@ result_ctpc = experiment_ctpc.run()
 print(f"Selection: {result_ctpc.selection}")
 print(f"WCSS:      {result_ctpc.scores['wcss']:.4f}")
 print(f"Weights:   { {str(k): round(v, 3) for k, v in result_ctpc.weights.items()} }")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Selection: (Period('2015-03', 'M'), Period('2015-11', 'M'), Period('2015-06', 'M'), Period('2015-09', 'M'))
-WCSS:      121.7921
-Weights:   {'2015-03': 0.25, '2015-11': 0.167, '2015-06': 0.417, '2015-09': 0.167}
-</pre>
 </div>
 </div>
 </div>
@@ -2718,13 +2729,13 @@ fig.show()</div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
 <clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-12">
@@ -2742,7 +2753,6 @@ fig.show()</div>
 <span class="n">workflow_snippet</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
     <span class="n">feature_engineer</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">DirectProfileFeatureEngineer</span><span class="p">(),</span>
     <span class="n">search_algorithm</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">SnippetSearch</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">period_length_days</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">step_days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
-    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">UniformRepresentationModel</span><span class="p">(),</span>
 <span class="p">)</span>
 <span class="n">experiment_snippet</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context_daily</span><span class="p">,</span> <span class="n">workflow_snippet</span><span class="p">)</span>
 <span class="n">result_snippet</span> <span class="o">=</span> <span class="n">experiment_snippet</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -2756,7 +2766,6 @@ fig.show()</div>
 workflow_snippet = rep.Workflow(
     feature_engineer=rep.DirectProfileFeatureEngineer(),
     search_algorithm=rep.SnippetSearch(k=4, period_length_days=7, step_days=7),
-    representation_model=rep.UniformRepresentationModel(),
 )
 experiment_snippet = rep.RepSetExperiment(context_daily, workflow_snippet)
 result_snippet = experiment_snippet.run()
@@ -2764,21 +2773,6 @@ result_snippet = experiment_snippet.run()
 print(f"Selection (start days): {result_snippet.selection}")
 print(f"Total distance:         {result_snippet.scores['total_distance']:.4f}")
 print(f"Weights:                { {str(k): round(v, 3) for k, v in result_snippet.weights.items()} }")</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Selection (start days): (Period('2015-01-01', 'D'), Period('2015-08-27', 'D'), Period('2015-01-29', 'D'), Period('2015-05-14', 'D'))
-Total distance:         21833.6298
-Weights:                {'2015-01-01': 0.101, '2015-08-27': 0.332, '2015-01-29': 0.312, '2015-05-14': 0.255}
-</pre>
 </div>
 </div>
 </div>

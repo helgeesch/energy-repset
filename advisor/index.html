@@ -1099,14 +1099,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/ex6_constructive_algorithms/" class="md-nav__link">
+      <a href="../examples/ex6_clustering/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Example 6: Constructive Algorithms
+    Example 6: K-Medoids Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/ex7_constructive_algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example 7: Constructive Algorithms
   
 
     
@@ -2277,7 +2305,7 @@
 <span class="n">workflow</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
     <span class="n">feature_engineer</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">StandardStatsFeatureEngineer</span><span class="p">(),</span>
     <span class="n">search_algorithm</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">CTPCSearch</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">linkage</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">),</span>
-    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">UniformRepresentationModel</span><span class="p">(),</span>  <span class="c1"># placeholder, skipped</span>
+    <span class="n">representation_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">workflow</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="c1"># result.weights are pre-computed segment fractions</span>
@@ -2289,7 +2317,7 @@
 <span class="n">workflow</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span>
     <span class="n">feature_engineer</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">DirectProfileFeatureEngineer</span><span class="p">(),</span>
     <span class="n">search_algorithm</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">SnippetSearch</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">period_length_days</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">step_days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
-    <span class="n">representation_model</span><span class="o">=</span><span class="n">rep</span><span class="o">.</span><span class="n">UniformRepresentationModel</span><span class="p">(),</span>  <span class="c1"># placeholder, skipped</span>
+    <span class="n">representation_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="n">RepSetExperiment</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">workflow</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="c1"># result.weights are pre-computed assignment fractions</span>
