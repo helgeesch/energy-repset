@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-from dataclasses import dataclass
+from typing import TYPE_CHECKING, Optional
+from dataclasses import dataclass, field
 from pathlib import Path
 
 if TYPE_CHECKING:
@@ -15,14 +15,16 @@ class Workflow:
     """A serializable object that defines a complete selection problem.
 
     This dataclass encapsulates all components needed to execute a representative
-    subset selection workflow: feature engineering, search algorithm, representation
-    model, and the target number of periods to select.
+    subset selection workflow: feature engineering, search algorithm, and
+    optionally a representation model.
 
     Attributes:
         feature_engineer: Component that transforms raw time-series into features.
         search_algorithm: Algorithm that finds the optimal subset of k periods.
         representation_model: Model that calculates responsibility weights for
-            selected periods.
+            selected periods. ``None`` when the search algorithm pre-computes
+            its own weights (e.g. constructive algorithms like
+            ``KMedoidsSearch``).
         k: Number of representative periods to select.
 
     Examples:
@@ -56,7 +58,7 @@ class Workflow:
     """
     feature_engineer: FeatureEngineer
     search_algorithm: SearchAlgorithm
-    representation_model: RepresentationModel
+    representation_model: Optional[RepresentationModel] = None
 
     def save(self, filepath: str | Path):
         """Save workflow configuration to file.

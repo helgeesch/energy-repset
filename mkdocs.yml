@@ -79,7 +79,8 @@ nav:
     - "Ex3: Hierarchical Selection": examples/ex3_hierarchical_selection.ipynb
     - "Ex4: Representation Models": examples/ex4_representation_models.ipynb
     - "Ex5: Multi-Objective": examples/ex5_multi_objective.ipynb
-    - "Ex6: Constructive Algorithms": examples/ex6_constructive_algorithms.ipynb
+    - "Ex6: K-Medoids Clustering": examples/ex6_clustering.ipynb
+    - "Ex7: Constructive Algorithms": examples/ex7_constructive_algorithms.ipynb
   - API Reference:
     - api/index.md
     - Context & Slicing: api/context.md

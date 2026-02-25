@@ -255,7 +255,7 @@ context = rep.ProblemContext(df_raw=df_raw, slicer=rep.TimeSlicer(unit="month"))
 workflow = rep.Workflow(
     feature_engineer=rep.StandardStatsFeatureEngineer(),
     search_algorithm=rep.CTPCSearch(k=4, linkage='ward'),
-    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+    representation_model=None,
 )
 result = rep.RepSetExperiment(context, workflow).run()
 # result.weights are pre-computed segment fractions
@@ -270,7 +270,7 @@ context = rep.ProblemContext(df_raw=df_raw, slicer=rep.TimeSlicer(unit="day"))
 workflow = rep.Workflow(
     feature_engineer=rep.DirectProfileFeatureEngineer(),
     search_algorithm=rep.SnippetSearch(k=4, period_length_days=7, step_days=7),
-    representation_model=rep.UniformRepresentationModel(),  # placeholder, skipped
+    representation_model=None,
 )
 result = rep.RepSetExperiment(context, workflow).run()
 # result.weights are pre-computed assignment fractions

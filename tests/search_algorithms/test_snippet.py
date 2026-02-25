@@ -3,7 +3,6 @@ import pytest
 
 from energy_repset.search_algorithms import SnippetSearch
 from energy_repset.feature_engineering import DirectProfileFeatureEngineer
-from energy_repset.representation import UniformRepresentationModel
 from energy_repset.workflow import Workflow
 from energy_repset.problem import RepSetExperiment
 from energy_repset.context import ProblemContext
@@ -84,7 +83,7 @@ class TestSnippetIntegration:
         workflow = Workflow(
             feature_engineer=DirectProfileFeatureEngineer(),
             search_algorithm=SnippetSearch(k=3, period_length_days=7, step_days=7),
-            representation_model=UniformRepresentationModel(),
+            representation_model=None,
         )
         experiment = RepSetExperiment(context, workflow)
         result = experiment.run()

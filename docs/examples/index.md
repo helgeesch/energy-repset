@@ -34,7 +34,13 @@ Four-component objective with `ParetoMaxMinStrategy` vs `WeightedSumPolicy`. Inc
 
 ---
 
-## [Example 6: Constructive Algorithms](ex6_constructive_algorithms.ipynb)
+## [Example 6: K-Medoids Clustering](ex6_clustering.ipynb)
+
+Standalone k-medoids clustering demo. Selects representative months as cluster medoids with cluster-size-proportional weights, explores the effect of varying k.
+
+---
+
+## [Example 7: Constructive Algorithms](ex7_constructive_algorithms.ipynb)
 
 Three constructive algorithms -- Hull Clustering, CTPC, and Snippet -- that build solutions using their own internal objectives, bypassing the Generate-and-Test workflow.
 

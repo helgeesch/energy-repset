@@ -116,8 +116,20 @@ class RepSetExperiment:
 
         result = search_algorithm.find_selection(feature_context)
         if result.weights is None:
+            if representation_model is None:
+                raise ValueError(
+                    "Search algorithm returned weights=None but no "
+                    "RepresentationModel was provided in the Workflow."
+                )
             representation_model.fit(feature_context)
             result.weights = representation_model.weigh(result.selection)
+        elif representation_model is not None:
+            raise ValueError(
+                "Search algorithms already set weights, but you still have a RepresentationModel defined. \n"
+                "Make sure that either your SearchAlgorithm sets the weights OR you have a "
+                "RepresentationModel for post-hoc weighting. \n"
+                "You cannot have both."
+            )
 
         self.result = result
         return self.result
